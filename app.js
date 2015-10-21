@@ -67,9 +67,16 @@ app.use(testmw);
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team.js');
 
-app.get('/', (req, res) => {
-  // TODO
-  var result = team.all();
+app.get('/team', (req, res) => {
+  var result;
+  if (req.query.user) {
+    // Retrieve the selected user from the query.
+    result = team.one(req.query.user);
+  } else {
+    // No query string, show the whole team.
+    result = team.all();
+  }
+
   if (!result.success) {
     notFound404(req, res);
   } else {
