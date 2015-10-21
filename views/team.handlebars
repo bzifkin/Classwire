@@ -4,6 +4,10 @@
 <h2>Total: ({{members.length}})</h2>
 <ul>
   {{#each members}}
-  <li><strong>{{this.fname}} {{this.lname}}</strong> - {{this.year}}</li>
+  <h3>{{this.fname}} {{this.lname}} - {{this.year}}</h3>
+
+      <img src="/img/{{this.user}}.png" width="100" height="100" />
+      <p>{{this.desc}}</p>
+
   {{/each}}
 </ul>
