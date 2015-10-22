@@ -1,16 +1,17 @@
-<img src = '/img/logo.png' />
-<h2 id = "header">Team Members</h2>
+<img id="logo" src = '/img/logo.png' />
+<h1 id = "header">Team Members</h1>
 <ul>
   {{#each members}}
   <h3>{{this.fname}} {{this.lname}} - {{this.year}}</h3>
 
       <img src="/img/{{this.user}}.png" width="100" height="100" />
-      <p width = "75%">{{this.desc}}</p>
+      <p>{{this.desc}}</p>
 
   {{/each}}
 </ul>
 
-<script>
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/teampage.css">
+</head>
 
-</script>
 
