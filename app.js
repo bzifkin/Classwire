@@ -88,11 +88,9 @@ app.get('/team', (req, res) => {
   if (req.query.user) {
     // Retrieve the selected user from the query.
     result = team.one(req.query.user);
-    result.multiple = false;
   } else {
     // No query string, show the whole team.
     result = team.all();
-    result.multiple = true;
   }
 
   if (!result.success) {
@@ -100,6 +98,7 @@ app.get('/team', (req, res) => {
   } else {
     res.render('team', {
       members: result.data,
+      multiple: result.multiple,
       pageTestScript: '/qa/tests-team.js'
     });
   }
