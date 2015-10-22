@@ -67,6 +67,22 @@ app.use(testmw);
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team.js');
 
+app.get('/', (req, res) => {
+  res.render('home');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.get('/profile', (req, res) => {
+  res.render('profile');
+});
+
+app.get('/admin', (req, res) => {
+  res.render('admin');
+});
+
 app.get('/team', (req, res) => {
   var result;
   if (req.query.user) {
