@@ -1,0 +1,24 @@
+{
+  "name": "classwire",
+  "version": "1.0.0",
+  "description": "Classwire helps students connect, collaborate, and learn in a social environment!",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bzifkin/Classwire.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bzifkin/Classwire/issues"
+  },
+  "homepage": "https://github.com/bzifkin/Classwire#readme"
+}
