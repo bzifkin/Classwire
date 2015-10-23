@@ -67,6 +67,7 @@ app.use(testmw);
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team.js');
 
+// Home/Splash screen.
 app.get('/', (req, res) => {
   res.render('home');
 });
@@ -81,6 +82,18 @@ app.get('/profile', (req, res) => {
 
 app.get('/admin', (req, res) => {
   res.render('admin');
+});
+
+app.get('/class', (req, res) => {
+  res.render('class');
+});
+
+app.get('/messages', (req, res) => {
+  res.render('messages');
+});
+
+app.get('/calendar', (req, res) => {
+  res.render('calendar');
 });
 
 app.get('/team', (req, res) => {
