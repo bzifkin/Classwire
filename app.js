@@ -4,6 +4,18 @@
 var express    = require('express');
 var handlebars = require('express-handlebars');
 
+// The body parser is used to parse the body of an HTTP request.
+var bodyParser = require('body-parser');
+
+// Require session library.
+var session    = require('express-session');
+
+// Require flash library.
+var flash      = require('connect-flash');
+
+// The cookie parser is used to parse cookies in an HTTP header.
+var cookieParser = require('cookie-parser');
+
 //////////////////////////////////////////////////////////////////////
 ///// Express App Setup //////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -62,13 +74,51 @@ function testmw(req, res, next) {
 // This adds our testing middleware to the express app.
 app.use(testmw);
 
+// Body Parser:
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Cookie Parser:
+app.use(cookieParser());
+
+// Session Support:
+app.use(session({
+  secret: 'octocat',
+  // Both of the options below are deprecated, but should be false
+  // until removed from the library - sometimes, the reality of
+  // libraries can be rather annoying!
+  saveUninitialized: false, // does not save uninitialized session.
+  resave: false             // does not save session if not modified.
+}));
+
+// Use Flash
+app.use(flash());
+
 //////////////////////////////////////////////////////////////////////
 ///// User Defined Routes ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team.js');
 
+function authenticateLogin(req, res, next) {
+  // Get the user session if it exists.
+  var user = req.session.user;
+
+  // If no session, redirect to login.
+  if (!user) {
+    req.flash('login', 'Not logged in');
+    res.redirect('/login');
+  }
+  else if (user && !online[user.name]) {
+    req.flash('login', 'Login Expired');
+    delete req.session.user;
+    res.redirect('/login')
+  } else {
+    next();
+  }
+}
+
 // Home/Splash screen.
-app.get('/', (req, res) => {
+app.get('/', authenticateLogin, (req, res) => {
   res.render('home');
 });
 
@@ -76,23 +126,23 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.get('/profile', (req, res) => {
+app.get('/profile', authenticateLogin, (req, res) => {
   res.render('profile');
 });
 
-app.get('/admin', (req, res) => {
+app.get('/admin', authenticateLogin, (req, res) => {
   res.render('admin');
 });
 
-app.get('/class', (req, res) => {
+app.get('/class', authenticateLogin, (req, res) => {
   res.render('class');
 });
 
-app.get('/messages', (req, res) => {
+app.get('/messages', authenticateLogin, (req, res) => {
   res.render('messages');
 });
 
-app.get('/calendar', (req, res) => {
+app.get('/calendar', authenticateLogin, (req, res) => {
   res.render('calendar');
 });
 
