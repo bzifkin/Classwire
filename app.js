@@ -98,6 +98,7 @@ app.use(flash());
 ///// User Defined Routes ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team.js');
+var online = require('./lib.online.js').online;
 
 function authenticateLogin(req, res, next) {
   // Get the user session if it exists.
