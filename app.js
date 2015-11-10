@@ -123,7 +123,19 @@ app.get('/', authenticateLogin, (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  // Grab the session if the user is logged in.
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user.name]) {
+    res.redirect('/user/main');
+  }
+
+  else {
+    // Grab any messages being sent to us from redirect:
+    var message = req.flash('login') || '';
+    res.render('login');
+  }
 });
 
 app.get('/profile', authenticateLogin, (req, res) => {
