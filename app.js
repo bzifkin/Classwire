@@ -129,13 +129,56 @@ app.get('/login', (req, res) => {
 
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
-    res.redirect('/user/main');
+    res.redirect('/');
   }
 
   else {
     // Grab any messages being sent to us from redirect:
     var message = req.flash('login') || '';
+    // TODO use message.
     res.render('login');
+  }
+});
+
+// Authorize login credentials.
+app.post('/auth', (req, res) => {
+  // Grab the session if the user is logged in.
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user]) {
+    res.redirect('/');
+  }
+  else {
+    // Pull the values from the form:
+    var username = req.body.name;
+    var password = req.body.pass;
+
+    if (!username || !password) {
+      req.flash('login', 'did not provide the proper credentials');
+      res.redirect('/user/login');
+    }
+    else {
+      // TODO implement DB
+      DATABASE.lookup(username, password, function(error, user) {
+        if (error) {
+          // Pass a message to login:
+          req.flash('login', error);
+          res.redirect('/user/login');
+        }
+        else {
+          // add the user to the map of online users:
+          online[user.name] = user;
+
+          // create a session variable to represent stateful connection
+          req.session.user = user;
+
+          // Pass a message to main:
+          req.flash('home', 'authentication successful');
+          res.redirect('/');
+        }
+      });
+    }
   }
 });
 
