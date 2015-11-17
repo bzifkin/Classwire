@@ -1,9 +1,9 @@
 # Classwire
 Team Rose Gold's awesome web app
  
- ## Data Model - SQL Statemts in setup.sql file
+## Data Model - SQL Statemts in setup.sql file
  
- #### User
+#### User
 
  ```
 uid: Serial
