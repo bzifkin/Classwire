@@ -98,7 +98,8 @@ app.use(flash());
 ///// User Defined Routes ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team.js');
-var online = require('./lib.online.js').online;
+var online = require('./lib/online.js').online;
+var database = require('./lib/database.js');
 
 function authenticateLogin(req, res, next) {
   // Get the user session if it exists.
@@ -106,7 +107,6 @@ function authenticateLogin(req, res, next) {
 
   // If no session, redirect to login.
   if (!user) {
-    req.flash('login', 'Not logged in');
     res.redirect('/login');
   }
   else if (user && !online[user.name]) {
@@ -135,8 +135,7 @@ app.get('/login', (req, res) => {
   else {
     // Grab any messages being sent to us from redirect:
     var message = req.flash('login') || '';
-    // TODO use message.
-    res.render('login');
+    res.render('login', {message: message});
   }
 });
 
@@ -151,20 +150,19 @@ app.post('/auth', (req, res) => {
   }
   else {
     // Pull the values from the form:
-    var username = req.body.name;
-    var password = req.body.pass;
+    var username = req.body.username;
+    var password = req.body.password;
 
     if (!username || !password) {
       req.flash('login', 'did not provide the proper credentials');
-      res.redirect('/user/login');
+      res.redirect('/login');
     }
     else {
-      // TODO implement DB
-      DATABASE.lookup(username, password, function(error, user) {
+      database.lookup(username, password, (error, user) => {
         if (error) {
           // Pass a message to login:
           req.flash('login', error);
-          res.redirect('/user/login');
+          res.redirect('/login');
         }
         else {
           // add the user to the map of online users:
