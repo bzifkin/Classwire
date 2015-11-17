@@ -97,135 +97,15 @@ app.use(flash());
 //////////////////////////////////////////////////////////////////////
 ///// User Defined Routes ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-var team = require('./lib/team.js');
-var online = require('./lib/online.js').online;
-var database = require('./lib/database.js');
+var team = require('./lib/team');
+var authenticateLogin = require('./routes/authentication').authenticateLogin;
 
-function authenticateLogin(req, res, next) {
-  // Get the user session if it exists.
-  var user = req.session.user;
-
-  // If no session, redirect to login.
-  if (!user) {
-    res.redirect('/login');
-  }
-  else if (user && !online[user.name]) {
-    req.flash('login', 'Login Expired');
-    delete req.session.user;
-    res.redirect('/login')
-  } else {
-    next();
-  }
-}
+// Routes involving user login and registration.
+app.use('/auth', require('./routes/authentication').router);
 
 // Home/Splash screen.
 app.get('/', authenticateLogin, (req, res) => {
   res.render('home');
-});
-
-app.get('/login', (req, res) => {
-  // Grab the session if the user is logged in.
-  var user = req.session.user;
-
-  // Redirect to main if session and user is online:
-  if (user && online[user.name]) {
-    res.redirect('/');
-  }
-
-  else {
-    // Grab any messages being sent to us from redirect:
-    var messageLogin = req.flash('login') || '';
-    var messageRegister = req.flash('register') || '';
-    res.render('login', {
-      messageLogin: messageLogin,
-      messageRegister: messageRegister
-    });
-  }
-});
-
-// Authorize login credentials.
-app.post('/auth', (req, res) => {
-  // Grab the session if the user is logged in.
-  var user = req.session.user;
-
-  // Redirect to main if session and user is online:
-  if (user && online[user]) {
-    res.redirect('/');
-  }
-
-  else {
-    // Pull the values from the form:
-    var email = req.body.email;
-    var password = req.body.password;
-
-    if (!email || !password) {
-      req.flash('login', 'did not provide the proper credentials');
-      res.redirect('/login');
-    }
-    else {
-      database.lookup(email, password, (error, user) => {
-        if (error) {
-          // Pass a message to login:
-          req.flash('login', error);
-          res.redirect('/login');
-        }
-        else {
-          // add the user to the map of online users:
-          online[user.email] = user;
-
-          // create a session variable to represent stateful connection
-          req.session.user = user;
-
-          // Pass a message to main:
-          req.flash('home', 'authentication successful');
-          res.redirect('/');
-        }
-      });
-    }
-  }
-});
-
-// Create a new user.
-app.post('/register', (req, res) => {
-  // Grab the session if the user is logged in.
-  var user = req.session.user;
-
-  // Redirect to main if session and user is online:
-  if (user && online[user]) {
-    res.redirect('/');
-  }
-
-  else {
-    // Pull the values from the form:
-    var email = req.body.email;
-    var password = req.body.password;
-
-    if (!email || !password) {
-      req.flash('register', 'did not provide the proper credentials');
-      res.redirect('/login');
-    }
-
-    else {
-      database.registerUser(email, password, (error, user) => {
-        if (error) {
-          // Pass a message to login:
-          req.flash('register', error);
-          res.redirect('/login');
-        }
-        else {
-          // add the user to the map of online users:
-          online[user.email] = user;
-
-          // create a session variable to represent stateful connection
-          req.session.user = user;
-
-          // Pass a message to main:
-          req.flash('home', 'User successfully created');
-          res.redirect('/');
-        }
-      });
-    }
-  }
 });
 
 app.get('/profile', authenticateLogin, (req, res) => {
