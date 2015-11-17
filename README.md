@@ -1,9 +1,10 @@
 # Classwire
 Team Rose Gold's awesome web app
  
- ## Data Model
+ ## Data Model - SQL Statemts in setup.sql file
  
  #### _User
+
  ```
 uid: Serial
 email: varchar(50) PRIMARY KEY
@@ -12,7 +13,9 @@ fname: varchar(50)
 lname: varchar(75)
 isAdmin: varchar(1) or Bool
 ```
+
 #### Student
+
 ```
 id: Serial
 user_id: references User
