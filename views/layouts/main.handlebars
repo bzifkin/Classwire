@@ -12,9 +12,23 @@
 		<!-- We add the jQuery library because we will be using it
 		     to manipulate HTML in the browser. -->
 		<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <link rel="stylesheet" href="/stylesheets/mainpage.css">
 	</head>
 	<body>
+        <img src="/img/logo.png" alt="ClassWire" id="logo" />
+        <br>
 		{{{body}}}
+
+        <ul id="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/class">Class Chat</a></li>
+            <li><a href="/messages">Messages</a></li>
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="/team">Team</a></li>
+        </ul>
 
 		{{#if showTests}}
 			<div id="mocha"></div>

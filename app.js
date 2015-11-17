@@ -4,6 +4,18 @@
 var express    = require('express');
 var handlebars = require('express-handlebars');
 
+// The body parser is used to parse the body of an HTTP request.
+var bodyParser = require('body-parser');
+
+// Require session library.
+var session    = require('express-session');
+
+// Require flash library.
+var flash      = require('connect-flash');
+
+// The cookie parser is used to parse cookies in an HTTP header.
+var cookieParser = require('cookie-parser');
+
 //////////////////////////////////////////////////////////////////////
 ///// Express App Setup //////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -62,10 +74,59 @@ function testmw(req, res, next) {
 // This adds our testing middleware to the express app.
 app.use(testmw);
 
+// Body Parser:
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Cookie Parser:
+app.use(cookieParser());
+
+// Session Support:
+app.use(session({
+  secret: 'octocat',
+  // Both of the options below are deprecated, but should be false
+  // until removed from the library - sometimes, the reality of
+  // libraries can be rather annoying!
+  saveUninitialized: false, // does not save uninitialized session.
+  resave: false             // does not save session if not modified.
+}));
+
+// Use Flash
+app.use(flash());
+
 //////////////////////////////////////////////////////////////////////
 ///// User Defined Routes ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-var team = require('./lib/team.js');
+var team = require('./lib/team');
+var authenticateLogin = require('./routes/authentication').authenticateLogin;
+
+// Routes involving user login and registration.
+app.use('/auth', require('./routes/authentication').router);
+
+// Home/Splash screen.
+app.get('/', authenticateLogin, (req, res) => {
+  res.render('home');
+});
+
+app.get('/profile', authenticateLogin, (req, res) => {
+  res.render('profile');
+});
+
+app.get('/admin', authenticateLogin, (req, res) => {
+  res.render('admin');
+});
+
+app.get('/class', authenticateLogin, (req, res) => {
+  res.render('class');
+});
+
+app.get('/messages', authenticateLogin, (req, res) => {
+  res.render('messages');
+});
+
+app.get('/calendar', authenticateLogin, (req, res) => {
+  res.render('calendar');
+});
 
 app.get('/team', (req, res) => {
   var result;
@@ -82,6 +143,7 @@ app.get('/team', (req, res) => {
   } else {
     res.render('team', {
       members: result.data,
+      multiple: result.multiple,
       pageTestScript: '/qa/tests-team.js'
     });
   }

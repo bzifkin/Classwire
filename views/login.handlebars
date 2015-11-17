@@ -1,0 +1,22 @@
+<!--<img src="img/login_wireframe.png" alt="Login Wireframe" />-->
+
+<h1>Login</h1>
+
+<div>{{messageLogin}}</div><br>
+
+<form method="post" action="/auth/auth">
+    Email: <label><input type="text" name="email"></label> <br>
+    Password: <label><input type="password" name="password"></label> <br>
+    <button>Login</button>
+</form>
+
+<h1>Register</h1>
+
+<div>{{messageRegister}}</div><br>
+
+<form method="post" action="/auth/register">
+    Email: <label><input type="text" name="email"></label> <br>
+    Password: <label><input type="password" name="password"></label> <br>
+    <button>Resister</button>
+</form>
+
