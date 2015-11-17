@@ -3,7 +3,7 @@ Team Rose Gold's awesome web app
  
  ## Data Model - SQL Statemts in setup.sql file
  
- #### _User
+ #### User
 
  ```
 uid: Serial
