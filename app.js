@@ -134,8 +134,12 @@ app.get('/login', (req, res) => {
 
   else {
     // Grab any messages being sent to us from redirect:
-    var message = req.flash('login') || '';
-    res.render('login', {message: message});
+    var messageLogin = req.flash('login') || '';
+    var messageRegister = req.flash('register') || '';
+    res.render('login', {
+      messageLogin: messageLogin,
+      messageRegister: messageRegister
+    });
   }
 });
 
@@ -148,17 +152,18 @@ app.post('/auth', (req, res) => {
   if (user && online[user]) {
     res.redirect('/');
   }
+
   else {
     // Pull the values from the form:
-    var username = req.body.username;
+    var email = req.body.email;
     var password = req.body.password;
 
-    if (!username || !password) {
+    if (!email || !password) {
       req.flash('login', 'did not provide the proper credentials');
       res.redirect('/login');
     }
     else {
-      database.lookup(username, password, (error, user) => {
+      database.lookup(email, password, (error, user) => {
         if (error) {
           // Pass a message to login:
           req.flash('login', error);
@@ -166,13 +171,56 @@ app.post('/auth', (req, res) => {
         }
         else {
           // add the user to the map of online users:
-          online[user.name] = user;
+          online[user.email] = user;
 
           // create a session variable to represent stateful connection
           req.session.user = user;
 
           // Pass a message to main:
           req.flash('home', 'authentication successful');
+          res.redirect('/');
+        }
+      });
+    }
+  }
+});
+
+// Create a new user.
+app.post('/register', (req, res) => {
+  // Grab the session if the user is logged in.
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user]) {
+    res.redirect('/');
+  }
+
+  else {
+    // Pull the values from the form:
+    var email = req.body.email;
+    var password = req.body.password;
+
+    if (!email || !password) {
+      req.flash('register', 'did not provide the proper credentials');
+      res.redirect('/login');
+    }
+
+    else {
+      database.registerUser(email, password, (error, user) => {
+        if (error) {
+          // Pass a message to login:
+          req.flash('register', error);
+          res.redirect('/login');
+        }
+        else {
+          // add the user to the map of online users:
+          online[user.email] = user;
+
+          // create a session variable to represent stateful connection
+          req.session.user = user;
+
+          // Pass a message to main:
+          req.flash('home', 'User successfully created');
           res.redirect('/');
         }
       });

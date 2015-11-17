@@ -2,10 +2,21 @@
 
 <h1>Login</h1>
 
-<div>{{message}}</div><br>
+<div>{{messageLogin}}</div><br>
 
 <form method="post" action="/auth">
-    User Name: <label><input type="text" name="username"></label> <br>
+    Email: <label><input type="text" name="email"></label> <br>
     Password: <label><input type="password" name="password"></label> <br>
     <button>Login</button>
 </form>
+
+<h1>Register</h1>
+
+<div>{{messageRegister}}</div><br>
+
+<form method="post" action="/register">
+    Email: <label><input type="text" name="email"></label> <br>
+    Password: <label><input type="password" name="password"></label> <br>
+    <button>Resister</button>
+</form>
+
