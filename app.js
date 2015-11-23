@@ -104,7 +104,7 @@ var authenticateLogin = require('./routes/authentication').authenticateLogin;
 app.use('/auth', require('./routes/authentication').router);
 
 // Home/Splash screen.
-app.get('/', (req, res) => {
+app.get('/', authenticateLogin, (req, res) => {
   res.render('home');
 });
 

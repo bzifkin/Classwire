@@ -22,7 +22,7 @@ function authenticateLogin(req, res, next) {
   if (!user) {
     res.redirect('/auth/login');
   }
-  else if (user && !online[user.name]) {
+  else if (user && !online[user.email]) {
     req.flash('login', 'Login Expired');
     delete req.session.user;
     res.redirect('/auth/login')
@@ -107,14 +107,16 @@ router.post('/register', (req, res) => {
     // Pull the values from the form:
     var email = req.body.email;
     var password = req.body.password;
+    var fname = req.body.fname;
+    var lname = req.body.lname;
 
-    if (!email || !password) {
+    if (!email || !password || ! fname || !lname) {
       req.flash('register', 'did not provide the proper credentials');
       res.redirect('/auth/login');
     }
 
     else {
-      database.registerUser(email, password, (error, user) => {
+      database.registerUser({email: email, password: password, fname: fname, lname: lname}, (error, user) => {
         if (error) {
           // Pass a message to login:
           req.flash('register', error);
