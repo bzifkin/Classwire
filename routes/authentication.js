@@ -31,6 +31,28 @@ function authenticateLogin(req, res, next) {
   }
 }
 
+function authenticateAdmin(req, res, next){
+    var user = req.session.user;
+
+    if (!user) {
+        res.redirect('/auth/login');
+    }
+    else if (user && !online[user.email]) {
+        req.flash('login', 'Login Expired');
+        delete req.session.user;
+        res.redirect('/auth/login')
+    } else {
+        database.isAdmin(user.email, function(err, result){
+            if(result.isadmin === "T"){
+                next();
+            }else{
+                req.flash('profile', 'You don\'t have admin privileges.');
+                res.redirect('/profile')
+            }
+        });
+    }
+}
+
 router.get('/login', (req, res) => {
   // Grab the session if the user is logged in.
   var user = req.session.user;
@@ -140,3 +162,4 @@ router.post('/register', (req, res) => {
 
 exports.router = router;
 exports.authenticateLogin = authenticateLogin;
+exports.authenticateAdmin = authenticateAdmin;

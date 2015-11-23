@@ -99,6 +99,7 @@ app.use(flash());
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team');
 var authenticateLogin = require('./routes/authentication').authenticateLogin;
+var authenticateAdmin = require('./routes/authentication').authenticateAdmin;
 
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
@@ -109,10 +110,11 @@ app.get('/', authenticateLogin, (req, res) => {
 });
 
 app.get('/profile', authenticateLogin, (req, res) => {
-  res.render('profile');
+  var message = req.flash('profile');
+  res.render('profile', {message:message});
 });
 
-app.get('/admin', authenticateLogin, (req, res) => {
+app.get('/admin', authenticateAdmin, (req, res) => {
   res.render('admin');
 });
 
