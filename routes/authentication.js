@@ -31,17 +31,22 @@ function authenticateLogin(req, res, next) {
   }
 }
 
+//Performs normal login checks but checks to see if the user
+//is admin before allowing them onto the admin page.
+//Admin privilege is only granted for specific user at the database level
 function authenticateAdmin(req, res, next){
     var user = req.session.user;
 
     if (!user) {
-        res.redirect('/auth/login');
+        res.redirect('/authg/login');
     }
     else if (user && !online[user.email]) {
         req.flash('login', 'Login Expired');
         delete req.session.user;
         res.redirect('/auth/login')
     } else {
+        //Queries the database to see if the user is admin. If so, they are directed to that page.
+        //Otherwise they are brought to profile and flashed a message.
         database.isAdmin(user.email, function(err, result){
             if(result.isadmin === "T"){
                 next();
