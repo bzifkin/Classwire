@@ -104,7 +104,7 @@ var authenticateLogin = require('./routes/authentication').authenticateLogin;
 app.use('/auth', require('./routes/authentication').router);
 
 // Home/Splash screen.
-app.get('/', authenticateLogin, (req, res) => {
+app.get('/', (req, res) => {
   res.render('home');
 });
 
@@ -122,10 +122,6 @@ app.get('/class', authenticateLogin, (req, res) => {
 
 app.get('/messages', authenticateLogin, (req, res) => {
   res.render('messages');
-});
-
-app.get('/calendar', authenticateLogin, (req, res) => {
-  res.render('calendar');
 });
 
 app.get('/team', (req, res) => {

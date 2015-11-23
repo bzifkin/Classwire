@@ -1,5 +1,4 @@
-
-<div id="header">  
+<div id="header">
     <button>Home</button>
     <button>Messages</button>
     <button>Profile</button>
@@ -7,28 +6,27 @@
 
 <h1>Home</h1>
 
-
-
-<div class="courses">
-
+<div class="myCourses">
   {{#each courses}}
-    <div class="course">
+    <div class="myCourse">
       <h2>{{topic}}</h2>
     </div>
   {{/each}}
-
 </div>
 
-<div class="calendar">
-
+<div class="myCalendar">
   {{#each calendarEntries}}
-    <div class="cal">
+    <div class="myCal">
       <h2>{{entry}}</h2>
     </div>
   {{/each}}
 </div>
 
+<div class="myResources">
 
-
-
-
+    {{#each resourcesEntries}}
+        <div class="myRes">
+            <h2>{{entry}}</h2>
+        </div>
+    {{/each}}
+</div>

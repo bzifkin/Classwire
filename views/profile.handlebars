@@ -4,33 +4,29 @@
     <button>Profile</button>
 </div>
 
-
-<img id='profilePicture' src="{{{Image}}}" alt="{{ImageName}}">
+<img id='profilePicture' src="{{{image}}}" alt="{{imageName}}">
 
 <div id="profileInfo">
-	<h3> {{Name}}</h3>
-	<h3> {{Graduation Date}}</h3>
-	<h3> {{Mahor}}</h3>
+	<h3>{{name}}</h3>
+	<h3>{{graduationDate}}</h3>
+	<h3>{{major}}</h3>
 </div>
 
 <div id="currentCourses">
-  <h1> Current Courses </h1>
-
+  <h1>Current Courses</h1>
   {{#each courses}}
     <div class="course">
       <h2>{{topic}}</h2>
     </div>
   {{/each}}
-
 </div>
 
-
-<div id="Bio">
-	<h1> Bio </h1>
-  	<h3> {{Biography}}</h3>
+<div id="biography">
+	<h1>Biography</h1>
+  	<h3>{{biography}}</h3>
 </div>
 
-
-<div id="Activities/Clubs">
-  	<h3> {{Biography}}</h3>
+<div id="activities">
+    <h1>Activities/Clubs</h1>
+  	<h3>{{activities}}</h3>
 </div>
