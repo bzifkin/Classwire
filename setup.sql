@@ -14,7 +14,8 @@ CREATE TABLE Student (
   year VARCHAR(20),
   major VARCHAR(50),
   biography VARCHAR(500),
-  activities VARCHAR(1000)
+  activities VARCHAR(1000),
+  profileURL VARCHAR(200)
 );
 
 CREATE TABLE School (
@@ -55,5 +56,12 @@ CREATE TABLE Chat_Messages (
   id SERIAL PRIMARY KEY,
   from_user integer REFERENCES _User(id),
   to_user integer REFERENCES _User(id),
-  date_sent date
+  date_sent date,
+  conversation integer REFERENCES Conversation
+);
+
+CREATE TABLE Conversation (
+  id SERIAL PRIMARY KEY,
+  user1 integer REFERENCES Student,
+  user2 integer REFERENCES Student
 );
