@@ -124,10 +124,6 @@ app.get('/messages', authenticateLogin, (req, res) => {
   res.render('messages');
 });
 
-app.get('/calendar', authenticateLogin, (req, res) => {
-  res.render('calendar');
-});
-
 app.get('/team', (req, res) => {
   var result;
   if (req.query.user) {
