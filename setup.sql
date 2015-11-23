@@ -11,7 +11,10 @@ CREATE TABLE _User (
 CREATE TABLE Student (
   id SERIAL PRIMARY KEY,
   user_id integer UNIQUE REFERENCES _User(id),
-  year VARCHAR(20)
+  year VARCHAR(20),
+  major VARCHAR(50),
+  biography VARCHAR(500),
+  activities VARCHAR(1000)
 );
 
 CREATE TABLE School (
