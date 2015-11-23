@@ -1,1 +1,19 @@
-<img src="img/class_wireframe.png" alt="Class Chat Wireframe" />
+<div id="header">  
+    <button>Home</button>
+    <button>Messages</button>
+    <button>Profile</button>
+</div>
+
+<h1> {{className}} class chat<h1>
+
+<div class="chatroom">
+
+  {{#each comment}}
+    <div class="comment">
+      <h2>{{author}} {{message}} </h2>
+    </div>
+  {{/each}}
+
+ </div>
+
+ <input type="text" placeholder="Enter comment" >

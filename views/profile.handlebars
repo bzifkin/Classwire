@@ -1,1 +1,36 @@
-<img src="img/profile_wireframe.png" alt="Profile Wireframe" />
+<div id="header">  
+    <button>Home</button>
+    <button>Messages</button>
+    <button>Profile</button>
+</div>
+
+
+<img id='profilePicture' src="{{{Image}}}" alt="{{ImageName}}">
+
+<div id="profileInfo">
+	<h3> {{Name}}</h3>
+	<h3> {{Graduation Date}}</h3>
+	<h3> {{Mahor}}</h3>
+</div>
+
+<div id="currentCourses">
+  <h1> Current Courses </h1>
+
+  {{#each courses}}
+    <div class="course">
+      <h2>{{topic}}</h2>
+    </div>
+  {{/each}}
+
+</div>
+
+
+<div id="Bio">
+	<h1> Bio </h1>
+  	<h3> {{Biography}}</h3>
+</div>
+
+
+<div id="Activities/Clubs">
+  	<h3> {{Biography}}</h3>
+</div>

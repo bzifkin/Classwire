@@ -1,1 +1,29 @@
-<img src="img/messages_wireframe.png" alt="Messages Wireframe" />
+<div id="header">  
+    <button>Home</button>
+    <button>Messages</button>
+    <button>Profile</button>
+</div>
+
+<h1> Messages <h1>
+
+<div class="friendsList">
+
+  {{#each friend}}
+    <div class="user">
+      <h2>{{user}}</h2>
+    </div>
+  {{/each}}
+
+</div>
+
+
+<div class="chat">
+
+  {{#each comment}}
+    <div class="comment">
+      <h2>{{author}} {{message}} </h2>
+    </div>
+  {{/each}}
+
+</div>
+
