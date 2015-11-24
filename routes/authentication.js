@@ -38,7 +38,7 @@ function authenticateAdmin(req, res, next){
     var user = req.session.user;
 
     if (!user) {
-        res.redirect('/authg/login');
+        res.redirect('/auth/login');
     }
     else if (user && !online[user.email]) {
         req.flash('login', 'Login Expired');

@@ -98,6 +98,7 @@ app.use(flash());
 ///// User Defined Routes ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team');
+var database = require('./lib/database');
 var authenticateLogin = require('./routes/authentication').authenticateLogin;
 var authenticateAdmin = require('./routes/authentication').authenticateAdmin;
 
@@ -106,7 +107,15 @@ app.use('/auth', require('./routes/authentication').router);
 
 // Home/Splash screen.
 app.get('/', authenticateLogin, (req, res) => {
-  res.render('home');
+  var userId = req.session.user.id;
+  database.coursesForUser(userId, (err, result) => {
+    var message = '';
+    if (err) {
+      message = err;
+    }
+
+    res.render('home', {message: message, courses: result});
+  });
 });
 
 app.get('/profile', authenticateLogin, (req, res) => {
