@@ -7,6 +7,13 @@
 <h1>Home</h1>
 <h3>{{message}}</h3>
 
+<hr>
+
+
+
+<h1> My Courses </h1>
+<button>Add a course</button>
+<button>Import schedule</button>
 <div class="myCourses">
   {{#each courses}}
     <div class="myCourse">
@@ -15,19 +22,45 @@
   {{/each}}
 </div>
 
-<div class="myCalendar">
-  {{#each calendarEntries}}
-    <div class="myCal">
-      <h2>{{entry}}</h2>
-    </div>
-  {{/each}}
+<hr>
+
+
+
+<h2>My Calendar</h2>
+<button>Add an event</button>
+
+<div class="class-calendar">
+    {{#each calendar}}
+        <div class="calendar-entry">
+            <h4>{{date}} - {{title}} - {{className}} -  <button>Remove</button></h4>
+            <p>{{description}}</p>
+        </div>
+    {{/each}}
 </div>
 
-<div class="myResources">
+<hr>
 
-    {{#each resourcesEntries}}
-        <div class="myRes">
-            <h2>{{entry}}</h2>
+<h2>Class Resources</h2>
+
+<div class="class-resources">
+    {{#each resources}}
+        <div class="class-resource">
+            <h4>{{title}} - {{className}}</h4>
+            <p>Uploaded: {{timestamp}}<br>
+            File: <a href="{{filepath}}">{{filename}}</a></p>
+        </div>
+    {{/each}}
+</div>
+
+<hr>
+
+
+<h2>Personal Messages</h2>
+
+<div class="home-messages">
+    {{#each messages}}
+        <div class="message">
+            <p>[{{timestamp}}] [{{name}}]: {{message}} </p>
         </div>
     {{/each}}
 </div>
