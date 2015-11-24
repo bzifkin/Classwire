@@ -66,3 +66,11 @@ CREATE TABLE Conversation (
   user2 integer REFERENCES _User(id),
   lastMessageSent date
 );
+
+CREATE TABLE Calendar (
+  id SERIAL PRIMARY KEY,
+  course integer REFERENCES Course ,
+  calendar_date date,
+  title VARCHAR(100),
+  description VARCHAR(500)
+);
