@@ -63,5 +63,6 @@ CREATE TABLE Chat_Messages (
 CREATE TABLE Conversation (
   id SERIAL PRIMARY KEY,
   user1 integer REFERENCES _User(id),
-  user2 integer REFERENCES _User(id)
+  user2 integer REFERENCES _User(id),
+  lastMessageSent date
 );
