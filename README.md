@@ -121,3 +121,11 @@ from_user: references User
 to_user: references User
 date: date
 ```
+
+#### Conversation
+```
+id: Serial Primary Key
+user1 integer REFERENCES _User(id),
+user2 integer REFERENCES _User(id),
+lastMessageSent date
+```
