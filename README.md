@@ -61,6 +61,7 @@ A short view explaining what the app is all about.
 ## Statefulness
 
  All the authentication logic occurs in authentication.js(https://github.com/bzifkin/Classwire/blob/master/routes/authentication.js). Another file, app.js(https://github.com/bzifkin/Classwire/blob/master/app.js), uses the function authenticateLogin, which is inside authentication.js, to check to see if the user is appropriately signed in when they use routes which require logged in user information. These routes, found in the app.js, are profile,admin, class, messages, and calendar. There are two routes where no authentication the about and team page. When a user attempts to access them they are either authenticated as already signed in and appropriately redirected or have to complete sign in or sign up forms. The first place a user is brought to after a failed authentication is to the login.handlebars view (https://github.com/bzifkin/Classwire/blob/master/views/login.handlebars). From here, they can easily enter their credentials and sign into the application. If they do not have credentials, they can register on this same view right below the login form. 
+ 
  For admin authentication there is another method inside authentication.js called authenticateAdmin which is invoked when someone tries to access the admin route. This route and authentication pathway are only accessible if a user specifically enters "/admin" in the address bar. The user also needs admin privilege set to "T" in the database directly. There is no way to make a user an admin in the UI. This route calls the database to see if the current user is an admin and if they are allows them onto the view. Otherwise, they are brought to login if they are not logged in or back to their profile if they are logged in and have no privileges.
 
 ## Persistence
@@ -134,5 +135,16 @@ date: date
 id: Serial Primary Key
 user1 integer REFERENCES _User(id),
 user2 integer REFERENCES _User(id),
-lastMessageSent date
+lastMessageSent date,
+conversation integer REFERENCES Conversation,
+message VARCHAR(200)
+```
+
+#### reported_content
+```
+id SERIAL PRIMARY KEY
+author integer REFERENCES _User(id)
+explanation VARCHAR(200)
+report_user integer REFERENCES _User(id)
+reported_content VARCHAR REFERENCES Chat_Messages(id)
 ```

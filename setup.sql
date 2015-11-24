@@ -57,7 +57,8 @@ CREATE TABLE Chat_Messages (
   from_user integer REFERENCES _User(id),
   to_user integer REFERENCES _User(id),
   date_sent date,
-  conversation integer REFERENCES Conversation
+  conversation integer REFERENCES Conversation,
+  message VARCHAR(200)
 );
 
 CREATE TABLE Conversation (
@@ -65,4 +66,12 @@ CREATE TABLE Conversation (
   user1 integer REFERENCES _User(id),
   user2 integer REFERENCES _User(id),
   lastMessageSent date
+);
+
+CREATE TABLE reported_content (
+  id SERIAL PRIMARY KEY,
+  author integer REFERENCES _User(id),
+  explanation VARCHAR(200),
+  report_user integer REFERENCES _User(id),
+  reported_content VARCHAR REFERENCES Chat_Messages(id)
 );
