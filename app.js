@@ -110,6 +110,7 @@ app.get('/', authenticateLogin, (req, res) => {
   var userId = req.session.user.id;
   database.coursesForUser(userId, (err, result) => {
     var message = '';
+    console.log(result);
     if (err) {
       message = err;
     }
