@@ -133,7 +133,15 @@ date: date
 #### Conversation
 ```
 id: Serial Primary Key
-user1 integer REFERENCES _User(id),
-user2 integer REFERENCES _User(id),
-lastMessageSent date
+user1: integer REFERENCES _User(id),
+user2: integer REFERENCES _User(id),
+lastMessageSent: date
+```
+#### Calendar
+```
+  id: SERIAL PRIMARY KEY,
+  course: integer REFERENCES Course ,
+  calendar_date: date,
+  title: VARCHAR(100),
+  description: VARCHAR(500)
 ```
