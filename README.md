@@ -64,6 +64,7 @@ A short view explaining what the app is all about.
  For admin authentication there is another method inside authentication.js called authenticateAdmin which is invoked when someone tries to access the admin route. This route and authentication pathway are only accessible if a user specifically enters "/admin" in the address bar. The user also needs admin privilege set to "T" in the database directly. There is no way to make a user an admin in the UI. This route calls the database to see if the current user is an admin and if they are allows them onto the view. Otherwise, they are brought to login if they are not logged in or back to their profile if they are logged in and have no privileges.
 
 ## Persistence
+(https://github.com/bzifkin/Classwire/blob/master/lib/database.js)
 Data is important. Especially if it is used for an application such as Classwire. That's why the Classwire team takes Persistence very seriously. For our database we are using postgressql. The database is hosted on (ElephantSQL.com). We have multiple tables to help make sure that data can easily be changed/updated and appended onto with ease. We promote Encapsulation! All of our tables talk to other tables by one form or another. In this case, its mostly by references by each tuple's id in a respective table. 
 In our database.js file we created queries that will select the data that is needed for each view. We created these queries as string constants and then used them in our respective functions.
 
