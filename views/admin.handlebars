@@ -4,8 +4,27 @@
     <button>Profile</button>
 </div>
 
-<h1> Account Settings</h1>
+<h1> Administrator </h1>
 
-<h1> email: {{email}}</h1>
-<h1> password: {{password}}</h1>
-<h1> university: {{university}}</h1>
+
+<h1> Reported Content </h1>
+
+
+<table>
+ <thead> 
+        <th>Author</th> 
+        <th>Explanation</th> 
+        <th>Reported User</th> 
+        <th>Reported Content</th> 
+    </thead> 
+    <tbody> 
+        {{#reported}} 
+        <tr> 
+            <td>{{author}}</td> 
+            <td>{{explanation}}</td> 
+            <td>{{reportedUser}}</td> 
+            <td>{{content}}</td> 
+        </tr> 
+        {{/reported}} 
+    </tbody> 
+</table>

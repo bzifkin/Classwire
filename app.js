@@ -146,7 +146,28 @@ app.get('/profile', authenticateLogin, (req, res) => {
 });
 
 app.get('/admin', authenticateAdmin, (req, res) => {
-  res.render('admin');
+  res.render('admin', {
+    reported : [
+    {
+        author: "John Snow",
+        explanation: "It was offensive",
+        reportedUser: "John smith",
+        content: "I hate watermelons"
+
+    },
+    {
+        author: "Dailton Rabelo",
+        explanation: "It was offensive",
+        reportedUser: "Michael Myers",
+        content: "I'm coming for you!"
+    },
+    {
+        author: "Tyler Reeves",
+        explanation: "Spam",
+        reportedUser: "Michael Lee",
+        content: "blah blah blah"
+    }]
+  });
 });
 
 app.get('/class', authenticateLogin, (req, res) => {
