@@ -4,16 +4,42 @@
     <button>Profile</button>
 </div>
 
-<h1> {{className}} class chat</h1>
+<h1>Class: {{className}}</h1>
 
-<div class="chatroom">
+<hr>
 
-  {{#each comment}}
-    <div class="comment">
-      <h2>{{author}} {{message}} </h2>
-    </div>
-  {{/each}}
+<h2>Messages</h2>
+<div class="class-chatroom">
+    {{#each messages}}
+        <div class="message">
+            <p>[{{timestamp}}] [{{name}}]: {{message}} </p>
+        </div>
+    {{/each}}
+</div>
 
- </div>
+<input type="text" placeholder="Enter message" >
 
- <input type="text" placeholder="Enter comment" >
+<hr>
+
+<h2>Calendar</h2>
+<div class="class-calendar">
+    {{#each calendar}}
+        <div class="calendar-entry">
+            <h4>{{date}} - {{title}}</h4>
+            <p>{{description}}</p>
+        </div>
+    {{/each}}
+</div>
+
+<hr>
+
+<h2>Class Resources</h2>
+<div class="class-resources">
+    {{#each resources}}
+        <div class="class-resource">
+            <h4>{{title}}</h4>
+            <p>Uploaded: {{timestamp}}<br>
+            File: <a href="{{filepath}}">{{filename}}</a></p>
+        </div>
+    {{/each}}
+</div>
