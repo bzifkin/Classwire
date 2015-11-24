@@ -110,7 +110,6 @@ app.get('/', authenticateLogin, (req, res) => {
   var userId = req.session.user.id;
   database.coursesForUser(userId, (err, result) => {
     var message = '';
-    console.log(result);
     if (err) {
       message = err;
     }
@@ -120,8 +119,30 @@ app.get('/', authenticateLogin, (req, res) => {
 });
 
 app.get('/profile', authenticateLogin, (req, res) => {
-  var message = req.flash('profile');
-  res.render('profile', {message:message});
+  var message = req.flash('profile') || '';
+  var data = {message: message};
+  var userId = req.session.user.id;
+
+  // Start by getting user info.
+  database.getProfileInfo(userId, (err, info) => {
+    if (err) {
+      data.message = err;
+    } else {
+      data.user = info;
+    }
+
+    // Now get user courses.
+    database.coursesForUser(userId, (err, courses) => {
+      if (err) {
+        data.message = err;
+      } else {
+        data.courses = courses;
+      }
+
+      // Render with data.
+      res.render('profile', data);
+    });
+  });
 });
 
 app.get('/admin', authenticateAdmin, (req, res) => {
@@ -195,7 +216,34 @@ app.get('/class', authenticateLogin, (req, res) => {
 });
 
 app.get('/messages', authenticateLogin, (req, res) => {
-  res.render('messages');
+  var message = req.flash('messages') || '';
+  var data = {message: message};
+  var userId = req.session.user.id;
+
+  // First get all conversations that involve us.
+  database.getConversation(userId, (err, results) => {
+    if (err) {
+      data.message = err;
+      res.render('messages', data);
+    } else {
+      data.conversations = results;
+
+      if (results.length > 0) {
+        // Now get the messages for the first conversation.
+        database.getConversationMessages(results[0].id, (err, messages) => {
+          if (err) {
+            data.message = err;
+          } else {
+            data.messages = messages;
+          }
+
+          res.render('messages', data);
+        });
+      } else {
+        res.render('messages', data);
+      }
+    }
+  });
 });
 
 app.get('/team', (req, res) => {

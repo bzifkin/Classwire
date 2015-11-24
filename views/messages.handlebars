@@ -5,19 +5,20 @@
 </div>
 
 <h1> Messages </h1>
+<div>{{message}}</div>
 
-<div class="friendsList">
-  {{#each friend}}
+<div class="conversations">
+  {{#each conversations}}
     <div class="user">
-      <h2>{{user}}</h2>
+      <h2>{{fname}} {{lname}}</h2>
     </div>
   {{/each}}
 </div>
 
 <div class="chat">
-  {{#each comment}}
+  {{#each messages}}
     <div class="comment">
-      <h2>{{author}} {{message}} </h2>
+      <h2><strong>{{from_user.fname}} {{from_user.lname}}</strong> {{message}} </h2>
     </div>
   {{/each}}
 </div>

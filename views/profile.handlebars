@@ -9,26 +9,26 @@
 <img id='profilePicture' src="{{{image}}}" alt="/img/no_profile_picture.png">
 
 <div id="profileInfo">
-	<h3>{{name}}</h3>
-	<h3>{{graduationDate}}</h3>
-	<h3>{{major}}</h3>
+	<h3>{{user.fname}} {{user.lname}}</h3>
+	<h3>{{user.year}}</h3>
+	<h3>{{user.major}}</h3>
 </div>
 
 <div id="currentCourses">
   <h1>Current Courses</h1>
   {{#each courses}}
     <div class="course">
-      <h2>{{topic}}</h2>
+      <h2>{{course_title}}</h2>
     </div>
   {{/each}}
 </div>
 
 <div id="biography">
 	<h1>Biography</h1>
-  	<h3>{{biography}}</h3>
+  	<h3>{{user.biography}}</h3>
 </div>
 
 <div id="activities">
     <h1>Activities/Clubs</h1>
-  	<h3>{{activities}}</h3>
+  	<h3>{{user.activities}}</h3>
 </div>
