@@ -127,7 +127,7 @@ app.get('/', authenticateLogin, (req, res) => {
         date: '03/24/15',
         title: 'Assignment 2 Deadline',
         description: 'This is the deadline of some very important assignment that you best get done.',
-        className: "CS325"
+        className: "MA233"
       }
     ],
    resources: [
