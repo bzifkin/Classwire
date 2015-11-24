@@ -180,6 +180,16 @@ app.get('/class', authenticateLogin, (req, res) => {
         filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
         filename: 'syllabus.pdf'
       }
+    ],
+    members: [
+      {
+        name: 'Roo',
+        year: 'Senior'
+      },
+      {
+        name: 'Olive',
+        year: 'Freshman'
+      }
     ]
   });
 });
