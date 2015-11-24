@@ -68,6 +68,7 @@ CREATE TABLE Conversation (
   lastMessageSent date
 );
 
+
 CREATE TABLE reported_content (
   id SERIAL PRIMARY KEY,
   author integer REFERENCES _User(id),
@@ -75,3 +76,12 @@ CREATE TABLE reported_content (
   report_user integer REFERENCES _User(id),
   reported_content VARCHAR REFERENCES Chat_Messages(id)
 );
+
+CREATE TABLE Calendar (
+  id SERIAL PRIMARY KEY,
+  course integer REFERENCES Course ,
+  calendar_date date,
+  title VARCHAR(100),
+  description VARCHAR(500)
+);
+
