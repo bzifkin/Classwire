@@ -12,40 +12,48 @@ Classwire aims to provide a platform for students to connect, collaborate, and l
 	--Fill in
 ## Views
 #### admin.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/admin.handlebars)
-	This admin view is where users can change the email address they registered with, their password, or their university.
-	They can also enable two-step verification for their account for added security.
-#### calendar.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/calendar.handlebars)
-	-TBA
+(https://github.com/bzifkin/Classwire/blob/master/views/admin.handlebars)
+This admin view is where users can change the email address they registered with, their password, or their university.
+They can also enable two-step verification for their account for added security.
+
+####calendar.handlebars 
+(https://github.com/bzifkin/Classwire/blob/master/views/calendar.handlebars)
+-TBA
+
 #### class.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/class.handlebars)
-	The classes view is where users can access large chat hubs, resource directories, and a calendar view for each
-	of their individual classes. They'll be able to see the current members of their class and which users are online chatting. 
-	This will be used as place for students to communicate about the course and anything happening within.
+(https://github.com/bzifkin/Classwire/blob/master/views/class.handlebars)
+The classes view is where users can access large chat hubs, resource directories, and a calendar view for each
+of their individual classes. They'll be able to see the current members of their class and which users are online chatting. 
+This will be used as place for students to communicate about the course and anything happening within.
+
 #### home.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/home.handlebars)
-	The home view is where users can see all the courses they are currently in, an aggregated calendar view of all the assignments due in their classes, and class resources from all their classes.
+
+(https://github.com/bzifkin/Classwire/blob/master/views/home.handlebars)
+The home view is where users can see all the courses they are currently in, an aggregated calendar view of all the assignments due in their classes, and class resources from all their classes.
+
 #### login.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/login.handlebars)
-	The login view is where users can sign in to the application or register if they do not have an account.
+(https://github.com/bzifkin/Classwire/blob/master/views/login.handlebars)
+The login view is where users can sign in to the application or register if they do not have an account.
+
 #### messages.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/messages.handlebars)
-	The messages view is where users can send and receive individual messages from classmates. In this view all the
-	people this user has received or sent messages to will be presented to them. Another faucet of this is messages will
-	persist throughout the application so on any view a user can receive and respond to messages without being in the
-	messages view.
+(https://github.com/bzifkin/Classwire/blob/master/views/messages.handlebars)
+The messages view is where users can send and receive individual messages from classmates. In this view all the
+people this user has received or sent messages to will be presented to them. Another faucet of this is messages will
+persist throughout the application so on any view a user can receive and respond to messages without being in the
+messages view.
+
 #### profile.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/profile.handlebars)
-	The profile view is the outward facing view other users will see when they come to that specific view. It contains
-	fields such as a profile picture, list of their current classes, a short bio (provided their wrote one), and any activities
-	they are in.
+(https://github.com/bzifkin/Classwire/blob/master/views/profile.handlebars)
+The profile view is the outward facing view other users will see when they come to that specific view. It contains
+fields such as a profile picture, list of their current classes, a short bio (provided their wrote one), and any activities
+they are in.
 #### team.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/team.handlebars)
-	A view detailing the members of the Classwire development team.
+(https://github.com/bzifkin/Classwire/blob/master/views/team.handlebars)
+A view detailing the members of the Classwire development team.
+
 #### about.handlebars 
-	(https://github.com/bzifkin/Classwire/blob/master/views/about.handlebars)
-	A short view explaining what the app is all about.
+(https://github.com/bzifkin/Classwire/blob/master/views/about.handlebars)
+A short view explaining what the app is all about.
 
 ## Statefulness
 
