@@ -15,7 +15,7 @@ CREATE TABLE Student (
   major VARCHAR(50),
   biography VARCHAR(500),
   activities VARCHAR(1000),
-  profileURL VARCHAR(200)
+  profile_picture_url VARCHAR(200)
 );
 
 CREATE TABLE School (

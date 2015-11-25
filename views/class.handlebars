@@ -1,7 +1,7 @@
-<div id="header">  
-    <button>Home</button>
-    <button>Messages</button>
-    <button>Profile</button>
+<div id="header">
+    <button id = "home_button">Home</button>
+    <button id = "messages">Messages</button>
+    <button id = "profile">Profile</button>
 </div>
 
 <h1>Class: {{className}}</h1>
@@ -54,3 +54,20 @@
         {{/each}}
     </p>
 </div>
+
+<script>
+    var home_button = document.getElementById("home_button");
+    home_button.onclick = function () {
+        window.location.href = "/";
+    };
+
+    var messages_button = document.getElementById("messages");
+    messages_button.onclick = function () {
+        window.location.href = "/messages";
+    };
+
+    var profile_button = document.getElementById("profile");
+    profile_button.onclick = function () {
+        window.location.href = "/profile";
+    };
+</script>

@@ -12,7 +12,7 @@ Classwire aims to provide a platform for students to connect, collaborate, and l
 	4. Once done, use the command "node app.js" to start the application on your local machine.
 
 ## Libraries
-	--Fill in
+	
 ## Views
 #### admin.handlebars 
 (https://github.com/bzifkin/Classwire/blob/master/views/admin.handlebars)
@@ -88,6 +88,10 @@ isAdmin: varchar(1) or Bool
 id: Serial
 user_id: references User
 year: varchar(20)
+major VARCHAR(50),
+biography VARCHAR(500),
+activities VARCHAR(1000),
+profile_picture_url VARCHAR(200)
 ```
 #### School
 ```
