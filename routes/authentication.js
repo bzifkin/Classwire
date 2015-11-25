@@ -14,6 +14,11 @@ var router = express.Router();
 // A list of users who are online:
 var online = require('../lib/online').online;
 
+// Check whether user's session exists and their login isn't expired
+function isOnline(user) {
+  return user && online[user.email];
+}
+
 function authenticateLogin(req, res, next) {
   // Get the user session if it exists.
   var user = req.session.user;
@@ -166,5 +171,6 @@ router.post('/register', (req, res) => {
 });
 
 exports.router = router;
+exports.isOnline = isOnline;
 exports.authenticateLogin = authenticateLogin;
 exports.authenticateAdmin = authenticateAdmin;
