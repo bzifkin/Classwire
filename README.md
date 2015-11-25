@@ -12,6 +12,14 @@ Classwire aims to provide a platform for students to connect, collaborate, and l
 	4. Once done, use the command "node app.js" to start the application on your local machine.
 
 ## Libraries
+
+    "body-parser": "^1.14.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1",
+    "express-session": "^1.12.1",
+    "pg": "^4.4.3"
 	
 ## Views
 #### admin.handlebars 
