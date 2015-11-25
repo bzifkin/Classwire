@@ -16,7 +16,7 @@ var online = require('../lib/online').online;
 
 // Check whether user's session exists and their login isn't expired
 function isOnline(user) {
-  return user && online[user.email];
+  return user && online[user.email] ? true : false;
 }
 
 function authenticateLogin(req, res, next) {

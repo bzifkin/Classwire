@@ -99,80 +99,89 @@ app.use(flash());
 //////////////////////////////////////////////////////////////////////
 var team = require('./lib/team');
 var database = require('./lib/database');
-var authenticateLogin = require('./routes/authentication').authenticateLogin;
-var authenticateAdmin = require('./routes/authentication').authenticateAdmin;
+var authentication = require('./routes/authentication');
+var authenticateLogin = authentication.authenticateLogin;
+var authenticateAdmin = authentication.authenticateAdmin;
 
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
 
 // Home/Splash screen.
-app.get('/', authenticateLogin, (req, res) => {
-  var userId = req.session.user.id;
-  database.coursesForUser(userId, (err, result) => {
-    var message = '';
-    if (err) {
-      message = err;
-    }
+app.get('/', (req, res) => {
+  // Check whether the user's logged in and online
+  // If so, render the home view
+  if(authentication.isOnline(req.session.user)) {
+    var userId = req.session.user.id;
+    database.coursesForUser(userId, (err, result) => {
+      var message = '';
+      if (err) {
+        message = err;
+      }
 
-    res.render('home', {
-      message: message,
-      courses: result,
-      calendar: [
-        {
-          date: '03/21/15',
-          title: 'Assignment 1 Deadline',
-          description: 'This is the deadline of some very important assignment that you best get done.',
-          className: "CS326"
-        },
-        {
-          date: '03/24/15',
-          title: 'Assignment 2 Deadline',
-          description: 'This is the deadline of some very important assignment that you best get done.',
-          className: "MA233"
-        }
-      ],
-      resources: [
-        {
-          title: 'Assignment One',
-          timestamp: '04:12:53 03/12/15',
-          filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
-          filename: 'assignment-one.zip',
-                  className: "CS326"
-        },
-        {
-          title: 'Assignment Two',
-          timestamp: '05:12:53 03/12/15',
-          filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
-          filename: 'assignment-two.zip',
-                  className: "AM264"
-        },
-        {
-          title: 'Syllabus',
-          timestamp: '06:12:53 03/12/15',
-          filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
-          filename: 'syllabus.pdf',
-                          className: "CS325"
-        }
-      ],
-      messages: [
-        {
-          timestamp: '13:04:12',
-          name: 'John',
-          message: 'hey how did you do on the test?'
-        },
-        {
-          timestamp: '09:00:01',
-          name: 'Sam',
-          message: 'Meet you outside of class!'
-        },
-        {
-          timestamp: '14:01:00',
-          name: 'Michael',
-          message: 'Call me 774-281-1001'
-        }
-      ]
+      res.render('home', {
+        message: message,
+        courses: result,
+        calendar: [
+          {
+            date: '03/21/15',
+            title: 'Assignment 1 Deadline',
+            description: 'This is the deadline of some very important assignment that you best get done.',
+            className: "CS326"
+          },
+          {
+            date: '03/24/15',
+            title: 'Assignment 2 Deadline',
+            description: 'This is the deadline of some very important assignment that you best get done.',
+            className: "MA233"
+          }
+        ],
+        resources: [
+          {
+            title: 'Assignment One',
+            timestamp: '04:12:53 03/12/15',
+            filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
+            filename: 'assignment-one.zip',
+            className: "CS326"
+          },
+          {
+            title: 'Assignment Two',
+            timestamp: '05:12:53 03/12/15',
+            filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
+            filename: 'assignment-two.zip',
+            className: "AM264"
+          },
+          {
+            title: 'Syllabus',
+            timestamp: '06:12:53 03/12/15',
+            filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
+            filename: 'syllabus.pdf',
+            className: "CS325"
+          }
+        ],
+        messages: [
+          {
+            timestamp: '13:04:12',
+            name: 'John',
+            message: 'hey how did you do on the test?'
+          },
+          {
+            timestamp: '09:00:01',
+            name: 'Sam',
+            message: 'Meet you outside of class!'
+          },
+          {
+            timestamp: '14:01:00',
+            name: 'Michael',
+            message: 'Call me 774-281-1001'
+          }
+        ]
+      });
     });
-  });
+  // Otherwise, user is not logged in
+  // Render the landing view
+  } else {
+    res.render('landing');
+  }
 });
 
 app.get('/profile', authenticateLogin, (req, res) => {
