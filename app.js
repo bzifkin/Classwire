@@ -24,6 +24,8 @@ var cookieParser = require('cookie-parser');
 // function it returns an express web application that you build from.
 var app = express();
 
+var router = express.Router();
+
 // This will set an "application variable". An application variable is
 // a variable that can be retrieved from your app later on. It is
 // simply a key/value mapping. In this case, we are mapping the key
@@ -105,6 +107,18 @@ var authenticateAdmin = authentication.authenticateAdmin;
 
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
+
+
+app.post('/save',(req,res) => {
+    console.log('save');
+    var userId = req.session.user.id;
+    var body = req.body;
+    var bioText = Object.keys(body)[0];
+
+    database.saveBioData(userId, bioText, function(err){
+        console.log(err);
+    });
+});
 
 // Home/Splash screen.
 app.get('/', (req, res) => {
