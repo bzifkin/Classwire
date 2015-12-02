@@ -1,4 +1,22 @@
 
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io();
+
+    $('#send_msg').click((event) => {
+        event.preventDefault();
+        console.log("Submitting");
+        var conversation_id = $('.chat').attr('id');
+        var msgElm = $('#msg');
+        var msg = msgElm.val();
+        msgElm.val('');
+        var data = {conversation_id: conversation_id, msg: msg};
+        socket.emit('send_private_message', data);
+    });
+
+</script>
+
 <body>
     <div id="header">
         <button id = "home_button">Home</button>
@@ -19,26 +37,20 @@
 
     <button id="new_conversation">New Conversation</button>
 
-    {{#if messages}}
-    <div class="chat">
+
+    <div class="chat" id={{current_conv_id}}>
         <ul id="messages">
           {{#each messages}}
               <li class="comment"><strong>{{from_user.fname}} {{from_user.lname}}</strong> {{message}} </li>
           {{/each}}
         </ul>
 
-        <form action="">
-            <input id="m" autocomplete="off" /><button>Send</button>
-        </form>
+        <input id="msg" autocomplete="off" /><button id="send_msg">Send</button>
+
     </div>
-    {{/if}}
 
-    <script language="JavaScript" src = "/support/redirect.js" type="text/javascript"></script>
+
 </body>
-
-<head>
-    <script language="JavaScript" src = "/support/redirect.js" type="text/javascript"></script>
-</head>
 
 <script>
     var home_button = document.getElementById("home_button");

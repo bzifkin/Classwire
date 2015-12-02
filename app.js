@@ -105,6 +105,22 @@ var authentication = require('./routes/authentication');
 var authenticateLogin = authentication.authenticateLogin;
 var authenticateAdmin = authentication.authenticateAdmin;
 
+// Setup sockets.io
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log("User connected");
+
+  socket.on('send_private_message', (data) => {
+    console.log(data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log("User disconnected");
+  });
+});
+
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
 
@@ -340,6 +356,9 @@ app.get('/messages', authenticateLogin, (req, res) => {
       data.conversations = results;
 
       if (results.length > 0) {
+        // Send the conversation ID of the convo to be viewed.
+        data.current_conv_id = results[0].id;
+
         // Now get the messages for the first conversation.
         database.getConversationMessages(results[0].id, (err, messages) => {
           if (err) {
@@ -424,7 +443,7 @@ app.use(internalServerError500);
 // application variable 'port' (which was set above). The second
 // parameter is a function that gets invoked after the application is
 // up and running.
-app.listen(app.get('port'), () => {
+server.listen(app.get('port'), () => {
   console.log('Express started on http://localhost:' +
               app.get('port') + '; press Ctrl-C to terminate');
 });
