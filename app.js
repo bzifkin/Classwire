@@ -356,9 +356,6 @@ app.get('/messages', authenticateLogin, (req, res) => {
       data.conversations = results;
 
       if (results.length > 0) {
-        // Send the conversation ID of the convo to be viewed.
-        data.current_conv_id = results[0].id;
-
         // Now get the messages for the first conversation.
         database.getConversationMessages(results[0].id, (err, messages) => {
           if (err) {

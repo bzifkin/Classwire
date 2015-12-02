@@ -1,22 +1,4 @@
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-    var socket = io();
-
-    $('#send_msg').click((event) => {
-        event.preventDefault();
-        console.log("Submitting");
-        var conversation_id = $('.chat').attr('id');
-        var msgElm = $('#msg');
-        var msg = msgElm.val();
-        msgElm.val('');
-        var data = {conversation_id: conversation_id, msg: msg};
-        socket.emit('send_private_message', data);
-    });
-
-</script>
-
 <body>
     <div id="header">
         <button id = "home_button">Home</button>
@@ -29,7 +11,7 @@
 
     <div class="conversations">
       {{#each conversations}}
-        <div class="user">
+        <div class="conversation" id={{id}}>
           <h2>{{fname}} {{lname}}</h2>
         </div>
       {{/each}}
@@ -38,17 +20,48 @@
     <button id="new_conversation">New Conversation</button>
 
 
-    <div class="chat" id={{current_conv_id}}>
+    <div id="chat_content">
         <ul id="messages">
           {{#each messages}}
               <li class="comment"><strong>{{from_user.fname}} {{from_user.lname}}</strong> {{message}} </li>
           {{/each}}
         </ul>
 
-        <input id="msg" autocomplete="off" /><button id="send_msg">Send</button>
+        <form id="send_message">
+            <input id="message" />
+            <button>Send</button>
+        </form>
 
     </div>
 
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        jQuery(($) => {
+            var socket = io.connect();
+            var $conversations = $('#conversation');
+            var $newConversationBtn = $('#new_conversation');
+            var $chatContent = $('#chat_content');
+            var $messageForm = $('#send_message');
+            var $messageBox = $('#message');
+            var current_conv_id = 46;
+
+            if ($conversations.size() === 0) {
+//                $chatContent.hide();
+            } else {
+                $conversations[0].addClass('active');
+                current_conv_id = $conversations[0].attr('id');
+                console.log('ACTIVE ID: ' + current_conv_id);
+            }
+
+            $messageForm.submit((e) => {
+                e.preventDefault();
+                var data = {msg: $messageBox.val(), conv_id: current_conv_id};
+                socket.emit('send_private_message', data);
+                $messageBox.val('');
+            });
+        });
+    </script>
 
 </body>
 
