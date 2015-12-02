@@ -17,13 +17,22 @@
       {{/each}}
     </div>
 
+    <button id="new_conversation">New Conversation</button>
+
+    {{#if messages}}
     <div class="chat">
-      {{#each messages}}
-        <div class="comment">
-          <h2><strong>{{from_user.fname}} {{from_user.lname}}</strong> {{message}} </h2>
-        </div>
-      {{/each}}
+        <ul id="messages">
+          {{#each messages}}
+              <li class="comment"><strong>{{from_user.fname}} {{from_user.lname}}</strong> {{message}} </li>
+          {{/each}}
+        </ul>
+
+        <form action="">
+            <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
     </div>
+    {{/if}}
+
     <script language="JavaScript" src = "/support/redirect.js" type="text/javascript"></script>
 </body>
 
