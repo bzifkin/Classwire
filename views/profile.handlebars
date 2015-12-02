@@ -29,17 +29,20 @@
 
         <h3 id="bio_header"> Biography
             <span class="btn-group">
-                <button class="btn btn-mini" id = "bio_edit" onclick="saveBioInfo(this)" value = 'Edit'>Edit</button>
+                <button class="btn btn-mini" id = "acts_edit" onclick="saveInfo(this)" value = 'bio_text'>Edit</button>
             </span>
         </h3>
-    <form method="post" action="/save/bio">
-            <textarea cols="50" id = "bio_text" disabled = disabled>{{user.biography}}</textarea>
-    </form>
+        <textarea cols="50" id = "bio_text" disabled = disabled>{{user.biography}}</textarea>
+
     </div>
 
     <div id="activities">
-        <h3>Activities/Clubs</h3>
-        <p>{{user.activities}}</p>
+        <h3 id="bio_header"> Activities/Clubs
+            <span class="btn-group">
+                <button class="btn btn-mini" id = "bio_edit" onclick="saveInfo(this)" value = 'acts_text'>Edit</button>
+            </span>
+        </h3>
+        <textarea cols="50" id = "acts_text" disabled = disabled>{{user.activities}}</textarea>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -61,25 +64,33 @@
         window.location.href = "/profile";
     };
 
-    function saveBioInfo(button){
-        console.log(button.innerText);
-        var textarea = document.getElementById('bio_text');
+    function saveInfo(button){
+        var textarea = document.getElementById(button.value);
 
         if(button.innerText === "Edit"){
             textarea.disabled = false;
             button.innerText = "Save";
         }else{
             textarea.disabled = true;
-            $.ajax({
-                type: "POST",
-                url: '/save',
-                data: $('textarea#bio_text').val(),
-                success: function(){
-                    alert('Successful');
-                }
-            });
+            if(button.value === 'acts_text'){
+                makeAjax(textarea.value,'saveact');
+            }else{
+                makeAjax(textarea.value,'savebio');
+            }
+
             button.innerText = 'Edit';
         }
+    }
+
+    function makeAjax(value, route){
+        $.ajax({
+            type: "POST",
+            url: '/'+route,
+            data: {val: value},
+            success: function(){
+                alert('Successful');
+            }
+        });
     }
 
 </script>
@@ -87,7 +98,7 @@
 <style type="text/css">
     #bio_header .btn-group { display: inline-block; }
 
-    #bio_text {
+    #bio_text, #acts_text{
         resize: none;
         height: 200px;
     }

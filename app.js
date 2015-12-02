@@ -109,17 +109,27 @@ var authenticateAdmin = authentication.authenticateAdmin;
 app.use('/auth', require('./routes/authentication').router);
 
 
-app.post('/save',(req,res) => {
-    console.log('save');
+app.post('/savebio',(req,res) => {
+    console.log('savebio');
     var userId = req.session.user.id;
     var body = req.body;
-    var bioText = Object.keys(body)[0];
+    var bioText = body['val'];
 
     database.saveBioData(userId, bioText, function(err){
         console.log(err);
     });
 });
 
+app.post('/saveact',(req,res) => {
+    console.log('saveact');
+    var userId = req.session.user.id;
+    var body = req.body;
+    var activities = body['val'];
+
+    database.saveActivitesData(userId, activities, function(err){
+        console.log(err);
+    });
+});
 // Home/Splash screen.
 app.get('/', (req, res) => {
   // Check whether the user's logged in and online
