@@ -125,9 +125,12 @@ io.on('connection', (socket) => {
     socket.join(conv_id);
   });
 
-  socket.on('send_private_message', (data) => {
-    var msg_data = {fname: 'Austin', lname: 'Suszek', msg: data.msg};
-    io.sockets.in(data.conv_id).emit('display_message', msg_data, data.conv_id);
+  socket.on('send_message', (data) => {
+    var msg_data = {user_id: data.sender_info.user_id,
+                    fname: data.sender_info.fname,
+                    lname: data.sender_info.lname,
+                    msg: data.msg};
+    io.sockets.in(data.conv_id).emit('display_private_message', msg_data, data.conv_id);
   });
 
   socket.on('disconnect', () => {
@@ -403,7 +406,7 @@ app.get('/class', authenticateLogin, (req, res) => {
 
 app.get('/messages', authenticateLogin, (req, res) => {
   var message = req.flash('messages') || '';
-  var data = {message: message};
+  var data = {message: message, sender: req.session.user};
   var userId = req.session.user.id;
 
   // First get all conversations that involve us.

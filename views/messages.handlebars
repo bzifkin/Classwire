@@ -9,6 +9,9 @@
     <h1> Messages </h1>
     <div>{{message}}</div>
 
+    <div id="sender_info" style="display:none"
+         data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
+
     <div class="conversations">
       {{#each conversations}}
         <div class="conversation" id={{id}}>
@@ -28,7 +31,7 @@
         </ul>
 
         <form id="send_message">
-            <input id="message" />
+            <input id="message" autocomplete="off"/>
             <button>Send</button>
         </form>
 
@@ -39,6 +42,7 @@
     <script>
         jQuery(($) => {
             var socket = io.connect();
+            var $senderInfo = $('#sender_info');
             var $conversations = $('.conversation');
             var $newConversationBtn = $('#new_conversation');
             var $chatContent = $('#chat_content');
@@ -60,15 +64,18 @@
 
             $messageForm.submit((e) => {
                 e.preventDefault();
-                var data = {msg: $messageBox.val(), conv_id: current_conv_id};
-                socket.emit('send_private_message', data);
+                var senderInfo = {user_id: $senderInfo.attr('data-user-id'),
+                                  fname: $senderInfo.attr('data-fname'),
+                                  lname: $senderInfo.attr('data-lname')};
+                var data = {msg: $messageBox.val(), conv_id: current_conv_id, sender_info: senderInfo};
+                socket.emit('send_message', data);
                 $messageBox.val('');
             });
 
-            socket.on('display_message', (msg_data, conv_id) => {
+            socket.on('display_private_message', (msg_data, conv_id) => {
                if (conv_id === current_conv_id) {
                    $messageList.append(
-                           '<li class="comment"><strong>' +
+                           '<li class="comment" id=' + msg_data.user_id + '><strong>' +
                            msg_data.fname + ' ' +  msg_data.lname +
                            ' </strong>' + msg_data.msg + '</li>');
                } else {
