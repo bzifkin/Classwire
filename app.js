@@ -16,6 +16,12 @@ var flash      = require('connect-flash');
 // The cookie parser is used to parse cookies in an HTTP header.
 var cookieParser = require('cookie-parser');
 
+var fs = require('fs');
+
+var multer = require('multer');
+
+var upload = multer({ dest: 'public/uploads' });
+
 //////////////////////////////////////////////////////////////////////
 ///// Express App Setup //////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -25,6 +31,8 @@ var cookieParser = require('cookie-parser');
 var app = express();
 
 var router = express.Router();
+
+
 
 // This will set an "application variable". An application variable is
 // a variable that can be retrieved from your app later on. It is
@@ -129,6 +137,42 @@ io.on('connection', (socket) => {
 
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
+
+
+
+app.post('/upload', upload.single('photo'), function (req, res, next) {
+    console.log(req.file);
+    var userId = req.session.user.id;
+
+    var imageName = req.file.originalname;
+
+    if(!imageName){
+
+        console.log("There was an error")
+        res.redirect("/");
+        res.end();
+
+    }else {
+
+        var newPath = req.file.path;
+
+        fs.readFile(newPath, function (err, data) {
+
+            database.saveProfilePictureUrl('/uploads/' + req.file.filename, userId, function(){
+               console.log('saved path successfully.');
+            });
+
+            /// write file to uploads/fullsize folder
+            fs.writeFile(newPath, data, function (err) {
+
+                /// let's see it
+                res.redirect('back');
+
+            });
+        });
+    }
+
+});
 
 
 app.post('/savebio',(req,res) => {
