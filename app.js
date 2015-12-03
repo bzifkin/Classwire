@@ -139,9 +139,11 @@ io.on('connection', (socket) => {
 app.use('/auth', require('./routes/authentication').router);
 
 
-
+/*
+This allows users to uploads a profile picture to their profile
+Relies on a library called multer which takes in form data files
+ */
 app.post('/upload', upload.single('photo'), function (req, res, next) {
-    console.log(req.file);
     var userId = req.session.user.id;
 
     var imageName = req.file.originalname;
@@ -158,14 +160,15 @@ app.post('/upload', upload.single('photo'), function (req, res, next) {
 
         fs.readFile(newPath, function (err, data) {
 
+            //Saves the path of the picture in the database so it can be found when a profile is loaded
             database.saveProfilePictureUrl('/uploads/' + req.file.filename, userId, function(){
                console.log('saved path successfully.');
             });
 
-            /// write file to uploads/fullsize folder
+            /// write file to uploads folder
             fs.writeFile(newPath, data, function (err) {
 
-                /// let's see it
+                //reloads the page
                 res.redirect('back');
 
             });
@@ -174,7 +177,9 @@ app.post('/upload', upload.single('photo'), function (req, res, next) {
 
 });
 
-
+/*
+Saves biography of the user's profile
+ */
 app.post('/savebio',(req,res) => {
     console.log('savebio');
     var userId = req.session.user.id;
@@ -186,6 +191,9 @@ app.post('/savebio',(req,res) => {
     });
 });
 
+/*
+Saves activities of the user's profile
+ */
 app.post('/saveact',(req,res) => {
     console.log('saveact');
     var userId = req.session.user.id;
@@ -196,6 +204,7 @@ app.post('/saveact',(req,res) => {
         console.log(err);
     });
 });
+
 // Home/Splash screen.
 app.get('/', (req, res) => {
   // Check whether the user's logged in and online
