@@ -112,8 +112,14 @@ var io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log("User connected");
 
+  socket.on('subscribe', (conv_id) => {
+    console.log('Joining conversation: ' + conv_id);
+    socket.join(conv_id);
+  });
+
   socket.on('send_private_message', (data) => {
-    console.log(data);
+    var msg_data = {fname: 'Austin', lname: 'Suszek', msg: data.msg};
+    io.sockets.in(data.conv_id).emit('display_message', msg_data, data.conv_id);
   });
 
   socket.on('disconnect', () => {
