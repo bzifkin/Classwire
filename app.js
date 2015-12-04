@@ -126,11 +126,19 @@ io.on('connection', (socket) => {
   });
 
   socket.on('send_message', (data) => {
+    // Display the message to clients in this conversation.
     var msg_data = {user_id: data.sender_info.user_id,
                     fname: data.sender_info.fname,
                     lname: data.sender_info.lname,
                     msg: data.msg};
     io.sockets.in(data.conv_id).emit('display_private_message', msg_data, data.conv_id);
+
+    // Save the message in the database.
+    database.createNewMessage(data.sender_info.user_id, data.conv_id, data.msg, (err, success) => {
+      if (err) {
+        console.log('Error saving message: ' + err);
+      }
+    });
   });
 
   socket.on('disconnect', () => {
