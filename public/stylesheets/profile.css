@@ -1,0 +1,8 @@
+#bio_header .btn-group { display: inline-block; }
+
+#bio_text, #acts_text{
+    resize: none;
+    height: 200px;
+}
+
+body {padding-left: 10px}
