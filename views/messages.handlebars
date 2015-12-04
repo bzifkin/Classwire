@@ -13,11 +13,11 @@
          data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
 
     <div class="conversations">
-      {{#each conversations}}
-        <div class="conversation" id={{id}}>
-          <div>{{fname}} {{lname}}</div>
-        </div>
-      {{/each}}
+        <ul class="conversation" id="conversation">
+            {{#each conversations}}
+                <li class="name" id={{id}}>{{fname}} {{lname}}</li>
+            {{/each}}
+        </ul>
     </div>
 
     <button id="new_conversation">New Conversation</button>
@@ -42,6 +42,10 @@
     <script src="/javascript/private_messaging.js"></script>
 
 </body>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/messages.css">
+</head>
 
 <script>
     var home_button = document.getElementById("home_button");

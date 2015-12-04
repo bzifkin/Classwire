@@ -157,31 +157,38 @@ Relies on a library called multer which takes in form data files
 app.post('/upload', upload.single('photo'), function (req, res, next) {
     var userId = req.session.user.id;
 
-    var imageName = req.file.originalname;
+    console.log(req.file);
 
-    if(!imageName){
-
-        console.log("There was an error");
-        res.redirect("/");
-        res.end();
-
+    if(typeof req.file === 'undefined'){
+        //maybe add logic here to do something
     }else {
 
-        var newPath = req.file.path;
+        var imageName = req.file.originalname;
 
-        fs.readFile(newPath, function (err, data) {
+        if (!imageName) {
 
-            //Saves the path of the picture in the database so it can be found when a profile is loaded
-            database.saveProfilePictureUrl('/uploads/' + req.file.filename, userId, function(){
-               console.log('saved path successfully.');
-                res.redirect('back');
+            console.log("There was an error");
+            res.redirect("/");
+            res.end();
+
+        } else {
+
+            var newPath = req.file.path;
+
+            fs.readFile(newPath, function (err, data) {
+
+                //Saves the path of the picture in the database so it can be found when a profile is loaded
+                database.saveProfilePictureUrl('/uploads/' + req.file.filename, userId, function () {
+                    console.log('saved path successfully.');
+                    res.redirect('back');
+                });
+
+                /// write file to uploads folder
+                fs.writeFile(newPath, data, function (err) {
+
+                });
             });
-
-            /// write file to uploads folder
-            fs.writeFile(newPath, data, function (err) {
-
-            });
-        });
+        }
     }
 
 });

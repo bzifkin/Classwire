@@ -1,0 +1,12 @@
+.conversations{
+
+}
+
+#chat_content, #new_conversation, #send_message{
+
+}
+
+.name {
+    cursor: pointer;
+    cursor: hand;
+    list-style-type: none}

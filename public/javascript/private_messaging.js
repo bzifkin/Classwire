@@ -13,6 +13,20 @@ jQuery(($) => {
   var $messageBox = $('#message');
   var current_conv_id;
 
+    var links = $('.conversations #conversation').each(function(){
+        $(this).onclick = changeUser;
+    });
+
+    // For each <li> inside #links
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        link.onclick = changeUser;
+    }
+
+    function changeUser(){
+        console.log("clicked");
+    }
+
   if ($conversations.size() === 0) {
     $chatContent.hide();
   } else {
@@ -49,3 +63,6 @@ jQuery(($) => {
     }
   });
 });
+
+
+
