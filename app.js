@@ -161,7 +161,7 @@ app.post('/upload', upload.single('photo'), function (req, res, next) {
 
     if(!imageName){
 
-        console.log("There was an error")
+        console.log("There was an error");
         res.redirect("/");
         res.end();
 
@@ -174,13 +174,11 @@ app.post('/upload', upload.single('photo'), function (req, res, next) {
             //Saves the path of the picture in the database so it can be found when a profile is loaded
             database.saveProfilePictureUrl('/uploads/' + req.file.filename, userId, function(){
                console.log('saved path successfully.');
+                res.redirect('back');
             });
 
             /// write file to uploads folder
             fs.writeFile(newPath, data, function (err) {
-
-                //reloads the page
-                res.redirect('back');
 
             });
         });
