@@ -6,6 +6,15 @@
         <button id = "profile">Profile</button>
     </div>
 
+    <div id="friend_search_content_profile">
+        <div id="friend_search_error_profile"></div>
+        <form>
+            <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
+        </form>
+
+        <ul id="friend_search_results_profile"></ul>
+    </div>
+
     <h1> Messages </h1>
     <div>{{message}}</div>
 
@@ -46,11 +55,13 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascript/private_messaging.js"></script>
+    <script src="/javascript/searchbar.js"></script>
 
 </body>
 
 <head>
     <link rel="stylesheet" type="text/css" href="/stylesheets/messages.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
 </head>
 
 <script>

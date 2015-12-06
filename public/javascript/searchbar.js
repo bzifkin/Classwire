@@ -2,10 +2,10 @@
  * Created by nickdelfino on 12/6/15.
  */
 
-var $friendSearchErrorBar = $('#friend_search_error');
-var $friendSearchContent = $('#friend_search_content');
-var $friendSearchBar = $('#friend_search_bar');
-var $friendSearchResultsList = $('#friend_search_results');
+var $friendSearchErrorBar = $('#friend_search_error_profile');
+var $friendSearchContent = $('#friend_search_content_profile');
+var $friendSearchBar = $('#friend_search_bar_profile');
+var $friendSearchResultsList = $('#friend_search_results_profile');
 var friendSearchPlaceholderText = "Type a friend's name";
 
 var friendsList;

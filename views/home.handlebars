@@ -1,69 +1,88 @@
-<div id="header">
-    <button id = "home_button">Home</button>
-    <button id = "messages">Messages</button>
-    <button id = "profile">Profile</button>
-</div>
 
-<h1>Home</h1>
-<h3>{{message}}</h3>
-
-<hr>
-
-
-
-<h1> My Courses </h1>
-<button>Add a course</button>
-<button>Import schedule</button>
-<div class="myCourses">
-  {{#each courses}}
-    <div class="myCourse">
-      <h2>{{course_title}}</h2>
+<body>
+    <div id="header">
+        <button id = "home_button">Home</button>
+        <button id = "messages">Messages</button>
+        <button id = "profile">Profile</button>
     </div>
-  {{/each}}
-</div>
 
-<hr>
+    <div id="friend_search_content_profile">
+        <div id="friend_search_error_profile"></div>
+        <form>
+            <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
+        </form>
+
+        <ul id="friend_search_results_profile"></ul>
+    </div>
+
+    <h1>Home</h1>
+    <h3>{{message}}</h3>
+
+    <hr>
 
 
 
-<h2>My Calendar</h2>
-<button>Add an event</button>
-
-<div class="class-calendar">
-    {{#each calendar}}
-        <div class="calendar-entry">
-            <h4>{{date}} - {{title}} - {{className}} -  <button>Remove</button></h4>
-            <p>{{description}}</p>
+    <h1> My Courses </h1>
+    <button>Add a course</button>
+    <button>Import schedule</button>
+    <div class="myCourses">
+      {{#each courses}}
+        <div class="myCourse">
+          <h2>{{course_title}}</h2>
         </div>
-    {{/each}}
-</div>
+      {{/each}}
+    </div>
 
-<hr>
-
-<h2>Class Resources</h2>
-
-<div class="class-resources">
-    {{#each resources}}
-        <div class="class-resource">
-            <h4>{{title}} - {{className}}</h4>
-            <p>Uploaded: {{timestamp}}<br>
-            File: <a href="{{filepath}}">{{filename}}</a></p>
-        </div>
-    {{/each}}
-</div>
-
-<hr>
+    <hr>
 
 
-<h2>Personal Messages</h2>
 
-<div class="home-messages">
-    {{#each messages}}
-        <div class="message">
-            <p>[{{timestamp}}] [{{name}}]: {{message}} </p>
-        </div>
-    {{/each}}
-</div>
+    <h2>My Calendar</h2>
+    <button>Add an event</button>
+
+    <div class="class-calendar">
+        {{#each calendar}}
+            <div class="calendar-entry">
+                <h4>{{date}} - {{title}} - {{className}} -  <button>Remove</button></h4>
+                <p>{{description}}</p>
+            </div>
+        {{/each}}
+    </div>
+
+    <hr>
+
+    <h2>Class Resources</h2>
+
+    <div class="class-resources">
+        {{#each resources}}
+            <div class="class-resource">
+                <h4>{{title}} - {{className}}</h4>
+                <p>Uploaded: {{timestamp}}<br>
+                File: <a href="{{filepath}}">{{filename}}</a></p>
+            </div>
+        {{/each}}
+    </div>
+
+    <hr>
+
+
+    <h2>Personal Messages</h2>
+
+    <div class="home-messages">
+        {{#each messages}}
+            <div class="message">
+                <p>[{{timestamp}}] [{{name}}]: {{message}} </p>
+            </div>
+        {{/each}}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/javascript/searchbar.js"></script>
+
+
+</body>
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
+</head>
 
 <script>
     var home_button = document.getElementById("home_button");
