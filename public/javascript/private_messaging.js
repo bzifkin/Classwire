@@ -75,9 +75,20 @@ jQuery(($) => {
     var clicked_conv_id = $(this).attr('id');
     if (clicked_conv_id !== current_conv_id) {
       current_conv_id = clicked_conv_id;
+
+      toggleActiveConversation();
       loadAllMessages(current_conv_id);
     }
   });
+
+  function toggleActiveConversation() {
+    $('li.active').removeClass('active');
+    $conversations.each(function() {
+      if ($(this).attr('id') === current_conv_id) {
+        $(this).addClass('active');
+      }
+    });
+  }
 
   function loadAllMessages(conv_id) {
     // Clear out old messages.
@@ -143,6 +154,3 @@ jQuery(($) => {
   });
 
 });
-
-
-
