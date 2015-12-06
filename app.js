@@ -321,8 +321,18 @@ app.get('/', (req, res) => {
 
 app.get('/profile', authenticateLogin, (req, res) => {
   var message = req.flash('profile') || '';
-  var data = {message: message};
+  var data = {message: message, edits: true};
   var userId = req.session.user.id;
+
+  var goToUser = req.query.query;
+  console.log(goToUser);
+  console.log(req);
+    console.log(req.query);
+
+  if(typeof goToUser !== 'undefined'){
+      userId = goToUser;
+      data.edits = false;
+  }
 
   // Start by getting user info.
   database.getProfileInfo(userId, (err, info) => {

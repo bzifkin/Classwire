@@ -5,4 +5,14 @@
     height: 200px;
 }
 
+#header, #friend_search_content {
+    display: inline;
+}
+
+.friends{
+    cursor: pointer;
+    cursor: hand;
+    list-style-type: none;
+}
+
 body {padding-left: 10px}
