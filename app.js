@@ -221,6 +221,26 @@ app.post('/saveact',(req,res) => {
     });
 });
 
+app.post('/deletereportedcontent', (req,res) => {
+   var body = req.body;
+   var messageId = body['messageId'];
+
+   database.deleteReportedContent(messageId, function(err, result){
+      console.log("deleted");
+       console.log(err);
+      res.send({success:true});
+   });
+});
+
+app.post('/allowreportedcontent', (req,res) => {
+    var body = req.body;
+    var messageId = body['messageId'];
+
+    database.allowReportedContent(messageId, function(err, result){
+        res.send({success:true});
+    });
+});
+
 // Home/Splash screen.
 app.get('/', (req, res) => {
   // Check whether the user's logged in and online
@@ -337,6 +357,8 @@ app.get('/admin', authenticateAdmin, (req, res) => {
     }else{
         data.reported = reportedContent;
     }
+
+    console.log(data);
 
     res.render('admin', data);
 
