@@ -13,9 +13,9 @@
          data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
 
     <div class="conversations">
-        <ul class="conversation" id="conversation">
+        <ul>
             {{#each conversations}}
-                <li class="name" id={{id}}>{{fname}} {{lname}}</li>
+                <li class="conversation" id={{id}}>{{fname}} {{lname}}</li>
             {{/each}}
         </ul>
     </div>

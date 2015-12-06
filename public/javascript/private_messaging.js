@@ -13,20 +13,6 @@ jQuery(($) => {
   var $messageBox = $('#message');
   var current_conv_id;
 
-    var links = $('.conversations #conversation').each(function(){
-        $(this).onclick = changeUser;
-    });
-
-    // For each <li> inside #links
-    for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        link.onclick = changeUser;
-    }
-
-    function changeUser(){
-        console.log("clicked");
-    }
-
   if ($conversations.size() === 0) {
     $chatContent.hide();
   } else {
@@ -55,13 +41,18 @@ jQuery(($) => {
           msg_data.fname + ' ' +  msg_data.lname +
           ' </strong>' + msg_data.msg + '</li>');
     } else {
-      $conversations.each((index) => {
+      $conversations.each(function(index) {
         if ($(this).attr('id') === conv_id) {
           $(this).addClass('new_message_available');
         }
       });
     }
   });
+
+  $conversations.bind('click', function() {
+    console.log("Clicked conversation: " + $(this).attr('id'));
+  });
+
 });
 
 
