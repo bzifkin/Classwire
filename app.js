@@ -474,6 +474,37 @@ app.get('/friends/fetch', authenticateLogin, (req, res) => {
   });
 });
 
+app.get('/messages/new_conversation', authenticateLogin, (req, res) => {
+  var friend_id = req.query.friend_id;
+  var user_id = req.session.user.id;
+  var data = {};
+
+  // First make sure this conversation doesn't already exist.
+  database.getConversationForBothUsers(user_id, friend_id, (err, results) => {
+    if (err) {
+      data.error = err;
+      res.send(data);
+    } else if (results.length > 0) {
+      data.error = "You're already talking to this friend!";
+      res.send(data);
+    }
+
+    // Now create a new conversation and return it to the view.
+    else {
+      database.createPrivateConversation(user_id, friend_id, (err, results) => {
+        if (err) {
+          data.error = err;
+        } else if (results.length === 0) {
+          data.error = "Something went wrong. Please try again later";
+        } else {
+          data.conversation = results[0];
+        }
+        res.send(data);
+      });
+    }
+  });
+});
+
 app.get('/team', (req, res) => {
   var result;
   if (req.query.user) {

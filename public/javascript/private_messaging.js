@@ -5,8 +5,11 @@
 jQuery(($) => {
   var socket = io.connect();
   var $senderInfo = $('#sender_info');
+
+  var $conversationList = $('#conv_list');
   var $conversations = $('.conversation');
   var $newConversationBtn = $('#new_conversation');
+
   var $chatContent = $('#chat_content');
   var $messageList = $('#message_list');
   var $messageListErrorBar = $('#message_list_error_bar');
@@ -22,6 +25,7 @@ jQuery(($) => {
   var current_conv_id;
   var friendsList;
   var friendSearchPlaceholderText = "Type a friend's name";
+  var searching = false;
 
   if ($conversations.size() === 0) {
     $chatContent.hide();
@@ -71,7 +75,12 @@ jQuery(($) => {
     }
   }
 
-  $conversations.bind('click', function() {
+  $conversations.bind('click', conversationOnClick);
+
+  function conversationOnClick() {
+    if (searching) {
+      hideSearchController();
+    }
     var clicked_conv_id = $(this).attr('id');
     if (clicked_conv_id !== current_conv_id) {
       current_conv_id = clicked_conv_id;
@@ -79,7 +88,7 @@ jQuery(($) => {
       toggleActiveConversation();
       loadAllMessages(current_conv_id);
     }
-  });
+  }
 
   function toggleActiveConversation() {
     $('li.active').removeClass('active');
@@ -118,6 +127,7 @@ jQuery(($) => {
         $friendSearchErrorBar.text(data.error);
       } else {
         friendsList = data.friends;
+        searching = true;
       }
     });
   });
@@ -148,9 +158,39 @@ jQuery(($) => {
 
       elm.bind('click', function() {
         var friend_id = $(this).attr('id');
-        console.log('Clicked on friend: ' + friend_id);
+
+        $.getJSON('/messages/new_conversation', {friend_id: friend_id}, function(data) {
+          if (data.error) {
+            $friendSearchErrorBar.text(data.error);
+          } else {
+            // Create the new conversation.
+            var c = data.conversation;
+            var elm = $('<li class="conversation" id=' + c.id + '>' + c.fname + ' ' + c.lname + '</li>');
+            $conversationList.prepend(elm);
+
+            // Redefine the conversations.
+            $conversations = $('.conversation');
+            socket.emit('subscribe', c.id);
+            elm.bind('click', conversationOnClick);
+            current_conv_id = c.id;
+            toggleActiveConversation();
+
+            elm.click();
+          }
+        });
       });
     }
   });
+
+  function hideSearchController() {
+    // Reset search controller.
+    $friendSearchContent.hide();
+    $friendSearchErrorBar.text('');
+    $friendSearchBar.val(friendSearchPlaceholderText);
+    $friendSearchResultsList.empty();
+
+    $chatContent.show();
+    searching = false;
+  }
 
 });
