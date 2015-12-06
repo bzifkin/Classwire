@@ -452,6 +452,19 @@ app.get('/messages/fetch', authenticateLogin, (req, res) => {
   });
 });
 
+app.get('/friends/fetch', authenticateLogin, (req, res) => {
+  var user_id = req.session.user.id;
+  database.getPossibleFriends(user_id, (err, results) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.friends = results;
+    }
+    res.send(data);
+  });
+});
+
 app.get('/team', (req, res) => {
   var result;
   if (req.query.user) {

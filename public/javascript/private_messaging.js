@@ -12,7 +12,16 @@ jQuery(($) => {
   var $messageListErrorBar = $('#message_list_error_bar');
   var $messageForm = $('#send_message');
   var $messageBox = $('#message');
+
+  var $friendSearchErrorBar = $('#friend_search_error');
+  var $friendSearchContent = $('#friend_search_content');
+  var $friendSearchBar = $('#friend_search_bar');
+  var $friendSearchResultsList = $('#friend_search_results');
+  $friendSearchContent.hide();
+
   var current_conv_id;
+  var friendsList;
+  var friendSearchPlaceholderText = "Type a friend's name";
 
   if ($conversations.size() === 0) {
     $chatContent.hide();
@@ -63,7 +72,11 @@ jQuery(($) => {
   }
 
   $conversations.bind('click', function() {
-    console.log("Clicked conversation: " + $(this).attr('id'));
+    var clicked_conv_id = $(this).attr('id');
+    if (clicked_conv_id !== current_conv_id) {
+      current_conv_id = clicked_conv_id;
+      loadAllMessages(current_conv_id);
+    }
   });
 
   function loadAllMessages(conv_id) {
@@ -82,6 +95,52 @@ jQuery(($) => {
       }
     });
   }
+
+  $newConversationBtn.bind('click', function() {
+    // Get the list of possible friends.
+    $.getJSON('/friends/fetch', function(data) {
+      // Hide and show the correct divs.
+      $chatContent.hide();
+      $friendSearchContent.show();
+
+      if (data.error) {
+        $friendSearchErrorBar.text(data.error);
+      } else {
+        friendsList = data.friends;
+      }
+    });
+  });
+
+  $friendSearchBar.bind('click', function() {
+    if ($(this).val() === friendSearchPlaceholderText) {
+      $(this).val('');
+    }
+  });
+
+  $friendSearchBar.keyup(function() {
+    $friendSearchResultsList.empty();
+    var search_text = $friendSearchBar.val().toLowerCase();
+    if (search_text === '') {
+      return;
+    }
+
+    var filtered_results = friendsList.filter(function(friend) {
+      var friendName = friend.fname + ' ' + friend.lname;
+      return friendName.toLowerCase().startsWith(search_text);
+    });
+
+    for (var i = 0; i < filtered_results.length; i++) {
+      var friend = filtered_results[i];
+      var elm = $('<li id=' + friend.id + '><strong>' + friend.fname + ' '
+          + friend.lname + '</strong> ' + friend.course_number + '</li>');
+      $friendSearchResultsList.append(elm);
+
+      elm.bind('click', function() {
+        var friend_id = $(this).attr('id');
+        console.log('Clicked on friend: ' + friend_id);
+      });
+    }
+  });
 
 });
 
