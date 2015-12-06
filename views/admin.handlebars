@@ -4,6 +4,8 @@
     <button id = "profile">Profile</button>
 </div>
 
+<div>{{message}}</div><br>
+
 <h1> Administrator </h1>
 
 
@@ -18,14 +20,14 @@
         <th>Reported Content</th> 
     </thead> 
     <tbody> 
-        {{#reported}} 
+        {{#each reported}}
         <tr> 
-            <td>{{author}}</td> 
+            <td>{{authf}} {{authl}}</td>
             <td>{{explanation}}</td> 
-            <td>{{reportedUser}}</td> 
-            <td>{{content}}</td> 
+            <td>{{reportf}} {{reportl}}</td>
+            <td>{{message}}</td>
         </tr> 
-        {{/reported}} 
+        {{/each}}
     </tbody> 
 </table>
 
