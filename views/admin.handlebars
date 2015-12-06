@@ -1,35 +1,47 @@
-<div id="header">
-    <button id = "home_button">Home</button>
-    <button id = "messages">Messages</button>
-    <button id = "profile">Profile</button>
-</div>
 
-<div>{{message}}</div><br>
+<body>
+    <div id="header">
+        <button id = "home_button">Home</button>
+        <button id = "messages">Messages</button>
+        <button id = "profile">Profile</button>
+    </div>
 
-<h1> Administrator </h1>
+    <div>{{message}}</div><br>
+
+    <h1> Administrator </h1>
 
 
-<h1> Reported Content </h1>
+    <h1> Reported Content </h1>
 
 
-<table>
- <thead> 
-        <th>Author</th> 
-        <th>Explanation</th> 
-        <th>Reported User</th> 
-        <th>Reported Content</th> 
-    </thead> 
-    <tbody> 
-        {{#each reported}}
-        <tr> 
-            <td>{{authf}} {{authl}}</td>
-            <td>{{explanation}}</td> 
-            <td>{{reportf}} {{reportl}}</td>
-            <td>{{message}}</td>
-        </tr> 
-        {{/each}}
-    </tbody> 
-</table>
+    <table>
+        <thead>
+            <th class="reported_headers">Author</th>
+            <th class="reported_headers">Explanation</th>
+            <th class="reported_headers">Reported User</th>
+            <th class="reported_headers">Reported Content</th>
+        </thead>
+        <tbody>
+            {{#each reported}}
+            <tr id = "{{reported_content}}">
+                <td id ="auth" class="reported">{{authf}} {{authl}}</td>
+                <td id ="expl" class="reported">{{explanation}}</td>
+                <td id ="reportuser" class="reported">{{reportf}} {{reportl}}</td>
+                <td id = "report_content" class="reported">{{message}}</td>
+                <td><button class="delete_content_btn">Delete Content</button></td>
+                <td><button class="allow_content_btn">Allow Content</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/javascript/admin.js"></script>
+</body>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css">
+</head>
 
 <script>
     var home_button = document.getElementById("home_button");
@@ -46,4 +58,10 @@
     profile_button.onclick = function () {
         window.location.href = "/profile";
     };
+
 </script>
+
+<style>
+    
+
+</style>
