@@ -24,11 +24,8 @@
 
 
     <div id="chat_content">
-        <ul id="message_list">
-          {{#each messages}}
-              <li class="comment"><strong>{{fname}} {{lname}}</strong> {{message}} </li>
-          {{/each}}
-        </ul>
+        <div id="message_list_error_bar"></div>
+        <ul id="message_list"></ul>
 
         <form id="send_message">
             <input id="message" autocomplete="off"/>

@@ -9,6 +9,7 @@ jQuery(($) => {
   var $newConversationBtn = $('#new_conversation');
   var $chatContent = $('#chat_content');
   var $messageList = $('#message_list');
+  var $messageListErrorBar = $('#message_list_error_bar');
   var $messageForm = $('#send_message');
   var $messageBox = $('#message');
   var current_conv_id;
@@ -18,10 +19,14 @@ jQuery(($) => {
   } else {
     $conversations.eq(0).addClass('active');
     current_conv_id = $conversations.eq(0).attr('id');
+
+    // Subscribe to all conversations.
     for (var i = 0; i < $conversations.size(); i++) {
       var conv_id = $conversations.eq(i).attr('id');
       socket.emit('subscribe', conv_id);
     }
+
+    loadAllMessages(current_conv_id);
   }
 
   $messageForm.submit((e) => {
@@ -35,23 +40,48 @@ jQuery(($) => {
   });
 
   socket.on('display_private_message', (msg_data, conv_id) => {
+    appendNewMessage(msg_data, conv_id, true);
+  });
+
+  function appendNewMessage(msg_data, conv_id, new_message) {
     if (conv_id === current_conv_id) {
+      // Reset the error message.
+      $messageListErrorBar.text('');
+
+      // Append the new message.
       $messageList.append(
-          '<li class="comment" id=' + msg_data.user_id + '><strong>' +
+          '<li class="comment" id=' + msg_data.from_user + '><strong>' +
           msg_data.fname + ' ' +  msg_data.lname +
-          ' </strong>' + msg_data.msg + '</li>');
-    } else {
+          ' </strong>' + msg_data.message + '</li>');
+    } else if (new_message) {
       $conversations.each(function(index) {
         if ($(this).attr('id') === conv_id) {
           $(this).addClass('new_message_available');
         }
       });
     }
-  });
+  }
 
   $conversations.bind('click', function() {
     console.log("Clicked conversation: " + $(this).attr('id'));
   });
+
+  function loadAllMessages(conv_id) {
+    // Clear out old messages.
+    $messageList.empty();
+
+    // Make a request for the new messages.
+    $.getJSON('/messages/fetch', {conv_id: conv_id}, function(data) {
+      if (data.error) {
+        $messageListErrorBar.text(data.error);
+      } else {
+        for (var i=0; i < data.messages.length; i++) {
+          var msg_data = data.messages[i];
+          appendNewMessage(msg_data, conv_id, false);
+        }
+      }
+    });
+  }
 
 });
 

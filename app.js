@@ -127,10 +127,10 @@ io.on('connection', (socket) => {
 
   socket.on('send_message', (data) => {
     // Display the message to clients in this conversation.
-    var msg_data = {user_id: data.sender_info.user_id,
+    var msg_data = {from_user: data.sender_info.user_id,
                     fname: data.sender_info.fname,
                     lname: data.sender_info.lname,
-                    msg: data.msg};
+                    message: data.msg};
     io.sockets.in(data.conv_id).emit('display_private_message', msg_data, data.conv_id);
 
     // Save the message in the database.
@@ -429,22 +429,21 @@ app.get('/messages', authenticateLogin, (req, res) => {
       res.render('messages', data);
     } else {
       data.conversations = results;
-
-      if (results.length > 0) {
-        // Now get the messages for the first conversation.
-        database.getConversationMessages(results[0].id, (err, messages) => {
-          if (err) {
-            data.message = err;
-          } else {
-            data.messages = messages;
-          }
-
-          res.render('messages', data);
-        });
-      } else {
-        res.render('messages', data);
-      }
+      res.render('messages', data);
     }
+  });
+});
+
+app.get('/messages/fetch', authenticateLogin, (req, res) => {
+  var conv_id = req.query.conv_id;
+  database.getConversationMessages(conv_id, (err, results) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.messages = results;
+    }
+    res.send(data);
   });
 });
 
