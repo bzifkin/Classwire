@@ -327,27 +327,19 @@ app.get('/profile', authenticateLogin, (req, res) => {
 });
 
 app.get('/admin', authenticateAdmin, (req, res) => {
-  res.render('admin', {
-    reported : [
-    {
-        author: "John Snow",
-        explanation: "It was offensive",
-        reportedUser: "John smith",
-        content: "I hate watermelons"
+    var message = req.flash('admin') || '';
+    var data = {message: message};
 
-    },
-    {
-        author: "Dailton Rabelo",
-        explanation: "It was offensive",
-        reportedUser: "Michael Myers",
-        content: "I'm coming for you!"
-    },
-    {
-        author: "Tyler Reeves",
-        explanation: "Spam",
-        reportedUser: "Michael Lee",
-        content: "blah blah blah"
-    }]
+  database.getReportedContent(function content(err, reportedContent){
+
+    if(err){
+        data.message = err;
+    }else{
+        data.reported = reportedContent;
+    }
+
+    res.render('admin', data);
+
   });
 });
 
