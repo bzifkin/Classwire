@@ -63,7 +63,11 @@ jQuery(($) => {
   }
 
   $conversations.bind('click', function() {
-    console.log("Clicked conversation: " + $(this).attr('id'));
+    var clicked_conv_id = $(this).attr('id');
+    if (clicked_conv_id !== current_conv_id) {
+      current_conv_id = clicked_conv_id;
+      loadAllMessages(current_conv_id);
+    }
   });
 
   function loadAllMessages(conv_id) {
