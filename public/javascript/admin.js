@@ -6,7 +6,7 @@ $(document).ready(function(){
 
    $('.delete_content_btn').click(function(){
       var id = $(this).closest("tr").attr("id");
-      console.log(id);
+
        $.ajax({
            type: "POST",
            url: '/deletereportedcontent',
@@ -18,6 +18,21 @@ $(document).ready(function(){
            }
        });
    });
+
+    $('.allow_content_btn').click(function(){
+        var id = $(this).closest("tr").attr("id");
+
+        $.ajax({
+            type: "POST",
+            url: '/allowreportedcontent',
+            data: {messageId: id},
+            success: function(data){
+                if(data['success']){
+                    $('#' + id).remove();
+                }
+            }
+        });
+    });
 
 
 });

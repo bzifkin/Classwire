@@ -232,6 +232,15 @@ app.post('/deletereportedcontent', (req,res) => {
    });
 });
 
+app.post('/allowreportedcontent', (req,res) => {
+    var body = req.body;
+    var messageId = body['messageId'];
+
+    database.allowReportedContent(messageId, function(err, result){
+        res.send({success:true});
+    });
+});
+
 // Home/Splash screen.
 app.get('/', (req, res) => {
   // Check whether the user's logged in and online
