@@ -17,7 +17,21 @@
         <ul id="friend_search_results_profile"></ul>
     </div>
 
-    <h1 id="className">Class: {{className}}</h1>
+   <h1> My Courses </h1>
+    <button>Add a course</button>
+    <button>Import schedule</button>
+
+    <div class="myCourses">
+      {{#each courses}}
+        <div class="myCourse">
+          <h2>{{course_number}} {{course_title}}</h2>
+        </div>
+      {{/each}}
+    </div>
+
+    <hr>
+
+    <h1 id="className">Current class: {{className}}</h1>
 
     <hr>
 
@@ -52,6 +66,7 @@
             <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
             <p><label>Due date<strong>*</strong><br>
             <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
+            <input type="hidden" name="class" value="{{className}}">
             <p><input type="submit" name="feedbackForm" value="Add Event"></p>
           </form>
           </div>
@@ -60,7 +75,7 @@
     <div class="class-calendar">
         {{#each calendar}}
             <div class="calendar-entry">
-                <h4>{{date}} - {{title}}</h4>
+                <h4>{{calendar_date}} - {{title}}</h4>
                 <p>{{description}}</p>
             </div>
         {{/each}}

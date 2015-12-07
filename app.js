@@ -150,23 +150,44 @@ io.on('connection', (socket) => {
 app.use('/auth', require('./routes/authentication').router);
 
 app.post('/addevent', upload.single('photo'), function (req, res) {
-    var userId = req.session.user.id;
-    console.log(userId);
+  var userId = req.session.user.id;
+  console.log(userId);
 
-      var courseId = "1"
+  database.coursesForUser(userId, (err, result) => {
+    var message = '';
+    if (err) {
+      message = err;
+      console.log(message);
+    }else{
+
+
+
+      var courseName = req.body.class;
       var calendarDate = req.body.date;
       var title = req.body.name;
       var description = req.body.description;
+      var courseId = null;
+
+      for(var i=0; i<result.length; i++) {
+        if(result[i].course_number == courseName){
+          courseId = result[i].id;
+        }
+      }
+
+
       database.addCalendarEvent(courseId, calendarDate, title, description, (err, results)=> {
         if(err){
-              console.log(err);
-            }else{
-                //added
-            }
+          console.log(err);
+        }else{
+          console.log(calendarDate +" " +title + " " + description)
+          res.redirect("/class");
+          res.end();
+        }
       });
-     console.log(calendarDate +" " +title + " " + description)
-     res.redirect("/class");
-     res.end();
+
+    }
+
+  });
 });
 
 /*
@@ -283,87 +304,83 @@ app.get('/', authenticateLogin, (req, res) => {
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
 
-    var events = '';
+    var calendar = null;
     database.getUsersCalendar(userId, (err, result) => {
       var message = '';
       if (err) {
         message = err;
-        console.log("error : " + message);
-      }
-      events = result;
-    });
-
-    console.log("events : " + events);
-
-    var courses = '';
-    database.coursesForUser(userId, (err, result) => {
-      var message = '';
-      if (err) {
-        message = err;
-      }
-      courses = result;
-    });
-    console.log("courses : " + courses);
+      }else{
+       calendar = result;
 
 
+       var courses = null;
+       database.coursesForUser(userId, (err, result) => {
+        var message = '';
+        if (err) {
+          message = err;
+          console.log(message);
+        }else{
+          courses = result;
 
-      res.render('home', {
-        courses: courses,
-        calendar: [
-          {
-            date: '03/21/15',
-            title: 'Assignment 1 Deadline',
-            description: 'This is the deadline of some very important assignment that you best get done.',
-            className: "CS326"
-          },
-          {
-            date: '03/24/15',
-            title: 'Assignment 2 Deadline',
-            description: 'This is the deadline of some very important assignment that you best get done.',
-            className: "MA233"
-          }
-        ],
-        resources: [
-          {
-            title: 'Assignment One',
-            timestamp: '04:12:53 03/12/15',
-            filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
-            filename: 'assignment-one.zip',
-            className: "CS326"
-          },
-          {
-            title: 'Assignment Two',
-            timestamp: '05:12:53 03/12/15',
-            filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
-            filename: 'assignment-two.zip',
-            className: "AM264"
-          },
-          {
-            title: 'Syllabus',
-            timestamp: '06:12:53 03/12/15',
-            filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
-            filename: 'syllabus.pdf',
-            className: "CS325"
-          }
-        ],
-        messages: [
-          {
-            timestamp: '13:04:12',
-            name: 'John',
-            message: 'hey how did you do on the test?'
-          },
-          {
-            timestamp: '09:00:01',
-            name: 'Sam',
-            message: 'Meet you outside of class!'
-          },
-          {
-            timestamp: '14:01:00',
-            name: 'Michael',
-            message: 'Call me 774-281-1001'
-          }
-        ]
-      });
+
+          res.render('home', {
+            courses: result,
+            calendar: calendar,
+            resources: [
+            {
+              title: 'Assignment One',
+              timestamp: '04:12:53 03/12/15',
+              filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
+              filename: 'assignment-one.zip',
+              className: "CS326"
+            },
+            {
+              title: 'Assignment Two',
+              timestamp: '05:12:53 03/12/15',
+              filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
+              filename: 'assignment-two.zip',
+              className: "AM264"
+            },
+            {
+              title: 'Syllabus',
+              timestamp: '06:12:53 03/12/15',
+              filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
+              filename: 'syllabus.pdf',
+              className: "CS325"
+            }
+            ],
+            messages: [
+            {
+              timestamp: '13:04:12',
+              name: 'John',
+              message: 'hey how did you do on the test?'
+            },
+            {
+              timestamp: '09:00:01',
+              name: 'Sam',
+              message: 'Meet you outside of class!'
+            },
+            {
+              timestamp: '14:01:00',
+              name: 'Michael',
+              message: 'Call me 774-281-1001'
+            }
+            ]
+
+          });
+
+}
+});
+
+}
+});
+
+
+
+
+
+
+    
   // Otherwise, user is not logged in
   // Render the landing view
   } else {
@@ -426,79 +443,86 @@ app.get('/admin', authenticateAdmin, (req, res) => {
 
 app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
+  var userId = req.session.user.id;
+  var calendar = null;
+  database.getCalendarsForCourse(1,function content(err, classEvents){
+    if(err){
+     message = err;
+   }
+     calendar = classEvents;
 
-  var events = null;
-    database.getCalendarsForCourse("courseId",function content(err, classEvents){
-      if(err){
-       message = err;
-     }else{
-       events = classEvents;
-     }
-   });
+     var courses = null;
+     database.coursesForUser(userId, (err, result) => {
+      var message = '';
+      if (err) {
+        message = err;
+        console.log(message);
+      }else{
+        courses = result;
 
 
-  res.render('class', {
-    className: 'CS326',
-    messages: [
-      {
-        timestamp: '16:07:34',
-        name: 'Roo',
-        message: 'hey is olive around?'
-      },
-      {
-        timestamp: '16:18:42',
-        name: 'Olive',
-        message: 'yup I\'m here'
-      },
-      {
-        timestamp: '19:05:09',
-        name: 'Roo',
-        message: 'cool.'
-      }
-    ],
-    calendar: [
-      {
-        date: '03/21/15',
-        title: 'Assignment 1 Deadline',
-        description: 'This is the deadline of some very important assignment that you best get done.'
-      },
-      {
-        date: '03/24/15',
-        title: 'Assignment 2 Deadline',
-        description: 'This is the deadline of some very important assignment that you best get done.'
-      }
-    ],
-    resources: [
-      {
-        title: 'Assignment One',
-        timestamp: '04:12:53 03/12/15',
-        filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
-        filename: 'assignment-one.zip'
-      },
-      {
-        title: 'Assignment Two',
-        timestamp: '05:12:53 03/12/15',
-        filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
-        filename: 'assignment-two.zip'
-      },
-      {
-        title: 'Syllabus',
-        timestamp: '06:12:53 03/12/15',
-        filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
-        filename: 'syllabus.pdf'
-      }
-    ],
-    members: [
-      {
-        name: 'Roo',
-        year: 'Senior'
-      },
-      {
-        name: 'Olive',
-        year: 'Freshman'
-      }
-    ]
-  });
+        res.render('class', {
+          className: 'CS326',
+          courses: courses,
+          messages: [
+          {
+            timestamp: '16:07:34',
+            name: 'Roo',
+            message: 'hey is olive around?'
+          },
+          {
+            timestamp: '16:18:42',
+            name: 'Olive',
+            message: 'yup I\'m here'
+          },
+          {
+            timestamp: '19:05:09',
+            name: 'Roo',
+            message: 'cool.'
+          }
+          ],
+          calendar: calendar,
+          resources: [
+          {
+            title: 'Assignment One',
+            timestamp: '04:12:53 03/12/15',
+            filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
+            filename: 'assignment-one.zip'
+          },
+          {
+            title: 'Assignment Two',
+            timestamp: '05:12:53 03/12/15',
+            filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
+            filename: 'assignment-two.zip'
+          },
+          {
+            title: 'Syllabus',
+            timestamp: '06:12:53 03/12/15',
+            filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
+            filename: 'syllabus.pdf'
+          }
+          ],
+          members: [
+          {
+            name: 'Roo',
+            year: 'Senior'
+          },
+          {
+            name: 'Olive',
+            year: 'Freshman'
+          }
+          ]
+        });
+}
+});
+
+
+});
+
+
+
+
+
 });
 
 app.get('/messages', authenticateLogin, (req, res) => {
