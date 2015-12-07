@@ -242,20 +242,35 @@ app.post('/allowreportedcontent', (req,res) => {
 });
 
 // Home/Splash screen.
-app.get('/', (req, res) => {
+app.get('/', authenticateLogin, (req, res) => {
   // Check whether the user's logged in and online
   // If so, render the home view
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
+
+
+    var events = null;
+    database.getUsersCalendar(userId,function content(err, allOfUsersEvents){
+      if(err){
+       message = err;
+     }else{
+       events = allOfUsersEvents;
+     }
+   });
+
+    var courses = null;
     database.coursesForUser(userId, (err, result) => {
       var message = '';
       if (err) {
         message = err;
       }
+      courses = result;
+    });
+
+
 
       res.render('home', {
-        message: message,
-        courses: result,
+        courses: courses,
         calendar: [
           {
             date: '03/21/15',
@@ -311,7 +326,6 @@ app.get('/', (req, res) => {
           }
         ]
       });
-    });
   // Otherwise, user is not logged in
   // Render the landing view
   } else {
@@ -377,6 +391,17 @@ app.get('/admin', authenticateAdmin, (req, res) => {
 
 app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
+
+  var events = null;
+    database.getCalendarsForCourse(/**class ID**/,function content(err, classEvents){
+      if(err){
+       message = err;
+     }else{
+       events = classEvents;
+     }
+   });
+
+
   res.render('class', {
     className: 'CS326',
     messages: [
