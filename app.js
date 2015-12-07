@@ -449,78 +449,21 @@ app.get('/admin', authenticateAdmin, (req, res) => {
 app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
   var userId = req.session.user.id;
-  var calendar = null;
-  database.getCalendarsForCourse(1,function content(err, classEvents){
-    if(err){
-     message = err;
-   }
-     calendar = classEvents;
 
-     var courses = null;
-     database.coursesForUser(userId, (err, result) => {
-      var message = '';
-      if (err) {
-        message = err;
-        console.log(message);
-      }else{
-        courses = result;
+  // Get the user's enrolled courses.
+  database.coursesForUser(userId, (err, courses) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.courses = courses;
 
+      // Fill data with sender info.
+      data.sender = {id: userId, fname: req.session.user.fname, lname: req.session.user.lname};
 
-        res.render('class', {
-          className: 'CS326',
-          courses: courses,
-          messages: [
-          {
-            timestamp: '16:07:34',
-            name: 'Roo',
-            message: 'hey is olive around?'
-          },
-          {
-            timestamp: '16:18:42',
-            name: 'Olive',
-            message: 'yup I\'m here'
-          },
-          {
-            timestamp: '19:05:09',
-            name: 'Roo',
-            message: 'cool.'
-          }
-          ],
-          calendar: calendar,
-          resources: [
-          {
-            title: 'Assignment One',
-            timestamp: '04:12:53 03/12/15',
-            filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
-            filename: 'assignment-one.zip'
-          },
-          {
-            title: 'Assignment Two',
-            timestamp: '05:12:53 03/12/15',
-            filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
-            filename: 'assignment-two.zip'
-          },
-          {
-            title: 'Syllabus',
-            timestamp: '06:12:53 03/12/15',
-            filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
-            filename: 'syllabus.pdf'
-          }
-          ],
-          members: [
-          {
-            name: 'Roo',
-            year: 'Senior'
-          },
-          {
-            name: 'Olive',
-            year: 'Freshman'
-          }
-          ]
-        });
+      res.render('class', data);
     }
   });
-});
 });
 
 

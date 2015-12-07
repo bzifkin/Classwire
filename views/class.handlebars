@@ -17,90 +17,93 @@
         <ul id="friend_search_results_profile"></ul>
     </div>
 
+    <div id="sender_info" style="display:none"
+         data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
+
    <h1> My Courses </h1>
+    <div>{{error}}</div>
     <button>Add a course</button>
     <button>Import schedule</button>
 
-    <div class="myCourses">
-      {{#each courses}}
-        <div class="myCourse">
-          <h2>{{course_number}} {{course_title}}</h2>
-        </div>
-      {{/each}}
-    </div>
-
-    <hr>
-
-    <h1 id="className">Current class: {{className}}</h1>
-
-    <hr>
-
-    <h2>Messages</h2>
-    <div class="class-chatroom">
-        {{#each messages}}
-            <div class="message">
-                <p>[{{timestamp}}] [{{name}}]: {{message}} </p>
-            </div>
-        {{/each}}
-    </div>
-
-    <input type="text" placeholder="Enter message" >
-
-    <hr>
-
-    <h2>Calendar</h2>
-
-        <p><button id="modal_open">Add Event</button></p>
-        <div id="modal_wrapper">
-          <div id="modal_window">
-
-          <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
-
-          <p>Complete the form below to add Event:</p>
-          <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
-            <p><label>Event Name<strong>*</strong><br>
-            <input type="text" autofocus required size="36" name="name" value=""></label></p>
-            <p><label>Description<strong>*</strong><br>
-            <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
-            <p><label>Due date<strong>*</strong><br>
-            <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
-            <input type="hidden" name="class" value="{{className}}">
-            <p><input type="submit" name="feedbackForm" value="Add Event"></p>
-          </form>
-          </div>
-        </div> 
-
-    <div class="class-calendar">
-        {{#each calendar}}
-            <div class="calendar-entry">
-                <h4>{{calendar_date}} - {{title}}</h4>
-                <p>{{description}}</p>
-            </div>
-        {{/each}}
-    </div>
-
-    <hr>
-
-    <h2>Class Resources</h2>
-    <div class="class-resources">
-        {{#each resources}}
-            <div class="class-resource">
-                <h4>{{title}}</h4>
-                <p>Uploaded: {{timestamp}}<br>
-                File: <a href="{{filepath}}">{{filename}}</a></p>
-            </div>
-        {{/each}}
-    </div>
-
-    <hr>
-
-    <h2>Member List</h2>
-    <div class="class-member-list">
-        <p>
-            {{#each members}}
-                {{name}} [{{year}}]<br>
+    <div class="course_global_sidebar">
+        <ul id="course_list">
+            {{#each courses}}
+                <li class="course" id={{id}}>{{course_number}} {{course_title}}</li>
             {{/each}}
-        </p>
+        </ul>
+    </div>
+
+    <div id="course_content">
+
+        <div class="class_messages_wrapper">
+            <h2>Messages</h2>
+            <ul id="message_list"></ul>
+
+            <form id="send_message">
+                <input id="message" autocomplete="off"/>
+                <button>Send</button>
+            </form>
+        </div>
+
+
+        <div id="class_calendar_wrapper">
+            <h2>Calendar</h2>
+
+            <p><button id="modal_open">Add Event</button></p>
+            <div id="modal_wrapper">
+              <div id="modal_window">
+
+              <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
+
+              <p>Complete the form below to add Event:</p>
+              <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
+                <p><label>Event Name<strong>*</strong><br>
+                <input type="text" autofocus required size="36" name="name" value=""></label></p>
+                <p><label>Description<strong>*</strong><br>
+                <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
+                <p><label>Due date<strong>*</strong><br>
+                <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
+                <input type="hidden" name="class" value="{{className}}">
+                <p><input type="submit" name="feedbackForm" value="Add Event"></p>
+              </form>
+              </div>
+            </div>
+
+            <div class="class_calendar">
+                {{#each calendar}}
+                    <div class="calendar-entry">
+                        <h4>{{calendar_date}} - {{title}}</h4>
+                        <p>{{description}}</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+
+        <div id="class_resources_wrapper">
+            <h2>Class Resources</h2>
+            <div class="class-resources">
+                {{#each resources}}
+                    <div class="class-resource">
+                        <h4>{{title}}</h4>
+                        <p>Uploaded: {{timestamp}}<br>
+                        File: <a href="{{filepath}}">{{filename}}</a></p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div id="class_members_wrapper">
+            <h2>Member List</h2>
+            <div class="class-member-list">
+                <p>
+                    {{#each members}}
+                        {{name}} [{{year}}]<br>
+                    {{/each}}
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
