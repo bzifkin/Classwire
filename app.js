@@ -149,6 +149,25 @@ io.on('connection', (socket) => {
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
 
+app.post('/addevent', upload.single('photo'), function (req, res) {
+    var userId = req.session.user.id;
+    console.log(userId);
+
+      var courseId = "1"
+      var calendarDate = req.body.date;
+      var title = req.body.name;
+      var description = req.body.description;
+      database.addCalendarEvent(courseId, calendarDate, title, description, (err, results)=> {
+        if(err){
+              console.log(err);
+            }else{
+                //added
+            }
+      });
+     console.log(calendarDate +" " +title + " " + description)
+     res.redirect("/class");
+     res.end();
+});
 
 /*
 This allows users to uploads a profile picture to their profile
@@ -248,14 +267,27 @@ app.get('/', authenticateLogin, (req, res) => {
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
 
-    var courses = null;
+    var events = '';
     database.getUsersCalendar(userId, (err, result) => {
+      var message = '';
+      if (err) {
+        message = err;
+        console.log("error : " + message);
+      }
+      events = result;
+    });
+
+    console.log("events : " + events);
+
+    var courses = '';
+    database.coursesForUser(userId, (err, result) => {
       var message = '';
       if (err) {
         message = err;
       }
       courses = result;
     });
+    console.log("courses : " + courses);
 
 
 
