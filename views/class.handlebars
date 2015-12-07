@@ -17,16 +17,20 @@
         <ul id="friend_search_results_profile"></ul>
     </div>
 
+    <div id="sender_info" style="display:none"
+         data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
+
    <h1> My Courses </h1>
+    <div>{{error}}</div>
     <button>Add a course</button>
     <button>Import schedule</button>
 
-    <div class="myCourses">
-      {{#each courses}}
-        <div class="myCourse">
-          <h2>{{course_number}} {{course_title}}</h2>
-        </div>
-      {{/each}}
+    <div class="course_global_sidebar">
+        <ul id="course_list">
+            {{#each courses}}
+                <li class="course">{{course_number}} {{course_title}}</li>
+            {{/each}}
+        </ul>
     </div>
 
     <hr>
