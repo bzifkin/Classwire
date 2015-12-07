@@ -9,12 +9,21 @@
     resize: none;
     height: 20px;
     width: auto;
-    border: none;
+    vertical-align: top;
+    text-align: center;
+}
+
+#major_text{
+    margin-left: 70px;
 }
 
 #header, #friend_search_content {
     display: inline;
 }
+
+/*#major_div{*/
+    /*float: left;*/
+/*}*/
 
 .friends{
     cursor: pointer;
