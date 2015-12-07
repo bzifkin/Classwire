@@ -149,6 +149,25 @@ io.on('connection', (socket) => {
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
 
+app.post('/addevent', upload.single('photo'), function (req, res) {
+    var userId = req.session.user.id;
+    console.log(userId);
+
+      var courseId = "1"
+      var calendarDate = req.body.date;
+      var title = req.body.name;
+      var description = req.body.description;
+      database.addCalendarEvent(courseId, calendarDate, title, description, (err, results)=> {
+        if(err){
+              console.log(err);
+            }else{
+                //added
+            }
+      });
+     console.log(calendarDate +" " +title + " " + description)
+     res.redirect("/class");
+     res.end();
+});
 
 /*
 This allows users to uploads a profile picture to their profile
@@ -258,20 +277,38 @@ app.post('/allowreportedcontent', (req,res) => {
 });
 
 // Home/Splash screen.
-app.get('/', (req, res) => {
+app.get('/', authenticateLogin, (req, res) => {
   // Check whether the user's logged in and online
   // If so, render the home view
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
+
+    var events = '';
+    database.getUsersCalendar(userId, (err, result) => {
+      var message = '';
+      if (err) {
+        message = err;
+        console.log("error : " + message);
+      }
+      events = result;
+    });
+
+    console.log("events : " + events);
+
+    var courses = '';
     database.coursesForUser(userId, (err, result) => {
       var message = '';
       if (err) {
         message = err;
       }
+      courses = result;
+    });
+    console.log("courses : " + courses);
+
+
 
       res.render('home', {
-        message: message,
-        courses: result,
+        courses: courses,
         calendar: [
           {
             date: '03/21/15',
@@ -327,7 +364,6 @@ app.get('/', (req, res) => {
           }
         ]
       });
-    });
   // Otherwise, user is not logged in
   // Render the landing view
   } else {
@@ -390,6 +426,17 @@ app.get('/admin', authenticateAdmin, (req, res) => {
 
 app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
+
+  var events = null;
+    database.getCalendarsForCourse("courseId",function content(err, classEvents){
+      if(err){
+       message = err;
+     }else{
+       events = classEvents;
+     }
+   });
+
+
   res.render('class', {
     className: 'CS326',
     messages: [

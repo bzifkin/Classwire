@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/event_adder.css">
+<script src="/javascript/event_adder_handler.js"></script>
 
 <body>
     <div id="header">
@@ -15,7 +17,7 @@
         <ul id="friend_search_results_profile"></ul>
     </div>
 
-    <h1>Class: {{className}}</h1>
+    <h1 id="className">Class: {{className}}</h1>
 
     <hr>
 
@@ -33,6 +35,28 @@
     <hr>
 
     <h2>Calendar</h2>
+
+
+
+        <p><button id="modal_open">Add Event</button></p>
+        <div id="modal_wrapper">
+          <div id="modal_window">
+
+          <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
+
+          <p>Complete the form below to add Event:</p>
+          <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
+            <p><label>Event Name<strong>*</strong><br>
+            <input type="text" autofocus required size="36" name="name" value=""></label></p>
+            <p><label>Description<strong>*</strong><br>
+            <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
+            <p><label>Due date<strong>*</strong><br>
+            <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
+            <p><input type="submit" name="feedbackForm" value="Add Event"></p>
+          </form>
+          </div>
+        </div> 
+
     <div class="class-calendar">
         {{#each calendar}}
             <div class="calendar-entry">
@@ -87,4 +111,12 @@
     profile_button.onclick = function () {
         window.location.href = "/profile";
     };
+
+
+    if(document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", modal_init, false);
+    } else {
+      document.getElementById("modal_feedback").attachEvent("onsubmit", checkForm);
+      window.aewrtttachEvent("onload", modal_init);
+    }
 </script>
