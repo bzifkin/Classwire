@@ -110,6 +110,7 @@ app.use(flash());
 var team = require('./lib/team');
 var database = require('./lib/database');
 var authentication = require('./routes/authentication');
+var course = require('./routes/class');
 var authenticateLogin = authentication.authenticateLogin;
 var authenticateAdmin = authentication.authenticateAdmin;
 
@@ -148,6 +149,10 @@ io.on('connection', (socket) => {
 
 // Routes involving user login and registration.
 app.use('/auth', require('./routes/authentication').router);
+
+//Routes involving classes
+app.use('/course', require('./routes/class').router);
+
 
 app.post('/addevent', upload.single('photo'), function (req, res) {
     var userId = req.session.user.id;
@@ -435,7 +440,6 @@ app.get('/class', authenticateLogin, (req, res) => {
        events = classEvents;
      }
    });
-
 
   res.render('class', {
     className: 'CS326',

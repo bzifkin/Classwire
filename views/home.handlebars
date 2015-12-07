@@ -23,7 +23,12 @@
 
 
     <h1> My Courses </h1>
-    <button>Add a course</button>
+
+    <form method="post" action="/course/addCourse">
+    Course ID: <label><input type="text" name="course_id"></label> <br>
+    <button>Add Course</button>
+    </form>
+
     <button>Import schedule</button>
     <div class="myCourses">
       {{#each courses}}
@@ -98,4 +103,9 @@
     profile_button.onclick = function () {
         window.location.href = "/profile";
     };
+
+    function addCourseFunction() {
+        var form = document.getElementById("course_add_id");
+        var course = form.elements[0];
+    }
 </script>
