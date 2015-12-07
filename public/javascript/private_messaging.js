@@ -48,7 +48,7 @@ jQuery(($) => {
       fname: $senderInfo.attr('data-fname'),
       lname: $senderInfo.attr('data-lname')};
     var data = {msg: $messageBox.val(), conv_id: current_conv_id, sender_info: senderInfo};
-    socket.emit('send_message', data);
+    socket.emit('send_private_message', data);
     $messageBox.val('');
   });
 

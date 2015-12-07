@@ -121,18 +121,21 @@ var io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log("User connected");
 
-  socket.on('subscribe', (conv_id) => {
-    console.log('Joining conversation: ' + conv_id);
-    socket.join(conv_id);
+  function getSocketCollisionId(conv_id, from_class) {
+    return 2 * conv_id + (from_class ? 1 : 0);
+  }
+
+  socket.on('subscribe', (conv_id, from_class) => {
+    socket.join(getSocketCollisionId(conv_id, from_class));
   });
 
-  socket.on('send_message', (data) => {
+  socket.on('send_private_message', (data) => {
     // Display the message to clients in this conversation.
     var msg_data = {from_user: data.sender_info.user_id,
                     fname: data.sender_info.fname,
                     lname: data.sender_info.lname,
                     message: data.msg};
-    io.sockets.in(data.conv_id).emit('display_private_message', msg_data, data.conv_id);
+    io.sockets.in(getSocketCollisionId(data.conv_id, false)).emit('display_private_message', msg_data, data.conv_id);
 
     // Save the message in the database.
     database.createNewMessage(data.sender_info.user_id, data.conv_id, data.msg, (err, success) => {
