@@ -353,39 +353,12 @@ app.get('/', authenticateLogin, (req, res) => {
               filename: 'syllabus.pdf',
               className: "CS325"
             }
-            ],
-            messages: [
-            {
-              timestamp: '13:04:12',
-              name: 'John',
-              message: 'hey how did you do on the test?'
-            },
-            {
-              timestamp: '09:00:01',
-              name: 'Sam',
-              message: 'Meet you outside of class!'
-            },
-            {
-              timestamp: '14:01:00',
-              name: 'Michael',
-              message: 'Call me 774-281-1001'
-            }
             ]
-
           });
-
-
 });
 
 
 });
-
-
-
-
-
-
-    
   // Otherwise, user is not logged in
   // Render the landing view
   } else {
@@ -449,6 +422,7 @@ app.get('/admin', authenticateAdmin, (req, res) => {
 app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
   var userId = req.session.user.id;
+  console.log(req.session);
 
   // Get the user's enrolled courses.
   database.coursesForUser(userId, (err, courses) => {
