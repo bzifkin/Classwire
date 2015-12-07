@@ -44,12 +44,18 @@ jQuery(($) => {
 
   $messageForm.submit((e) => {
     e.preventDefault();
+
+    var message = $messageBox.val().trim();
+    $messageBox.val('');
+    if (message === '') {
+      return;
+    }
+
     var senderInfo = {user_id: $senderInfo.attr('data-user-id'),
       fname: $senderInfo.attr('data-fname'),
       lname: $senderInfo.attr('data-lname')};
-    var data = {msg: $messageBox.val(), conv_id: current_conv_id, sender_info: senderInfo};
+    var data = {msg: message, conv_id: current_conv_id, sender_info: senderInfo};
     socket.emit('send_private_message', data);
-    $messageBox.val('');
   });
 
   socket.on('display_private_message', (msg_data, conv_id) => {

@@ -119,7 +119,6 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  console.log("User connected");
 
   function getSocketCollisionId(conv_id, from_class) {
     return 2 * conv_id + (from_class ? 1 : 0);
@@ -145,8 +144,24 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('send_class_message', (data) => {
+    // Display the message to clients in this conversation.
+    var msg_data = {from_user: data.sender_info.user_id,
+      fname: data.sender_info.fname,
+      lname: data.sender_info.lname,
+      message: data.msg};
+    io.sockets.in(getSocketCollisionId(data.course_id, true)).emit('display_class_message', msg_data, data.course_id);
+
+    // Save the message in the database.
+    database.createNewClassMessage(data.sender_info.user_id, data.course_id, data.msg, (err, success) => {
+      if (err) {
+        console.log('Error saving message: ' + err);
+      }
+    });
+  });
+
   socket.on('disconnect', () => {
-    console.log("User disconnected");
+    // no-op
   });
 });
 
@@ -469,6 +484,18 @@ app.get('/class', authenticateLogin, (req, res) => {
   });
 });
 
+app.get('/class/messages/fetch', authenticateLogin, (req, res) => {
+  var course_id = req.query.course_id;
+  database.getClassMessages(course_id, (err, results) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.messages = results;
+    }
+    res.send(data);
+  });
+});
 
 app.get('/messages', authenticateLogin, (req, res) => {
   var message = req.flash('messages') || '';
