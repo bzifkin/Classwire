@@ -314,7 +314,7 @@ app.get('/', authenticateLogin, (req, res) => {
       var message = '';
       if (err) {
         message = err;
-      }else{
+      }
        calendar = result;
 
 
@@ -324,7 +324,7 @@ app.get('/', authenticateLogin, (req, res) => {
         if (err) {
           message = err;
           console.log(message);
-        }else{
+        }
           courses = result;
 
 
@@ -374,10 +374,10 @@ app.get('/', authenticateLogin, (req, res) => {
 
           });
 
-}
+
 });
 
-}
+
 });
 
 
