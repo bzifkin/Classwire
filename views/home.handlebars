@@ -30,10 +30,11 @@
     </form>
 
     <button>Import schedule</button>
+
     <div class="myCourses">
       {{#each courses}}
         <div class="myCourse">
-          <h2>{{course_title}}</h2>
+          <h2>{{course_number}} {{course_title}}</h2>
         </div>
       {{/each}}
     </div>
@@ -43,11 +44,12 @@
 
 
     <h2>My Calendar</h2>
-
+{{#foo}} {{/foo}}
+   
     <div class="class-calendar">
         {{#each calendar}}
             <div class="calendar-entry">
-                <h4>{{date}} - {{title}} - {{className}} -  <button>Remove</button></h4>
+                <h4>{{calendar_date}} - {{title}}</h4>
                 <p>{{description}}</p>
             </div>
         {{/each}}
