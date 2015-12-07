@@ -48,6 +48,8 @@
           <form id="modal_feedback" onsubmit="addClassEvent(this)" accept-charset="UTF-8">
             <p><label>Event Name<strong>*</strong><br>
             <input type="text" autofocus required size="36" name="name" value=""></label></p>
+            <p><label>Description<strong>*</strong><br>
+            <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
             <p><label>Due date<strong>*</strong><br>
             <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
             <p><input type="submit" name="feedbackForm" value="Add Event"></p>
@@ -120,7 +122,23 @@
 
     function addClassEvent(form){
       var MyDiv = document.getElementById('className').innerHTML;
-      var className = MyDiv.substr(MyDiv.indexOf(" ") + 1); //removing "class:" from string
+      var className = MyDiv.substr(MyDiv.indexOf(" ") + 1);
+      var courseId = "12345" //??????
+      var calendarDate = form.date.value;
+      var title = form.name.value;
+      var description = form.description.value
+      database.addCalendarEvent(courseId, calendarDate, title, description, (err, results)=> {
+        if(err){
+                alert(err);
+            }else{
+                //added
+            }
+        });
+      }
+
+
+
+}
 
       }
 </script>

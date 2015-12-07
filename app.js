@@ -248,18 +248,8 @@ app.get('/', authenticateLogin, (req, res) => {
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
 
-
-    var events = null;
-    database.getUsersCalendar(userId,function content(err, allOfUsersEvents){
-      if(err){
-       message = err;
-     }else{
-       events = allOfUsersEvents;
-     }
-   });
-
     var courses = null;
-    database.coursesForUser(userId, (err, result) => {
+    database.getUsersCalendar(userId, (err, result) => {
       var message = '';
       if (err) {
         message = err;
@@ -393,7 +383,7 @@ app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
 
   var events = null;
-    database.getCalendarsForCourse(/**class ID**/,function content(err, classEvents){
+    database.getCalendarsForCourse("courseId",function content(err, classEvents){
       if(err){
        message = err;
      }else{
