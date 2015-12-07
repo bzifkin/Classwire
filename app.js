@@ -197,7 +197,6 @@ app.post('/upload', upload.single('photo'), function (req, res, next) {
 Saves biography of the user's profile
  */
 app.post('/savebio',(req,res) => {
-    console.log('savebio');
     var userId = req.session.user.id;
     var body = req.body;
     var bioText = body['val'];
@@ -211,7 +210,6 @@ app.post('/savebio',(req,res) => {
 Saves activities of the user's profile
  */
 app.post('/saveact',(req,res) => {
-    console.log('saveact');
     var userId = req.session.user.id;
     var body = req.body;
     var activities = body['val'];
@@ -221,13 +219,31 @@ app.post('/saveact',(req,res) => {
     });
 });
 
+app.post('/savegrad',(req,res) => {
+    var userId = req.session.user.id;
+    var body = req.body;
+    var gradYear = body['val'];
+
+    database.saveGraduationYearData(userId, gradYear, function(err){
+        console.log(err);
+    });
+});
+
+app.post('/savemajor',(req,res) => {
+    var userId = req.session.user.id;
+    var body = req.body;
+    var major = body['val'];
+
+    database.saveMajorData(userId, major, function(err){
+        console.log(err);
+    });
+});
+
 app.post('/deletereportedcontent', (req,res) => {
    var body = req.body;
    var messageId = body['messageId'];
 
    database.deleteReportedContent(messageId, function(err, result){
-      console.log("deleted");
-       console.log(err);
       res.send({success:true});
    });
 });
@@ -325,9 +341,6 @@ app.get('/profile', authenticateLogin, (req, res) => {
   var userId = req.session.user.id;
 
   var goToUser = req.query.query;
-  console.log(goToUser);
-  console.log(req);
-    console.log(req.query);
 
   if(typeof goToUser !== 'undefined'){
       userId = goToUser;

@@ -5,6 +5,13 @@
     height: 200px;
 }
 
+#grad_text, #major_text{
+    resize: none;
+    height: 20px;
+    width: auto;
+    border: none;
+}
+
 #header, #friend_search_content {
     display: inline;
 }
@@ -14,5 +21,7 @@
     cursor: hand;
     list-style-type: none;
 }
+
+
 
 body {padding-left: 10px}

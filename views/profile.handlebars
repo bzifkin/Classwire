@@ -28,9 +28,19 @@
     {{/if}}
 
     <div id="profileInfo">
-        <p>{{user.fname}} {{user.lname}}</p>
-        <p>{{user.year}}</p>
-        <p>{{user.major}}</p>
+        <p><Strong>{{user.fname}} {{user.lname}}</Strong></p>
+        {{#if edits}}
+            <span class="btn-group">
+                <button class="btn btn-mini" id = "year_edit" onclick="saveInfo(this)" value = 'grad_text'>Edit</button>
+            </span>
+        {{/if}}
+        <br>Graduation Year: <textarea id="grad_text" disabled="disabled">{{user.year}}</textarea><br>
+        {{#if edits}}
+            <span class="btn-group">
+                <button class="btn btn-mini" id = "major_edit" onclick="saveInfo(this)" value = 'major_text'>Edit</button>
+            </span>
+        {{/if}}
+        <br>Major: <textarea id ="major_text" disabled="disabled">{{user.major}}</textarea><br>
     </div>
 
     <div id="currentCourses">
@@ -103,8 +113,12 @@
             textarea.disabled = true;
             if(button.value === 'acts_text'){
                 makeAjax(textarea.value,'saveact');
-            }else{
+            }else if(button.value === 'bio_text'){
                 makeAjax(textarea.value,'savebio');
+            }else if(button.value === 'grad_text'){
+                makeAjax(textarea.value, 'savegrad');
+            }else if(button.value === 'major_text'){
+                makeAjax(textarea.value, 'savemajor');
             }
 
             button.innerText = 'Edit';

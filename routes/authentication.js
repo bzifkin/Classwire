@@ -155,6 +155,10 @@ router.post('/register', (req, res) => {
           res.redirect('/auth/login');
         }
         else {
+          console.log(user);
+          database.createStudent(user.id,function(err){
+              console.log('student created');
+          });
           // add the user to the map of online users:
           online[user.email] = user;
 
