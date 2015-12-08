@@ -17,19 +17,37 @@ jQuery(($) => {
 
   var currentCourseId;
 
+  $courses.bind('click', courseOnClick);
+
   if ($courses.size() === 0) {
     $chatContent.hide();
   } else {
-    $courses.eq(0).addClass('active');
-    currentCourseId = $courses.eq(0).attr('id');
-
     // Subscribe to all courses.
     for (var i = 0; i < $courses.size(); i++) {
       var course_id = $courses.eq(i).attr('id');
       socket.emit('subscribe', course_id, true);
     }
 
-    loadAllMessages(currentCourseId);
+    $courses.eq(0).click();
+  }
+
+  function courseOnClick() {
+    var clicked_course_id = $(this).attr('id');
+    if (clicked_course_id !== currentCourseId) {
+      currentCourseId = clicked_course_id;
+
+      toggleActiveCourse();
+      loadAllMessages(currentCourseId);
+    }
+  }
+
+  function toggleActiveCourse() {
+    $('li.active').removeClass('active');
+    $courses.each(function() {
+      if ($(this).attr('id') === currentCourseId) {
+        $(this).addClass('active');
+      }
+    });
   }
 
   //
