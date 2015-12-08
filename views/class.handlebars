@@ -79,7 +79,7 @@
         </div>
 
 
-        <div id="class_resources_wrapper">
+        <div style="display: none" id="class_resources_wrapper">
             <h2>Class Resources</h2>
             <div class="class-resources">
                 {{#each resources}}
@@ -92,15 +92,11 @@
             </div>
         </div>
 
+
         <div id="class_members_wrapper">
-            <h2>Member List</h2>
-            <div class="class-member-list">
-                <p>
-                    {{#each members}}
-                        {{name}} [{{year}}]<br>
-                    {{/each}}
-                </p>
-            </div>
+            <h2>Classmates</h2>
+            <div id="members_list_error_bar"></div>
+            <ul id="members_list"></ul>
         </div>
 
     </div>
