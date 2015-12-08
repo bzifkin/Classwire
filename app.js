@@ -172,44 +172,20 @@ app.use('/auth', require('./routes/authentication').router);
 app.use('/course', require('./routes/class').router);
 
 
-app.post('/addevent', upload.single('photo'), function (req, res) {
-  var userId = req.session.user.id;
-  console.log(userId);
+app.post('/addevent', function (req, res) {
+  var calendarDate = req.body.date;
+  var title = req.body.name;
+  var description = req.body.description;
+  var course_id = req.body.course_id;
 
-  database.coursesForUser(userId, (err, result) => {
-    var message = '';
-    if (err) {
-      message = err;
-      console.log(message);
+  database.addCalendarEvent(course_id, calendarDate, title, description, (err, results)=> {
+    if(err){
+      console.log(err);
     }else{
-
-
-
-      var courseName = req.body.class;
-      var calendarDate = req.body.date;
-      var title = req.body.name;
-      var description = req.body.description;
-      var courseId = null;
-
-      for(var i=0; i<result.length; i++) {
-        if(result[i].course_number == courseName){
-          courseId = result[i].id;
-        }
-      }
-
-
-      database.addCalendarEvent(courseId, calendarDate, title, description, (err, results)=> {
-        if(err){
-          console.log(err);
-        }else{
-          console.log(calendarDate +" " +title + " " + description)
-          res.redirect("/class");
-          res.end();
-        }
-      });
-
+      console.log(calendarDate +" " +title + " " + description);
+      res.redirect("/class");
+      res.end();
     }
-
   });
 });
 

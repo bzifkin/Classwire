@@ -16,6 +16,7 @@ jQuery(($) => {
 
   var $eventsList = $('#events_list');
   var $eventsListErrorBar = $('#events_list_error_bar');
+  var $addEventCourseIdMarker = $('#add_event_course_id');
 
   var currentCourseId;
 
@@ -37,6 +38,7 @@ jQuery(($) => {
     var clicked_course_id = $(this).attr('id');
     if (clicked_course_id !== currentCourseId) {
       currentCourseId = clicked_course_id;
+      $addEventCourseIdMarker.attr('value', currentCourseId);
 
       toggleActiveCourse();
 
