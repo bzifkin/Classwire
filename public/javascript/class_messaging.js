@@ -6,21 +6,23 @@ jQuery(($) => {
   var socket = io.connect();
   var $senderInfo = $('#sender_info');
 
-  var $courseList = $('#course_list');
   var $courses = $('.course');
+  var $courseContent = $('#course_content');
 
-  var $chatContent = $('#class_message_wrapper');
   var $messageList = $('#message_list');
   var $messageListErrorBar = $('#message_list_error_bar');
   var $messageForm = $('#send_message');
   var $messageBox = $('#message');
+
+  var $eventsList = $('#events_list');
+  var $eventsListErrorBar = $('#events_list_error_bar');
 
   var currentCourseId;
 
   $courses.bind('click', courseOnClick);
 
   if ($courses.size() === 0) {
-    $chatContent.hide();
+    $courseContent.hide();
   } else {
     // Subscribe to all courses.
     for (var i = 0; i < $courses.size(); i++) {
@@ -37,7 +39,9 @@ jQuery(($) => {
       currentCourseId = clicked_course_id;
 
       toggleActiveCourse();
+
       loadAllMessages(currentCourseId);
+      loadAllEvents(currentCourseId);
     }
   }
 
@@ -51,7 +55,7 @@ jQuery(($) => {
   }
 
   //
-  // MESAGGES
+  // MESSAGES
   //
 
   function loadAllMessages(course_id) {
@@ -109,5 +113,40 @@ jQuery(($) => {
   socket.on('display_class_message', (msg_data, course_id) => {
     appendNewMessage(msg_data, course_id, true);
   });
+
+
+  //
+  // Events
+  //
+
+  function loadAllEvents(course_id) {
+    // Clear out old events.
+    $eventsList.empty();
+
+    // Make a request for the new events.
+    $.getJSON('/class/events/fetch', {course_id: course_id}, function(data) {
+      if (data.error) {
+        $eventsListErrorBar.text(data.error);
+      } else {
+        for (var i=0; i < data.events.length; i++) {
+          var event_data = data.events[i];
+          appendNewEvent(event_data, course_id);
+        }
+      }
+    });
+  }
+
+  function appendNewEvent(event_data, course_id) {
+    if (course_id === currentCourseId) {
+      // Reset the error message.
+      $eventsListErrorBar.text('');
+
+      // Append the new event.
+      $eventsList.append(
+          '<li class="calendar_entry" id=' + event_data.id +
+              '><h4>' + event_data.calendar_date + ' - ' + event_data.title
+              + '</h4><p>' + event_data.description + '</p>');
+    }
+  }
 
 });

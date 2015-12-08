@@ -471,6 +471,19 @@ app.get('/class/messages/fetch', authenticateLogin, (req, res) => {
   });
 });
 
+app.get('/class/events/fetch', authenticateLogin, (req, res) => {
+  var course_id = req.query.course_id;
+  database.getCalendarsForCourse(course_id, (err, results) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.events = results;
+    }
+    res.send(data);
+  });
+});
+
 app.get('/messages', authenticateLogin, (req, res) => {
   var message = req.flash('messages') || '';
   var data = {message: message, sender: req.session.user};

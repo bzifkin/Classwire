@@ -49,7 +49,7 @@
         </div>
 
 
-        <div id="class_calendar_wrapper">
+        <div id="class_events_wrapper">
             <h2>Calendar</h2>
 
             <p><button id="modal_open">Add Event</button></p>
@@ -72,7 +72,9 @@
               </div>
             </div>
 
-            <div class="class_calendar">
+            <div class="class_events">
+                <div id="events_list_error_bar"></div>
+                <ul id="events_list"></ul>
                 {{#each calendar}}
                     <div class="calendar-entry">
                         <h4>{{calendar_date}} - {{title}}</h4>
