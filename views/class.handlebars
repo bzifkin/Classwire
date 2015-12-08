@@ -79,6 +79,46 @@
         </div>
 
 
+
+
+         <div id="class_resources_wrapper">
+            <h2>Resources</h2>
+
+              <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Resource</button>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  
+                  <p>Complete the form below to add a resource:</p>
+                  <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
+                    <p><label>Resource Name<strong>*</strong><br>
+                    <input type="text" autofocus required size="36" name="name" value=""></label></p>
+                    
+                    <form method="post" enctype="multipart/form-data" action = "/upload">
+                        <input type="file" name="photo" required>
+                        <input type="submit">
+                    </form>
+                  </form>
+
+
+                </div>
+
+              </div>
+            </div>
+
+
+        </div>
+
+
+      
+
+
+
         <div style="display: none" id="class_resources_wrapper">
             <h2>Class Resources</h2>
             <div class="class-resources">
@@ -109,6 +149,7 @@
 </body>
 <head>
     <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
+    
 </head>
 <script>
     var home_button = document.getElementById("home_button");
