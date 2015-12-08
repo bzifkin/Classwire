@@ -324,12 +324,13 @@ app.post('/allowreportedcontent', (req,res) => {
 app.get('/', authenticateLogin, (req, res) => {
   // Check whether the user's logged in and online
   // If so, render the home view
+var message = req.flash('home') || '';
+
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
 
     var calendar = null;
     database.getUsersCalendar(userId, (err, result) => {
-      var message = '';
       if (err) {
         message = err;
       }
@@ -338,10 +339,8 @@ app.get('/', authenticateLogin, (req, res) => {
 
        var courses = null;
        database.coursesForUser(userId, (err, result) => {
-        var message = '';
         if (err) {
           message = err;
-          console.log(message);
         }
           courses = result;
 
@@ -349,6 +348,7 @@ app.get('/', authenticateLogin, (req, res) => {
           res.render('home', {
             courses: result,
             calendar: calendar,
+            message:message,
             resources: [
             {
               title: 'Assignment One',
