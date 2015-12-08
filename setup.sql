@@ -49,7 +49,8 @@ CREATE TABLE File (
   data bytea,
   course integer REFERENCES Course,
   owner integer REFERENCES _User(id),
-  date_created date
+  date_created date,
+  url VARCHAR(200)
 );
 
 CREATE TABLE Chat_Messages (

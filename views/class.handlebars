@@ -66,7 +66,7 @@
                 <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
                 <p><label>Due date<strong>*</strong><br>
                 <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
-                <input id="add_event_course_id" type="hidden" name="course_id">
+                <input id="course_id_input_field" type="hidden" name="course_id">
                 <p><input type="submit" name="feedbackForm" value="Add Event"></p>
               </form>
               </div>
@@ -84,7 +84,7 @@
          <div id="class_resources_wrapper">
             <h2>Resources</h2>
 
-              <!-- Trigger the modal with a button -->
+              <!-- Trigger the modal with a button  -->
             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Resource</button>
 
             <!-- Modal -->
@@ -93,24 +93,20 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                  
+                  <center>
                   <p>Complete the form below to add a resource:</p>
-                  <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
+                  <form id="modal_feedback" method="post" enctype="multipart/form-data" action = "/uploadResource" accept-charset="UTF-8">
                     <p><label>Resource Name<strong>*</strong><br>
-                    <input type="text" autofocus required size="36" name="name" value=""></label></p>
-                    
-                    <form method="post" enctype="multipart/form-data" action = "/upload">
-                        <input type="file" name="photo" required>
-                        <input type="submit">
-                    </form>
+                    <input type="text" autofocus required size="36" name="filetitle"></label></p>
+                    <input type="file" name="classResource" required>
+                    <input id="course_id_input_field2" type="hidden" name="course_id">
+                    <input type="submit" name="feedbackForm">
                   </form>
-
-
+                  </center>
                 </div>
 
               </div>
             </div>
-
 
         </div>
 

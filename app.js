@@ -178,6 +178,7 @@ app.post('/addevent', function (req, res) {
   var description = req.body.description;
   var course_id = req.body.course_id;
 
+  console.log("course: " + course_id);
   database.addCalendarEvent(course_id, calendarDate, title, description, (err, results)=> {
     if(err){
       console.log(err);
@@ -229,7 +230,6 @@ app.post('/upload', upload.single('photo'), function (req, res, next) {
             });
         }
     }
-
 });
 
 /*
@@ -294,6 +294,56 @@ app.post('/allowreportedcontent', (req,res) => {
     database.allowReportedContent(messageId, function(err, result){
         res.send({success:true});
     });
+});
+
+/*
+This allows users to uploads a profile picture to their profile
+Relies on a library called multer which takes in form data files
+ */
+app.post('/uploadResource', upload.single('classResource'), function (req, res, next) {
+    var userId = req.session.user.id;
+
+    console.log(req.file);
+    console.log("courseID = " + req.body.course_id);
+    if(typeof req.file === 'undefined'){
+        //maybe add logic here to do something
+    }else {
+
+        var fileName = req.body.filetitle;
+
+        if (!fileName) {
+
+            console.log("There was an error -> No filename");
+            res.redirect("/");
+            res.end();
+
+        } else {
+
+            var newPath = req.file.path;
+
+            fs.readFile(newPath, function (err, data) {
+
+
+
+              database.saveResource('/uploads/' + fileName, fileName, req.body.course_id, userId, function(err) {
+                  if(err){
+                    console.log(err);
+                  }else{
+                    /// write file to uploads folder
+                      fs.writeFile(newPath, data, function (err) {
+                          res.redirect("/class");
+                          res.end();
+                          console.log('saved path successfully.');
+                      });
+                    
+
+                  }
+                    // res.redirect('back');
+              });
+                
+            });
+        }
+    }
 });
 
 // Home/Splash screen.

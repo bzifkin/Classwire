@@ -16,7 +16,8 @@ jQuery(($) => {
 
   var $eventsList = $('#events_list');
   var $eventsListErrorBar = $('#events_list_error_bar');
-  var $addEventCourseIdMarker = $('#add_event_course_id');
+  var $courseIdInputFieldMarker = $('#course_id_input_field');
+  var $courseIdInputFieldMarker2 = $('#course_id_input_field2');
 
   var $membersList = $('#members_list');
   var $membersListErrorBar = $('#members_list_error_bar');
@@ -41,7 +42,8 @@ jQuery(($) => {
     var clicked_course_id = $(this).attr('id');
     if (clicked_course_id !== currentCourseId) {
       currentCourseId = clicked_course_id;
-      $addEventCourseIdMarker.attr('value', currentCourseId);
+      $courseIdInputFieldMarker.attr('value', currentCourseId);
+      $courseIdInputFieldMarker2.attr('value', currentCourseId);
 
       toggleActiveCourse();
 
