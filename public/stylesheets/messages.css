@@ -2,15 +2,25 @@
 
 }
 
-#chat_content, #new_conversation, #send_message{
-
+#new_conversation{
+    margin-left: 30px;
 }
 
 .conversation {
     cursor: pointer;
     cursor: hand;
-    list-style-type: none}
+    list-style-type: none
+}
 
 .active {
     color: #0b97c4;
 }
+
+#send_button, #message{
+    display: inline;
+}
+
+#send_message{
+    margin-left: 30px;
+}
+
