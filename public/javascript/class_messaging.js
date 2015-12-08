@@ -18,6 +18,9 @@ jQuery(($) => {
   var $eventsListErrorBar = $('#events_list_error_bar');
   var $addEventCourseIdMarker = $('#add_event_course_id');
 
+  var $membersList = $('#members_list');
+  var $membersListErrorBar = $('#members_list_error_bar');
+
   var currentCourseId;
 
   $courses.bind('click', courseOnClick);
@@ -44,6 +47,7 @@ jQuery(($) => {
 
       loadAllMessages(currentCourseId);
       loadAllEvents(currentCourseId);
+      loadAllMembers(currentCourseId);
     }
   }
 
@@ -147,7 +151,45 @@ jQuery(($) => {
       $eventsList.append(
           '<li class="calendar_entry" id=' + event_data.id +
               '><h4>' + event_data.calendar_date + ' - ' + event_data.title
-              + '</h4><p>' + event_data.description + '</p>');
+              + '</h4><p>' + event_data.description + '</p></li>');
+    }
+  }
+
+
+  //
+  // Members
+  //
+
+  function loadAllMembers(course_id) {
+    // Clear out old events.
+    $membersList.empty();
+
+    // Make a request for the new events.
+    $.getJSON('/class/members/fetch', {course_id: course_id}, function(data) {
+      if (data.error) {
+        $membersListErrorBar.text(data.error);
+      } else {
+        for (var i=0; i < data.members.length; i++) {
+          var member_data = data.members[i];
+          appendNewMember(member_data, course_id);
+        }
+      }
+    });
+  }
+
+  function appendNewMember(member_data, course_id) {
+    if (course_id === currentCourseId) {
+      // Reset the error message.
+      $membersListErrorBar.text('');
+
+      var elm = $('<li class="classmate" id=' + member_data.id + '>' +
+          member_data.fname + ' ' + member_data.lname + '</li>');
+      elm.bind('click', function() {
+        window.location.href = '/profile?query=' + member_data.id;
+      });
+
+      // Append the new event.
+      $membersList.append(elm);
     }
   }
 

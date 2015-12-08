@@ -460,6 +460,21 @@ app.get('/class/events/fetch', authenticateLogin, (req, res) => {
   });
 });
 
+app.get('/class/members/fetch', authenticateLogin, (req, res) => {
+  var user_id = req.session.user.id;
+  var course_id = req.query.course_id;
+
+  database.getUsersForCourse(user_id, course_id, (err, results) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.members = results;
+    }
+    res.send(data);
+  });
+});
+
 app.get('/messages', authenticateLogin, (req, res) => {
   var message = req.flash('messages') || '';
   var data = {message: message, sender: req.session.user};
