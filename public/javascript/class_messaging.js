@@ -16,6 +16,12 @@ jQuery(($) => {
 
   var $eventsList = $('#events_list');
   var $eventsListErrorBar = $('#events_list_error_bar');
+
+
+  var $resourcesList = $('#resources_list');
+  var $resourcesListErrorBar = $('#resources_list_error_bar');
+
+
   var $courseIdInputFieldMarker = $('#course_id_input_field');
   var $courseIdInputFieldMarker2 = $('#course_id_input_field2');
 
@@ -49,6 +55,7 @@ jQuery(($) => {
 
       loadAllMessages(currentCourseId);
       loadAllEvents(currentCourseId);
+      loadAllResources(currentCourseId);
       loadAllMembers(currentCourseId);
     }
   }
@@ -154,6 +161,42 @@ jQuery(($) => {
           '<li class="calendar_entry" id=' + event_data.id +
               '><h4>' + event_data.calendar_date + ' - ' + event_data.title
               + '</h4><p>' + event_data.description + '</p></li>');
+    }
+  }
+
+
+
+  //
+  // Resources
+  //
+
+  function loadAllResources(course_id) {
+    // Clear out old events.
+    $resourcesList.empty();
+
+    // Make a request for the new events.
+    $.getJSON('/class/resources/fetch', {course_id: course_id}, function(data) {
+      if (data.error) {
+        $resourcesListErrorBar.text(data.error);
+      } else {
+        for (var i=0; i < data.resources.length; i++) {
+          var resources_data = data.resources[i];
+          appendNewResource(resources_data, course_id);
+        }
+      }
+    });
+  }
+
+  function appendNewResource(resources_data, course_id) {
+    if (course_id === currentCourseId) {
+      // Reset the error message.
+      $resourcesListErrorBar.text('');
+
+      // Append the new event.
+      $resourcesList.append(
+          '<li class="resources_entry" id=' + resources_data.id +
+              '><div>' + resources_data.name + '<a href=' + resources_data.url + '> download</a>'
+              +'</div><p></p></li>');
     }
   }
 

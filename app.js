@@ -510,6 +510,19 @@ app.get('/class/events/fetch', authenticateLogin, (req, res) => {
   });
 });
 
+app.get('/class/resources/fetch', authenticateLogin, (req, res) => {
+  var course_id = req.query.course_id;
+  database.getClassResources(course_id, (err, results) => {
+    var data = {};
+    if (err) {
+      data.error = err;
+    } else {
+      data.resources = results;
+    }
+    res.send(data);
+  });
+});
+
 app.get('/class/members/fetch', authenticateLogin, (req, res) => {
   var user_id = req.session.user.id;
   var course_id = req.query.course_id;
