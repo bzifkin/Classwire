@@ -371,6 +371,16 @@ var message = req.flash('home') || '';
           courses = result;
 
 
+          for(var i = 0; i < calendar.length; i++){
+            var cal = calendar[i].calendar_date;
+            var date = new Date(cal);
+            var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
+            calendar[i].calendar_date = dateString;
+          }
+
+
+
+
           res.render('home', {
             courses: result,
             calendar: calendar,
