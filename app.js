@@ -325,7 +325,7 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
 
 
 
-              database.saveResource('/uploads/' + fileName, fileName, req.body.course_id, userId, function(err) {
+              database.saveResource('/uploads/' + req.file.filename, fileName, req.body.course_id, userId, function(err) {
                   if(err){
                     console.log(err);
                   }else{
