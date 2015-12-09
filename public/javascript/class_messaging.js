@@ -172,7 +172,7 @@ jQuery(($) => {
 
   function loadAllResources(course_id) {
     // Clear out old events.
-    $eventsList.empty();
+    $resourcesList.empty();
 
     // Make a request for the new events.
     $.getJSON('/class/resources/fetch', {course_id: course_id}, function(data) {
@@ -195,8 +195,8 @@ jQuery(($) => {
       // Append the new event.
       $resourcesList.append(
           '<li class="resources_entry" id=' + resources_data.id +
-              '><h4>' + resources_data.name + '<a href=' + resources_data.url + '> download</a>'
-              +'</h4><p></p></li>');
+              '><div>' + resources_data.name + '<a href=' + resources_data.url + '> download</a>'
+              +'</div><p></p></li>');
     }
   }
 
