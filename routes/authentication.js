@@ -30,7 +30,7 @@ function authenticateLogin(req, res, next) {
   else if (user && !online[user.email]) {
     req.flash('login', 'Login Expired');
     delete req.session.user;
-    res.redirect('/auth/login')
+    res.redirect('/auth/login');
   } else {
     next();
   }
@@ -48,7 +48,7 @@ function authenticateAdmin(req, res, next){
     else if (user && !online[user.email]) {
         req.flash('login', 'Login Expired');
         delete req.session.user;
-        res.redirect('/auth/login')
+        res.redirect('/auth/login');
     } else {
         //Queries the database to see if the user is admin. If so, they are directed to that page.
         //Otherwise they are brought to profile and flashed a message.
@@ -81,6 +81,12 @@ router.get('/login', (req, res) => {
       messageRegister: messageRegister
     });
   }
+});
+
+router.get('/logout', authenticateLogin, (req, res) => {
+  delete online[req.session.user.email];
+  delete req.session.user;
+  res.redirect('/auth/login')
 });
 
 // Authorize login credentials.
