@@ -35,13 +35,21 @@ jQuery(($) => {
   if ($courses.size() === 0) {
     $courseContent.hide();
   } else {
+    var init_course_index = 0;
+    var init_cid = $senderInfo.attr('data-init-cid');
+
     // Subscribe to all courses.
     for (var i = 0; i < $courses.size(); i++) {
       var course_id = $courses.eq(i).attr('id');
       socket.emit('subscribe', course_id, true);
+
+      // Check if this is our initial course.
+      if (course_id === init_cid) {
+        init_course_index = i;
+      }
     }
 
-    $courses.eq(0).click();
+    $courses.eq(init_course_index).click();
   }
 
   function courseOnClick() {
@@ -155,11 +163,12 @@ jQuery(($) => {
     if (course_id === currentCourseId) {
       // Reset the error message.
       $eventsListErrorBar.text('');
-
+    var date = new Date(event_data.calendar_date);
+    var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
       // Append the new event.
       $eventsList.append(
           '<li class="calendar_entry" id=' + event_data.id +
-              '><h4>' + event_data.calendar_date + ' - ' + event_data.title
+              '><h4>' + dateString + ' - ' + event_data.title
               + '</h4><p>' + event_data.description + '</p></li>');
     }
   }
@@ -228,7 +237,9 @@ jQuery(($) => {
       $membersListErrorBar.text('');
 
       var elm = $('<li class="classmate" id=' + member_data.id + '>' +
-          member_data.fname + ' ' + member_data.lname + '</li>');
+          '<img class="profile_icture" src=' + member_data.profile_picture_url
+          + ' alt="No Profile Picture" width = "100" height="100">' +
+          '<div class= "name">' + member_data.fname + ' ' + member_data.lname + '</div></li>');
       elm.bind('click', function() {
         window.location.href = '/profile?query=' + member_data.id;
       });
