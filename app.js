@@ -378,35 +378,16 @@ var message = req.flash('home') || '';
 
 
 
-
-          res.render('home', {
-            courses: result,
-            calendar: calendar,
-            message:message,
-            resources: [
-            {
-              title: 'Assignment One',
-              timestamp: '04:12:53 03/12/15',
-              filepath: 'http://amazons3storagecdnorthelike.com/assignment-one.zip',
-              filename: 'assignment-one.zip',
-              className: "CS326"
-            },
-            {
-              title: 'Assignment Two',
-              timestamp: '05:12:53 03/12/15',
-              filepath: 'http://amazons3storagecdnorthelike.com/assignment-two.zip',
-              filename: 'assignment-two.zip',
-              className: "AM264"
-            },
-            {
-              title: 'Syllabus',
-              timestamp: '06:12:53 03/12/15',
-              filepath: 'http://amazons3storagecdnorthelike.com/syllabus.pdf',
-              filename: 'syllabus.pdf',
-              className: "CS325"
-            }
-            ]
+          database.getAllUserResources(userId, (err, result) => {
+              console.log(result);
+              res.render('home', {
+                  courses: courses,
+                  calendar: calendar,
+                  message: message,
+                  resources: result
+              });
           });
+
 });
 
 
