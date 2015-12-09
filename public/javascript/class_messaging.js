@@ -155,11 +155,12 @@ jQuery(($) => {
     if (course_id === currentCourseId) {
       // Reset the error message.
       $eventsListErrorBar.text('');
-
+    var date = new Date(event_data.calendar_date);
+    var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
       // Append the new event.
       $eventsList.append(
           '<li class="calendar_entry" id=' + event_data.id +
-              '><h4>' + event_data.calendar_date + ' - ' + event_data.title
+              '><h4>' + dateString + ' - ' + event_data.title
               + '</h4><p>' + event_data.description + '</p></li>');
     }
   }

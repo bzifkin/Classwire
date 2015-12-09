@@ -325,7 +325,7 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
 
 
 
-              database.saveResource('/uploads/' + fileName, fileName, req.body.course_id, userId, function(err) {
+              database.saveResource('/uploads/' + req.file.filename, fileName, req.body.course_id, userId, function(err) {
                   if(err){
                     console.log(err);
                   }else{
@@ -369,6 +369,16 @@ var message = req.flash('home') || '';
           message = err;
         }
           courses = result;
+
+
+          for(var i = 0; i < calendar.length; i++){
+            var cal = calendar[i].calendar_date;
+            var date = new Date(cal);
+            var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
+            calendar[i].calendar_date = dateString;
+          }
+
+
 
 
           res.render('home', {
