@@ -228,7 +228,9 @@ jQuery(($) => {
       $membersListErrorBar.text('');
 
       var elm = $('<li class="classmate" id=' + member_data.id + '>' +
-          member_data.fname + ' ' + member_data.lname + '</li>');
+          '<img class="profile_icture" src=' + member_data.profile_picture_url
+          + ' alt="No Profile Picture" width = "100" height="100">' +
+          '<div class= "name">' + member_data.fname + ' ' + member_data.lname + '</div></li>');
       elm.bind('click', function() {
         window.location.href = '/profile?query=' + member_data.id;
       });
