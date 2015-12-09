@@ -178,13 +178,11 @@ app.post('/addevent', function (req, res) {
   var description = req.body.description;
   var course_id = req.body.course_id;
 
-  console.log("course: " + course_id);
   database.addCalendarEvent(course_id, calendarDate, title, description, (err, results)=> {
     if(err){
       console.log(err);
     }else{
-      console.log(calendarDate +" " +title + " " + description);
-      res.redirect("/class");
+      res.redirect("/class?cid=" + course_id);
       res.end();
     }
   });
@@ -331,7 +329,7 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
                   }else{
                     /// write file to uploads folder
                       fs.writeFile(newPath, data, function (err) {
-                          res.redirect("/class");
+                          res.redirect("/class?cid=" + req.body.course_id);
                           res.end();
                           console.log('saved path successfully.');
                       });
@@ -476,11 +474,11 @@ app.get('/admin', authenticateAdmin, (req, res) => {
 app.get('/class', authenticateLogin, (req, res) => {
   //res.render('class');
   var userId = req.session.user.id;
-  console.log(req.session);
+  var initial_cid = req.query.cid || -1;
 
   // Get the user's enrolled courses.
   database.coursesForUser(userId, (err, courses) => {
-    var data = {};
+    var data = {init_cid: initial_cid};
     if (err) {
       data.error = err;
     } else {

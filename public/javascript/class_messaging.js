@@ -35,13 +35,21 @@ jQuery(($) => {
   if ($courses.size() === 0) {
     $courseContent.hide();
   } else {
+    var init_course_index = 0;
+    var init_cid = $senderInfo.attr('data-init-cid');
+
     // Subscribe to all courses.
     for (var i = 0; i < $courses.size(); i++) {
       var course_id = $courses.eq(i).attr('id');
       socket.emit('subscribe', course_id, true);
+
+      // Check if this is our initial course.
+      if (course_id === init_cid) {
+        init_course_index = i;
+      }
     }
 
-    $courses.eq(0).click();
+    $courses.eq(init_course_index).click();
   }
 
   function courseOnClick() {
