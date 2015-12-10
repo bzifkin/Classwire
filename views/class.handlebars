@@ -2,6 +2,21 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/event_adder.css">
 <script src="/javascript/event_adder_handler.js"></script>
 
+<style>
+div.class_messages_wrapper {height: 300px; width: 400px;
+    overflow-y: scroll !important;
+    overflow-x:hidden;}
+
+div.class_events{height: 300px; width: 400px;
+    overflow-y: scroll !important;
+    overflow-x:hidden;}
+
+div#class_members_wrapper{height: 300px; width: 400px;
+    overflow-y: scroll !important;
+    overflow-x:hidden;}
+
+</style>
+
 <body>
     <div id="header">
         <button id = "home_button">Home</button>
@@ -37,17 +52,17 @@
 
     <div id="course_content">
 
-        <div class="class_messages_wrapper">
-            <h2>Messages</h2>
 
-            <div id="message_list_error_bar"></div>
-            <ul id="message_list"></ul>
+    <h2>Messages</h2>
+    <div class="class_messages_wrapper" >
+        <div id="message_list_error_bar"></div>
+        <ul id="message_list"></ul>
+    </div>
 
-            <form id="send_message">
-                <input id="message" autocomplete="off"/>
-                <button>Send</button>
-            </form>
-        </div>
+    <form id="send_message">
+    <input id="message" autocomplete="off"/>
+    <button>Send</button>
+    </form>
 
 
         <div id="class_events_wrapper">
@@ -115,9 +130,8 @@
                 <ul id="resources_list"></ul>
             </div>
 
-
+        <h2>Classmates</h2>
         <div id="class_members_wrapper">
-            <h2>Classmates</h2>
             <div id="members_list_error_bar"></div>
             <ul id="members_list"></ul>
         </div>
