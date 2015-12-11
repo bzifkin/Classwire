@@ -1,6 +1,4 @@
-.conversations{
 
-}
 
 #new_conversation{
     margin-left: 30px;
@@ -9,7 +7,7 @@
 .conversation {
     cursor: pointer;
     cursor: hand;
-    list-style-type: none
+    list-style-type: none;
 }
 
 .active {
@@ -24,3 +22,10 @@
     margin-left: 30px;
 }
 
+
+#message_list{
+    height: 100px; 
+    width: 400px;
+    overflow-y: scroll !important;
+    overflow-x:hidden;
+}
