@@ -379,7 +379,6 @@ var message = req.flash('home') || '';
 
 
           database.getAllUserResources(userId, (err, result) => {
-              console.log(result);
               res.render('home', {
                   courses: courses,
                   calendar: calendar,
@@ -444,8 +443,6 @@ app.get('/admin', authenticateAdmin, (req, res) => {
     }else{
         data.reported = reportedContent;
     }
-
-    console.log(data);
 
     res.render('admin', data);
 
