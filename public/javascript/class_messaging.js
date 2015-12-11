@@ -30,7 +30,21 @@ jQuery(($) => {
 
   var currentCourseId;
 
+
+
+
   $courses.bind('click', courseOnClick);
+
+
+    $(document).on("click", ".report", function(e){
+        e.preventDefault();
+        console.log('report');
+        console.log($(this).parent());
+        var parent = $(this).parent();
+        $('#message_content').text(parent[0].innerText);
+        $('#from_user_report').attr('value', parent[0].id);
+        $('#message_report').attr('value', parent[0].value);
+    });
 
   if ($courses.size() === 0) {
     $courseContent.hide();
@@ -105,9 +119,10 @@ jQuery(($) => {
 
       // Append the new message.
       $messageList.append(
-          '<li class="comment" id=' + msg_data.from_user + '><strong>' +
+          '<li class="comment" id=' + msg_data.from_user + ' value = ' + msg_data.id + '><strong>' +
           msg_data.fname + ' ' +  msg_data.lname +
-          ' </strong>' + msg_data.message + '</li>');
+          ' </strong>' + msg_data.message + '<button class="report" data-toggle="modal" data-target="#report">Report</button></li>');
+
     } else if (new_message) {
       $courses.each(function(index) {
         if ($(this).attr('id') === course_id) {

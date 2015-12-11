@@ -7,7 +7,7 @@
     color: #0b97c4;
 }
 
-div.class_messages_wrapper {height: 300px; width: 400px;
+div.class_messages_wrapper {height: 300px; width: 50%;
     overflow-y: scroll !important;
     overflow-x:hidden;}
 
@@ -18,3 +18,13 @@ div.class_events{height: 300px; width: 400px;
 div#class_members_wrapper{height: 300px; width: 400px;
     overflow-y: scroll !important;
     overflow-x:hidden;}
+
+.report {
+    float: right;
+    height: 10px;
+    font-size: 10px;
+}
+
+#modal_feedback{
+    padding: 5px;
+}

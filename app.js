@@ -171,6 +171,21 @@ app.use('/auth', require('./routes/authentication').router);
 //Routes involving classes
 app.use('/course', require('./routes/class').router);
 
+app.post('/reportcontent',function(req, res){
+    var userId = req.session.user.id;
+    console.log(req.body);
+    var formData = req.body;
+    database.reportContent(userId, formData.explanation, formData.reported_user, formData.reported_message, function(err){
+       if(err){
+           console.log(err);
+       }else{
+           res.redirect("/class?cid=" + req.body.course_id);
+           res.end();
+       }
+
+    });
+});
+
 
 app.post('/addevent', function (req, res) {
   var calendarDate = req.body.date;
@@ -357,37 +372,43 @@ var message = req.flash('home') || '';
     database.getUsersCalendar(userId, (err, result) => {
       if (err) {
         message = err;
-      }
-       calendar = result;
+      }else {
 
 
-       var courses = null;
-       database.coursesForUser(userId, (err, result) => {
-        if (err) {
-          message = err;
-        }
-          courses = result;
+          calendar = result;
 
 
-          for(var i = 0; i < calendar.length; i++){
-            var cal = calendar[i].calendar_date;
-            var date = new Date(cal);
-            var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
-            calendar[i].calendar_date = dateString;
-          }
+          var courses = null;
+          database.coursesForUser(userId, (err, result) => {
+              if (err) {
+                  message = err;
+              } else {
 
 
+                  courses = result;
 
-          database.getAllUserResources(userId, (err, result) => {
-              res.render('home', {
-                  courses: courses,
-                  calendar: calendar,
-                  message: message,
-                  resources: result
-              });
+
+                  for (var i = 0; i < calendar.length; i++) {
+                      var cal = calendar[i].calendar_date;
+                      var date = new Date(cal);
+                      var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
+                      calendar[i].calendar_date = dateString;
+                  }
+
+
+                  database.getAllUserResources(userId, (err, result) => {
+                      res.render('home', {
+                          courses: courses,
+                          calendar: calendar,
+                          message: message,
+                          resources: result
+                      });
+                  });
+              }
+
+
           });
-
-});
+      }
 
 
 });
