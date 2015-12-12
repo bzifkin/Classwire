@@ -13,16 +13,24 @@ Classwire aims to provide a platform for students to connect, collaborate, and l
 
 ## Libraries
 
-    [Body-Parser](https://github.com/expressjs/body-parser),
-    [Connect-Flash](https://github.com/jaredhanson/connect-flash)
-    [Cookie-Parser](https://github.com/expressjs/cookie-parser)
-    [Express](http://expressjs.com/en/index.html)
-    [Express-Handlebars](https://github.com/ericf/express-handlebars)
-    [Express-Session](https://www.npmjs.com/package/express-session)
-    [Multer](https://www.npmjs.com/package/multer)
-    [Pg](http://www.postgresql.org/)
-    [Socket.io](http://socket.io/)
-    
+[Body-Parser](https://github.com/expressjs/body-parser)
+
+[Connect-Flash](https://github.com/jaredhanson/connect-flash)
+
+[Cookie-Parser](https://github.com/expressjs/cookie-parser)
+
+[Express](http://expressjs.com/en/index.html)
+
+[Express-Handlebars](https://github.com/ericf/express-handlebars)
+
+[Express-Session](https://www.npmjs.com/package/express-session)
+
+[Multer](https://www.npmjs.com/package/multer)
+
+[Pg](http://www.postgresql.org/)
+
+[Socket.io](http://socket.io/)
+
 	
 ## Views
 #### admin.handlebars 
