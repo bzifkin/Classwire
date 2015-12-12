@@ -1,104 +1,114 @@
-<div id="friend_search_content_profile">
-    <div id="friend_search_error_profile"></div>
-    <form>
-        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-    </form>
-
-    <ul id="friend_search_results_profile"></ul>
-</div>
-
-<h1>Home</h1>
-<h3>{{message}}</h3>
-
-<hr>
-
-
-
-<h1> My Courses </h1>
-
-<form method="post" action="/course/addCourse">
-Course ID: <label><input type="text" name="course_id"></label> <br>
-<button>Add Course</button>
-</form>
-
-<button>Import schedule</button>
-
-<div class="myCourses">
-  {{#each courses}}
-    <div class="myCourse">
-      <a href="/class?cid={{id}}"><h2>{{course_number}} {{course_title}}</h2></a>
+<aside class="aside">
+    <!-- START Sidebar (left)-->
+    <div class="aside-inner">
+        <nav data-sidebar-anyclick-close="" class="sidebar">
+            <!-- START sidebar nav-->
+            <ul class="nav">
+                <!-- Iterates over all sidebar items-->
+                <li class="nav-heading ">
+                    <span>My Courses</span>
+                </li>
+                {{#each courses}}
+                    <li>
+                        <a href="singleview.html" title="Single View">
+                            <em class="fa fa-book"></em>
+                            <span>{{course_title}}</span>
+                        </a>
+                    </li>
+                {{/each}}
+            </ul>
+            <!-- END sidebar nav-->
+        </nav>
     </div>
-  {{/each}}
-</div>
+    <!-- END Sidebar (left)-->
+</aside>
+<!-- Main section-->
+<section>
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <h3>Welcome to Classwire
+            <small>Explore your classes</small>
+        </h3>
+        <!-- START row-->
+        <div class="calendar-app">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6 col-xs-12 co-xs-pull-12">
+                            <!-- START panel-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Courses Enrolled In</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="external-events">
+                                        <ul>
+                                            {{#each courses}}
+                                                <li>{{course_title}}</li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
 
-<hr>
+                                    <div class="input-group mb">
+                                        <form method="post" action="/course/addCourse" style="display: table">
+                                            <input name="course_id" type="text" placeholder="Course ID" class="form-control">
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-default">Add</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END panel-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <!-- START panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <!-- START calendar-->
+                            <div id="calendar"></div>
+                            <!-- END calendar-->
+                        </div>
+                    </div>
+                    <!-- END panel-->
+                </div>
+            </div>
+            <!-- END row-->
 
+            <!-- START row-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- START panel-->
+                    <div id="panelDemo13" class="panel panel-default">
+                        <div class="panel-heading">
+                            <span style="font-weight: bold" class="panel-title">Resources</span>
 
-
-<h2>My Calendar</h2>
-{{#foo}} {{/foo}}
-
-<div class="class-calendar">
-    {{#each calendar}}
-        <div class="calendar-entry">
-            <h4>{{calendar_date}} - {{title}}</h4>
-            <p>{{description}}</p>
+                            <!-- <button type="button" class="btn btn-labeled btn-info pull-right">
+                               <span class="btn-label"><i class="fa fa-file"></i> </span> Upload a Resource
+                            </button> -->
+                        </div>
+                        <div class="panel-body">
+                            <div id="accordion" role="tablist" aria-multiselectable="true" class="panel-group">
+                                {{#each resources}}
+                                    <div class="class-resource">
+                                        <h4>{{course_number}} - {{course_title}}</h4>
+                                        <p>Uploaded: {{date_created}}<br>
+                                            File: <a href="{{url}}">{{name}}</a></p>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END panel-->
+                </div>
+            </div>
+            <!-- END row-->
         </div>
-    {{/each}}
-</div>
-
-<hr>
-
-<h2>Class Resources</h2>
-
-<div class="class-resources">
-    {{#each resources}}
-        <div class="class-resource">
-            <h4>{{course_number}} - {{course_title}}</h4>
-            <p>Uploaded: {{date_created}}<br>
-            File: <a href="{{url}}">{{name}}</a></p>
-        </div>
-    {{/each}}
-</div>
-
-<hr>
-
-<script src="/js/searchbar.js"></script>
-
-<script>
-    var home_button = document.getElementById("home_button");
-    home_button.onclick = function () {
-        window.location.href = "/";
-    };
-
-    var messages_button = document.getElementById("messages");
-    messages_button.onclick = function () {
-        window.location.href = "/messages";
-    };
-
-    var profile_button = document.getElementById("profile");
-    profile_button.onclick = function () {
-        window.location.href = "/profile";
-    };
-
-    function addCourseFunction() {
-        var form = document.getElementById("course_add_id");
-        var course = form.elements[0];
-    }
-</script>
-
-<ul id="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/auth/logout">Logout</a></li>
-    <li><a href="/profile">Profile</a></li>
-    <li><a href="/class">Class</a></li>
-    <li><a href="/messages">Messages</a></li>
-    <li><a href="/admin">Admin</a></li>
-    <li><a href="/team">Team</a></li>
-</ul>
-
+    </div>
+</section>
 <!-- Page footer-->
-<footer>
+<footer style="margin-left: 0">
     <span>Copyright &copy; 2015 Classwire</span>
 </footer>
