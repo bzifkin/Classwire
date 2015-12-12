@@ -176,6 +176,7 @@ app.post('/reportcontent',function(req, res){
     console.log(req.body);
     var formData = req.body;
     //If the message hasn't yet been assigned an id we have to look it up in the db using the message and author
+    //It is faster to not wait for an id to be assigned than to feed the message to the database then display it.
     if(formData.reported_message !== '0') {
         database.reportContent(userId, formData.explanation, formData.reported_user, formData.reported_message, function (err) {
             if (err) {
