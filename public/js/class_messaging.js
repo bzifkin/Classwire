@@ -2,7 +2,7 @@
  * Created by Austin on 12/7/15.
  */
 
-jQuery(($) => {
+jQuery(function($) {
   var socket = io.connect();
   var $senderInfo = $('#sender_info');
 
@@ -136,7 +136,7 @@ jQuery(($) => {
     }
   }
 
-  $messageForm.submit((e) => {
+  $messageForm.submit(function(e) {
     e.preventDefault();
 
     var message = $messageBox.val().trim();
@@ -152,7 +152,7 @@ jQuery(($) => {
     socket.emit('send_class_message', data);
   });
 
-  socket.on('display_class_message', (msg_data, course_id) => {
+  socket.on('display_class_message', function(msg_data, course_id)  {
     appendNewMessage(msg_data, course_id, true);
   });
 
