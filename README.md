@@ -102,6 +102,7 @@ activities VARCHAR(1000),
 profile_picture_url VARCHAR(200)
 ```
 #### School
+##### ***Currently this table is not being used, but would be used later down as we add more schools.***
 ```
 id: Serial
 name: varchar(50)
@@ -110,7 +111,7 @@ email_extension: varchar(20)
 #### Course
 ```
 id: Serial
-course_number: int
+course_number: varchar(7)
 course_title: varchar(100)
 semester: int
 ```
@@ -134,12 +135,12 @@ data: bytea
 course: references Course
 owner: references User
 date_created: date
+url VARCHAR(200)
 ```
 #### Chat_Messages:
 ```
 id: Serial
 from_user: references User
-to_user: references User
 date: date
 conversation integer REFERENCES Conversation,
 message VARCHAR(200)
