@@ -1,75 +1,89 @@
-<div id="friend_search_content_profile">
-    <div id="friend_search_error_profile"></div>
-    <form>
-        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-    </form>
+<!-- Main section-->
+<section style="margin-left: 0">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="friend_search_content_profile">
+                    <div id="friend_search_error_profile"></div>
+                    <form>
+                        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
+                    </form>
 
-    <ul id="friend_search_results_profile"></ul>
-</div>
+                    <ul id="friend_search_results_profile"></ul>
+                </div>
 
 
 
-<div>{{message}}</div><br>
+                <div>{{message}}</div><br>
 
-<img id='profilePicture' src="{{user.profile_picture_url}}" alt="No Profile Picture" width = "100" height="100">
-{{#if edits}}
-<form method="post" enctype="multipart/form-data" action = "/upload">
-    <input type="file" name="photo" required>
-    <input type="submit">
-</form>
-{{/if}}
+                <img id='profilePicture' src="{{user.profile_picture_url}}" alt="No Profile Picture" width = "100" height="100">
+                {{#if edits}}
+                    <form method="post" enctype="multipart/form-data" action = "/upload">
+                        <input type="file" name="photo" required>
+                        <input type="submit">
+                    </form>
+                {{/if}}
 
-<div id="profileInfo">
-    <p><Strong>{{user.fname}} {{user.lname}}</Strong></p>
-    {{#if edits}}
-        <span class="btn-group">
+                <div id="profileInfo">
+                    <p><Strong>{{user.fname}} {{user.lname}}</Strong></p>
+                    {{#if edits}}
+                        <span class="btn-group">
             <button class="btn btn-mini" id = "year_edit" onclick="saveInfo(this)" value = 'grad_text'>Edit</button>
         </span>
-    {{/if}}
+                    {{/if}}
 
-    <br>Graduation Year: <textarea rows="1" id="grad_text" disabled="disabled" placeholder="N/A">{{user.year}}</textarea><br>
-    {{#if edits}}
-        <span class="btn-group">
+                    <br>Graduation Year: <textarea rows="1" id="grad_text" disabled="disabled" placeholder="N/A">{{user.year}}</textarea><br>
+                    {{#if edits}}
+                        <span class="btn-group">
             <button class="btn btn-mini" id = "major_edit" onclick="saveInfo(this)" value = 'major_text'>Edit</button>
         </span>
-    {{/if}}
-    <br>
-            Major:<textarea rows="1" id ="major_text" disabled="disabled" placeholder="N/A">{{user.major}}</textarea>
-    <br>
-</div>
+                    {{/if}}
+                    <br>
+                    Major:<textarea rows="1" id ="major_text" disabled="disabled" placeholder="N/A">{{user.major}}</textarea>
+                    <br>
+                </div>
 
-<div id="currentCourses">
-  <h3>Current Courses</h3>
-  {{#each courses}}
-    <div class="course">
-      <p>{{course_title}}</p>
-    </div>
-  {{/each}}
-</div>
+                <div id="currentCourses">
+                    <h3>Current Courses</h3>
+                    {{#each courses}}
+                        <div class="course">
+                            <p>{{course_title}}</p>
+                        </div>
+                    {{/each}}
+                </div>
 
-<div id="biography">
+                <div id="biography">
 
-    <h3 id="bio_header"> Biography
-        {{#if edits}}
-        <span class="btn-group">
+                    <h3 id="bio_header"> Biography
+                        {{#if edits}}
+                            <span class="btn-group">
             <button class="btn btn-mini" id = "acts_edit" onclick="saveInfo(this)" value = 'bio_text'>Edit</button>
         </span>
-        {{/if}}
-    </h3>
-    <textarea cols="50" id = "bio_text" disabled = disabled>{{user.biography}}</textarea>
+                        {{/if}}
+                    </h3>
+                    <textarea cols="50" id = "bio_text" disabled = disabled>{{user.biography}}</textarea>
 
-</div>
+                </div>
 
-<div id="activities">
-    <h3 id="bio_header"> Activities/Clubs
-        {{#if edits}}
-        <span class="btn-group">
+                <div id="activities">
+                    <h3 id="bio_header"> Activities/Clubs
+                        {{#if edits}}
+                            <span class="btn-group">
             <button class="btn btn-mini" id = "bio_edit" onclick="saveInfo(this)" value = 'acts_text'>Edit</button>
         </span>
-        {{/if}}
-    </h3>
-    <textarea cols="50" id = "acts_text" disabled = disabled>{{user.activities}}</textarea>
-</div>
+                        {{/if}}
+                    </h3>
+                    <textarea cols="50" id = "acts_text" disabled = disabled>{{user.activities}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page footer-->
+<footer style="margin-left: 0">
+    <span>Copyright &copy; 2015 Classwire</span>
+</footer>
 
 <script src="/js/searchbar.js"></script>
 
