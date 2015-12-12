@@ -35,8 +35,7 @@ Classwire aims to provide a platform for students to connect, collaborate, and l
 ## Views
 #### admin.handlebars 
 (https://github.com/bzifkin/Classwire/blob/master/views/admin.handlebars)
-This admin view is where users can change the email address they registered with, their password, or their university.
-They can also enable two-step verification for their account for added security.
+This admin view is where users who are verified as admins can view and handle reported content.
 
 ####calendar.handlebars 
 (https://github.com/bzifkin/Classwire/blob/master/views/calendar.handlebars)
