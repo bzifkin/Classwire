@@ -1,0 +1,7 @@
+div.class-calendar {height: 300px; width: 400px;
+    overflow-y: scroll !important;
+    overflow-x:hidden;}
+    
+div.class-resources {height: 300px; width: 400px;
+    overflow-y: scroll !important;
+    overflow-x:hidden;}

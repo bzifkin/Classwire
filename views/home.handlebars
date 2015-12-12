@@ -109,6 +109,28 @@
     </div>
 </section>
 <!-- Page footer-->
-<footer style="margin-left: 0">
+<footer>
     <span>Copyright &copy; 2015 Classwire</span>
 </footer>
+
+<script>
+    var home_button = document.getElementById("home_button");
+    home_button.onclick = function () {
+        window.location.href = "/";
+    };
+
+    var messages_button = document.getElementById("messages");
+    messages_button.onclick = function () {
+        window.location.href = "/messages";
+    };
+
+    var profile_button = document.getElementById("profile");
+    profile_button.onclick = function () {
+        window.location.href = "/profile";
+    };
+
+    function addCourseFunction() {
+        var form = document.getElementById("course_add_id");
+        var course = form.elements[0];
+    }
+</script>
