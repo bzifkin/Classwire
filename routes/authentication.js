@@ -78,7 +78,8 @@ router.get('/login', (req, res) => {
     var messageRegister = req.flash('register') || '';
     res.render('login', {
       messageLogin: messageLogin,
-      messageRegister: messageRegister
+      messageRegister: messageRegister,
+      loggedOut: true
     });
   }
 });

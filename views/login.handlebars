@@ -1,24 +1,73 @@
-<!--<img src="img/login_wireframe.png" alt="Login Wireframe" />-->
+<!-- Main section-->
+<section style="margin-left: 0">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        {{#if messageLogin}}
+            <div role="alert" class="alert alert-danger">
+                {{messageLogin}}
+            </div>
+        {{/if}}
 
-<h1>Login</h1>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="panel panel-dark panel-flat">
+                    <div class="panel-heading text-center" style="background-color: #3a3f51; color: #fff">
+                        <h2>Login</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-center pv">LOGIN TO CONTINUE.</p>
+                        <form role="form" data-parsley-validate="" novalidate="" class="mb-lg" method="post" action="/auth/auth">
+                            <div class="form-group has-feedback">
+                                <input name="email" id="exampleInputEmail1" type="email" placeholder="Enter email" autocomplete="off" required class="form-control">
+                                <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input name="password" id="exampleInputPassword1" type="password" placeholder="Password" required class="form-control">
+                                <span class="fa fa-lock form-control-feedback text-muted"></span>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-primary mt-lg">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-<div>{{messageLogin}}</div><br>
-
-<form method="post" action="/auth/auth">
-    Email: <label><input type="text" name="email"></label> <br>
-    Password: <label><input type="password" name="password"></label> <br>
-    <button>Login</button>
-</form>
-
-<h1>Register</h1>
-
-<div>{{messageRegister}}</div><br>
-
-<form method="post" action="/auth/register">
-    First Name: <label><input type="text" name="fname"></label><br>
-    Last Name: <label><input type="text" name="lname"></label><br>
-    Email: <label><input type="text" name="email"></label> <br>
-    Password: <label><input type="password" name="password"></label> <br>
-    <button>Register</button>
-</form>
-
+            <div class="col-xs-6">
+                <div class="panel panel-dark panel-flat">
+                    <div class="panel-heading text-center" style="background-color: #3a3f51; color: #fff">
+                        <h2>Register</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-center pv">REGISTER TO GET INSTANT ACCESS.</p>
+                        <form role="form" data-parsley-validate="" novalidate="" class="mb-lg" method="post" action="/auth/register">
+                            <div class="form-group has-feedback">
+                                <label for="signupInputFirstName" class="text-muted">First name</label>
+                                <input name="fname" id="signupInputFirstName" type="text" placeholder="Enter first name" autocomplete="off" required class="form-control">
+                                <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="signupInputLastName" class="text-muted">Last name</label>
+                                <input name="lname" id="signupInputLastName" type="text" placeholder="Enter last name" autocomplete="off" required class="form-control">
+                                <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="signupInputEmail1" class="text-muted">Email address</label>
+                                <input name="email" id="signupInputEmail1" type="email" placeholder="Enter email" autocomplete="off" required class="form-control">
+                                <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="signupInputPassword1" class="text-muted">Password</label>
+                                <input name="password" id="signupInputPassword1" type="password" placeholder="Password" autocomplete="off" required class="form-control">
+                                <span class="fa fa-lock form-control-feedback text-muted"></span>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-primary mt-lg">Create account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page footer-->
+<footer style="margin-left: 0">
+    <span>Copyright &copy; 2015 Classwire</span>
+</footer>

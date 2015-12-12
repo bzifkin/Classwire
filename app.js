@@ -383,7 +383,7 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
 });
 
 // Home/Splash screen.
-app.get('/', authenticateLogin, (req, res) => {
+app.get('/', (req, res) => {
   // Check whether the user's logged in and online
   // If so, render the home view
 var message = req.flash('home') || '';
@@ -393,52 +393,52 @@ var message = req.flash('home') || '';
 
     var calendar = null;
     database.getUsersCalendar(userId, (err, result) => {
-      if (err) {
-        message = err;
-      }else {
+        if (err) {
+            message = err;
+        } else {
 
 
-          calendar = result;
+            calendar = result;
 
 
-          var courses = null;
-          database.coursesForUser(userId, (err, result) => {
-              if (err) {
-                  message = err;
-              } else {
+            var courses = null;
+            database.coursesForUser(userId, (err, result) => {
+                if (err) {
+                    message = err;
+                } else {
 
 
-                  courses = result;
+                    courses = result;
+
+                    for (var i = 0; i < calendar.length; i++) {
+                        var cal = calendar[i].calendar_date;
+                        var date = new Date(cal);
+                        var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
+                        calendar[i].calendar_date = dateString;
+                    }
 
 
-                  for (var i = 0; i < calendar.length; i++) {
-                      var cal = calendar[i].calendar_date;
-                      var date = new Date(cal);
-                      var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
-                      calendar[i].calendar_date = dateString;
-                  }
+                    database.getAllUserResources(userId, (err, result) => {
+                        res.render('home', {
+                            courses: courses,
+                            calendar: calendar,
+                            message: message,
+                            resources: result
+                        });
+                    });
+                }
 
 
-                  database.getAllUserResources(userId, (err, result) => {
-                      res.render('home', {
-                          courses: courses,
-                          calendar: calendar,
-                          message: message,
-                          resources: result
-                      });
-                  });
-              }
+            });
+        }
+    });
 
-
-          });
-      }
-
-
-});
-  // Otherwise, user is not logged in
-  // Render the landing view
+    // Otherwise, user is not logged in
+    // Render the landing view
   } else {
-    res.render('landing');
+    res.render('landing', {
+        loggedOut: true
+    });
   }
 });
 
