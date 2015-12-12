@@ -102,6 +102,7 @@ activities VARCHAR(1000),
 profile_picture_url VARCHAR(200)
 ```
 #### School
+##### ***Currently this table is not being used, but would be used later down as we add more schools.***
 ```
 id: Serial
 name: varchar(50)
