@@ -2004,7 +2004,7 @@ var Chartist = {
   /**
    * The animate function lets you animate the current element with SMIL animations. You can add animations for multiple attributes at the same time by using an animation definition object. This object should contain SMIL animation attributes. Please refer to http://www.w3.org/TR/SVG/animate.html for a detailed specification about the available animation attributes. Additionally an easing property can be passed in the animation definition object. This can be a string with a name of an easing function in `Chartist.Svg.Easing` or an array with four numbers specifying a cubic Bézier curve.
    * **An animations object could look like this:**
-   * ```javascript
+   * ```js
    * element.animate({
    *   opacity: {
    *     dur: 1000,
@@ -2548,7 +2548,7 @@ var Chartist = {
   /**
    * This function will run over all existing path elements and then loop over their attributes. The callback function will be called for every path element attribute that exists in the current path.
    * The method signature of the callback function looks like this:
-   * ```javascript
+   * ```js
    * function(pathElement, paramName, pathElementIndex, paramIndex, pathElements)
    * ```
    * If something else than undefined is returned by the callback function, this value will be used to replace the old value. This allows you to build custom transformations of path objects that can't be achieved using the basic transformation functions scale and translate.
@@ -2768,7 +2768,7 @@ var Chartist = {
  * The auto scale axis uses standard linear scale projection of values along an axis. It uses order of magnitude to find a scale automatically and evaluates the available space in order to find the perfect amount of ticks for your chart.
  * **Options**
  * The following options are used by this axis in addition to the default axis options outlined in the axis configuration of the chart default settings.
- * ```javascript
+ * ```js
  * var options = {
  *   // If high is specified then the axis will display values explicitly up to this value and the computed maximum from the data is ignored
  *   high: 100,
@@ -2819,7 +2819,7 @@ var Chartist = {
  * The fixed scale axis uses standard linear projection of values along an axis. It makes use of a divisor option to divide the range provided from the minimum and maximum value or the options high and low that will override the computed minimum and maximum.
  * **Options**
  * The following options are used by this axis in addition to the default axis options outlined in the axis configuration of the chart default settings.
- * ```javascript
+ * ```js
  * var options = {
  *   // If high is specified then the axis will display values explicitly up to this value and the computed maximum from the data is ignored
  *   high: 100,
@@ -2872,7 +2872,7 @@ var Chartist = {
  * The step axis for step based charts like bar chart or step based line charts. It uses a fixed amount of ticks that will be equally distributed across the whole axis length. The projection is done using the index of the data value rather than the value itself and therefore it's only useful for distribution purpose.
  * **Options**
  * The following options are used by this axis in addition to the default axis options outlined in the axis configuration of the chart default settings.
- * ```javascript
+ * ```js
  * var options = {
  *   // Ticks to be used to distribute across the axis length. As this axis type relies on the index of the value rather than the value, arbitrary data that can be converted to a string can be used as ticks.
  *   ticks: ['One', 'Two', 'Three'],
@@ -3776,7 +3776,7 @@ var Chartist = {
     total: undefined,
     // If specified the donut CSS classes will be used and strokes will be drawn instead of pie slices.
     donut: false,
-    // Specify the donut stroke width, currently done in javascript for convenience. May move to CSS styles in the future.
+    // Specify the donut stroke width, currently done in js for convenience. May move to CSS styles in the future.
     donutWidth: 60,
     // If a label should be shown or not
     showLabel: true,

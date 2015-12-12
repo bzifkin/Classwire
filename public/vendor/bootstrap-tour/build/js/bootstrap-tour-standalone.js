@@ -21,7 +21,7 @@
 
 /* ========================================================================
  * Bootstrap: tooltip.js v3.2.0
- * http://getbootstrap.com/javascript/#tooltip
+ * http://getbootstrap.com/js/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
  * Copyright 2011-2014 Twitter, Inc.
@@ -479,7 +479,7 @@
 
 /* ========================================================================
  * Bootstrap: popover.js v3.2.0
- * http://getbootstrap.com/javascript/#popovers
+ * http://getbootstrap.com/js/#popovers
  * ========================================================================
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)

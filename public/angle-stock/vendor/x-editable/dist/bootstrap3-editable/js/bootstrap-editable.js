@@ -864,7 +864,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
            }  
        },
        
-       //see http://stackoverflow.com/questions/7264899/detect-css-transitions-using-javascript-and-without-modernizr
+       //see http://stackoverflow.com/questions/7264899/detect-css-transitions-using-js-and-without-modernizr
        supportsTransitions: function () {
            var b = document.body || document.documentElement,
                s = b.style,
@@ -990,7 +990,7 @@ Applied as jQuery method.
             this.formOptions = {};
             
             if(!$.fn[this.containerName]) {
-                throw new Error(this.containerName + ' not found. Have you included corresponding js file?');   
+                throw new Error(this.containerName + ' not found. Have you included corresponding js file?');
             }
             
             //keys defined in container defaults go to container, others go to form
@@ -1469,7 +1469,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
 
     var Editable = function (element, options) {
         this.$element = $(element);
-        //data-* has more priority over js options: because dynamically created elements may change data-* 
+        //data-* has more priority over js options: because dynamically created elements may change data-*
         this.options = $.extend({}, $.fn.editable.defaults, options, $.fn.editableutils.getConfigData(this.$element));  
         if(this.options.selector) {
             this.initLive();
@@ -3220,7 +3220,7 @@ $(function(){
 
 /**
 List of checkboxes. 
-Internally value stored as javascript array of values.
+Internally value stored as js array of values.
 
 @class checklist
 @extends list
@@ -3601,7 +3601,7 @@ Please see [original select2 docs](http://ivaynberg.github.com/select2) for deta
 You should manually download and include select2 distributive:  
 
     <link href="select2/select2.css" rel="stylesheet" type="text/css"></link>  
-    <script src="select2/select2.js"></script>  
+    <script src="select2/select2.js"></script>
     
 To make it **bootstrap-styled** you can use css from [here](https://github.com/t0m/select2-bootstrap-css): 
 
@@ -6429,7 +6429,7 @@ Automatically shown in inline mode.
             this.setClass();
             this.setAttr('placeholder');
     
-            //bootstrap-datepicker is set `bdateicker` to exclude conflict with jQuery UI one. (in date.js)        
+            //bootstrap-datepicker is set `bdateicker` to exclude conflict with jQuery UI one. (in date.js)
             this.$tpl.bdatepicker(this.options.datepicker);
             
             //need to disable original event handlers

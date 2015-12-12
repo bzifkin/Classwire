@@ -275,7 +275,7 @@
 			}
 		},
 		inherits = helpers.inherits = function(extensions){
-			//Basic javascript inheritance based on the model created in Backbone.js
+			//Basic js inheritance based on the model created in Backbone.js
 			var parent = this;
 			var ChartElement = (extensions && extensions.hasOwnProperty("constructor")) ? extensions.constructor : function(){ return parent.apply(this, arguments); };
 
@@ -461,7 +461,7 @@
 		/* jshint ignore:start */
 		// Blows up jshint errors based on the new Function constructor
 		//Templating methods
-		//Javascript micro templating by John Resig - source at http://ejohn.org/blog/javascript-micro-templating/
+		//Javascript micro templating by John Resig - source at http://ejohn.org/blog/js-micro-templating/
 		template = helpers.template = function(templateString, valuesObject){
 
 			// If templateString is function rather than string-template - call the function for valuesObject

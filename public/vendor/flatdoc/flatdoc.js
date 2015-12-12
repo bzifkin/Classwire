@@ -507,7 +507,7 @@
     });
   }
 
-  // http://www.leancrew.com/all-this/2010/11/smart-quotes-in-javascript/
+  // http://www.leancrew.com/all-this/2010/11/smart-quotes-in-js/
   function quotify(a) {
     a = a.replace(/(^|[\-\u2014\s(\["])'/g, "$1\u2018");        // opening singles
     a = a.replace(/'/g, "\u2019");                              // closing singles & apostrophes

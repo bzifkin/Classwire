@@ -5463,7 +5463,7 @@ module.exports = require('./lib/type');
 var exports = module.exports = getType;
 
 /*!
- * Detectable javascript natives
+ * Detectable js natives
  */
 
 var natives = {
