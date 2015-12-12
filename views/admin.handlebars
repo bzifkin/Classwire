@@ -1,10 +1,5 @@
 
 <body>
-    <div id="header">
-        <button id = "home_button">Home</button>
-        <button id = "messages">Messages</button>
-        <button id = "profile">Profile</button>
-    </div>
 
     <div>{{message}}</div><br>
 
@@ -36,32 +31,9 @@
     </table>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/javascript/admin.js"></script>
+    <script src="/js/admin.js"></script>
 </body>
 
 <head>
     <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css">
 </head>
-
-<script>
-    var home_button = document.getElementById("home_button");
-    home_button.onclick = function () {
-        window.location.href = "/";
-    };
-
-    var messages_button = document.getElementById("messages");
-    messages_button.onclick = function () {
-        window.location.href = "/messages";
-    };
-
-    var profile_button = document.getElementById("profile");
-    profile_button.onclick = function () {
-        window.location.href = "/profile";
-    };
-
-</script>
-
-<style>
-    
-
-</style>

@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/class.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/event_adder.css">
+
 <!-- Main section-->
 <section style="margin-left: 0">
     <!-- Page content-->
@@ -156,20 +159,6 @@
 <script src="/js/event_adder_handler.js"></script>
 
 <script>
-    var home_button = document.getElementById("home_button");
-    home_button.onclick = function () {
-        window.location.href = "/";
-    };
-
-    var messages_button = document.getElementById("messages");
-    messages_button.onclick = function () {
-        window.location.href = "/messages";
-    };
-
-    var profile_button = document.getElementById("profile");
-    profile_button.onclick = function () {
-        window.location.href = "/profile";
-    };
 
     if(document.addEventListener) {
         document.addEventListener("DOMContentLoaded", modal_init, false);

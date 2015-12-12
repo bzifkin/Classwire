@@ -30,6 +30,7 @@
 </head>
 
 <body class="layout-boxed">
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <div class="wrapper">
     <!-- top navbar-->
     <header class="topnavbar-wrapper">
@@ -69,7 +70,7 @@
                 <!-- START Right Navbar-->
                 {{#unless loggedOut}}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="messages.html">Messages</a></li>
+                        <li><a href="/messages">Messages</a></li>
                         <li><a href="#profile" data-toggle="dropdown">Profile</a>
                             <ul class="dropdown-menu animated fadeIn">
                                 <li><a href="/profile">View Profile</a>
