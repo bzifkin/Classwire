@@ -41,10 +41,12 @@ jQuery(($) => {
         console.log('report');
         console.log($(this).parent());
         var parent = $(this).parent();
-        $('#message_content').text(parent[0].innerText);
+        var currentText = parent[0].childNodes[1].textContent;
+        $('#message_content').text(currentText);
         $('#from_user_report').attr('value', parent[0].id);
         $('#message_report').attr('value', parent[0].value);
         $('#course_id_reported').attr('value', currentCourseId);
+        $('#message_content_reported').attr('value', currentText);
     });
 
   if ($courses.size() === 0) {
@@ -120,9 +122,10 @@ jQuery(($) => {
 
       // Append the new message.
       $messageList.append(
-          '<li class="comment" id=' + msg_data.from_user + ' value = ' + msg_data.id + '><strong>' +
-          msg_data.fname + ' ' +  msg_data.lname +
-          ' </strong>' + msg_data.message + '<button class="report" data-toggle="modal" data-target="#report">Report</button></li>');
+          '<li class="comment" id=' + msg_data.from_user + ' value = ' + msg_data.id +
+          '><strong>' + msg_data.fname + ' ' +  msg_data.lname + ' </strong>' +
+          '<p class = "message_data" >' + msg_data.message + '</p>' +
+          '<button class="report" data-toggle="modal" data-target="#report">Report</button></li>');
 
     } else if (new_message) {
       $courses.each(function(index) {
