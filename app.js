@@ -345,7 +345,7 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
 });
 
 // Home/Splash screen.
-app.get('/', authenticateLogin, (req, res) => {
+app.get('/', (req, res) => {
   // Check whether the user's logged in and online
   // If so, render the home view
 var message = req.flash('home') || '';
