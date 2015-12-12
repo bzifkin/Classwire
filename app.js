@@ -175,16 +175,38 @@ app.post('/reportcontent',function(req, res){
     var userId = req.session.user.id;
     console.log(req.body);
     var formData = req.body;
-    database.reportContent(userId, formData.explanation, formData.reported_user, formData.reported_message, function(err){
-       if(err){
-           console.log(err);
-           res.end();
-       }else{
-           res.redirect("/class?cid=" + req.body.course_id);
-           res.end();
-       }
+    //If the message hasn't yet been assigned an id we have to look it up in the db using the message and author
+    if(formData.reported_message !== '0') {
+        database.reportContent(userId, formData.explanation, formData.reported_user, formData.reported_message, function (err) {
+            if (err) {
+                console.log(err);
+                res.end();
+            } else {
+                res.redirect("/class?cid=" + req.body.course_id);
+                res.end();
+            }
 
-    });
+        });
+    }
+    else
+    {
+        database.getClassMessageId(formData.reported_user, formData.message_content, function(err, messageIds){
+            if(err){
+                console.log(err);
+            }else{
+
+                database.reportContent(userId, formData.explanation, formData.reported_user, messageIds[0].id, function(){
+                    if (err) {
+                        console.log(err);
+                        res.end();
+                    } else {
+                        res.redirect("/class?cid=" + req.body.course_id);
+                        res.end();
+                    }
+                });
+            }
+        });
+    }
 });
 
 

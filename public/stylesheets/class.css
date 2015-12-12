@@ -28,3 +28,7 @@ div#class_members_wrapper{height: 300px; width: 400px;
 #modal_feedback{
     padding: 5px;
 }
+
+.message_data{
+    display: inline;
+}
