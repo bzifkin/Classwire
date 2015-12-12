@@ -1,162 +1,160 @@
-<link rel="stylesheet" type="text/css" href="/stylesheets/class.css">
-<link rel="stylesheet" type="text/css" href="/stylesheets/event_adder.css">
-<script src="/javascript/event_adder_handler.js"></script>
-<link rel="stylesheet" type="text/css" href="/stylesheets/class.css">
+<!-- Main section-->
+<section style="margin-left: 0">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="friend_search_content_profile">
+                    <div id="friend_search_error_profile"></div>
+                    <form>
+                        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
+                    </form>
 
-
-
-<body>
-    <div id="header">
-        <button id = "home_button">Home</button>
-        <button id = "messages">Messages</button>
-        <button id = "profile">Profile</button>
-    </div>
-
-    <div id="friend_search_content_profile">
-        <div id="friend_search_error_profile"></div>
-        <form>
-            <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-        </form>
-
-        <ul id="friend_search_results_profile"></ul>
-    </div>
-
-    <div id="sender_info" style="display:none"
-         data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}
-            data-init-cid={{init_cid}}></div>
-
-   <h1> My Courses </h1>
-    <div>{{error}}</div>
-    <button>Add a course</button>
-    <button>Import schedule</button>
-
-    <div class="course_global_sidebar">
-        <ul id="course_list">
-            {{#each courses}}
-                <li class="course" id={{id}}>{{course_number}} {{course_title}}</li>
-            {{/each}}
-        </ul>
-    </div>
-
-    <div id="course_content">
-
-
-    <h2>Messages</h2>
-    <div class="class_messages_wrapper" >
-        <div id="message_list_error_bar"></div>
-        <ul id="message_list"></ul>
-        <div id="report" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <center>
-                        <p>To report content, complete the form below.</p>
-                        <form id="modal_feedback" method="post" action="/reportcontent">
-                            <label>Report Message:</label><p id = "message_content"></p>
-                            <p>
-                                <label><strong>Explanation:</strong></label>
-                                    <input type="text" autofocus required size="36" name="explanation"></p>
-                            <input id="from_user_report" type="hidden" name="reported_user">
-                            <input id="message_report" type="hidden" name="reported_message">
-                            <input id="course_id_reported" type="hidden" name="course_id">
-                            <input type="submit" name="feedbackForm">
-                        </form>
-                    </center>
+                    <ul id="friend_search_results_profile"></ul>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <form id="send_message">
-    <input id="message" autocomplete="off"/>
-    <button>Send</button>
-    </form>
+                <div id="sender_info" style="display:none"
+                     data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}
+                        data-init-cid={{init_cid}}></div>
 
+                <h1> My Courses </h1>
+                <div>{{error}}</div>
+                <button>Add a course</button>
+                <button>Import schedule</button>
 
-        <div id="class_events_wrapper">
-            <h2>Calendar</h2>
-
-            <p><button id="modal_open">Add Event</button></p>
-            <div id="modal_wrapper">
-              <div id="modal_window">
-
-              <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
-
-              <p>Complete the form below to add Event:</p>
-              <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
-                <p><label>Event Name<strong>*</strong><br>
-                <input type="text" autofocus required size="36" name="name" value=""></label></p>
-                <p><label>Description<strong>*</strong><br>
-                <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
-                <p><label>Due date<strong>*</strong><br>
-                <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
-                <input id="course_id_input_field" type="hidden" name="course_id">
-                <p><input type="submit" name="feedbackForm" value="Add Event"></p>
-              </form>
-              </div>
-            </div>
-
-            <div class="class_events">
-                <div id="events_list_error_bar"></div>
-                <ul id="events_list"></ul>
-            </div>
-        </div>
-
-
-
-
-         <div id="class_resources_wrapper">
-            <h2>Resources</h2>
-
-              <!-- Trigger the modal with a button  -->
-            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Resource</button>
-
-            <!-- Modal -->
-            <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <center>
-                  <p>Complete the form below to add a resource:</p>
-                  <form id="modal_feedback" method="post" enctype="multipart/form-data" action = "/uploadResource" accept-charset="UTF-8">
-                    <p><label>Resource Name<strong>*</strong><br>
-                    <input type="text" autofocus required size="36" name="filetitle"></label></p>
-                    <input type="file" name="classResource" required>
-                    <input id="course_id_input_field2" type="hidden" name="course_id">
-                    <input type="submit" name="feedbackForm">
-                  </form>
-                  </center>
+                <div class="course_global_sidebar">
+                    <ul id="course_list">
+                        {{#each courses}}
+                            <li class="course" id={{id}}>{{course_number}} {{course_title}}</li>
+                        {{/each}}
+                    </ul>
                 </div>
-              </div>
+
+                <div id="course_content">
+
+
+                    <h2>Messages</h2>
+                    <div class="class_messages_wrapper" >
+                        <div id="message_list_error_bar"></div>
+                        <ul id="message_list"></ul>
+                        <div id="report" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <center>
+                                        <p>To report content, complete the form below.</p>
+                                        <form id="modal_feedback" method="post" action="/reportcontent">
+                                            <label>Report Message:</label><p id = "message_content"></p>
+                                            <p>
+                                                <label><strong>Explanation:</strong></label>
+                                                <input type="text" autofocus required size="36" name="explanation"></p>
+                                            <input id="from_user_report" type="hidden" name="reported_user">
+                                            <input id="message_report" type="hidden" name="reported_message">
+                                            <input id="course_id_reported" type="hidden" name="course_id">
+                                            <input type="submit" name="feedbackForm">
+                                        </form>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="send_message">
+                        <input id="message" autocomplete="off"/>
+                        <button>Send</button>
+                    </form>
+
+
+                    <div id="class_events_wrapper">
+                        <h2>Calendar</h2>
+
+                        <p><button id="modal_open">Add Event</button></p>
+                        <div id="modal_wrapper">
+                            <div id="modal_window">
+
+                                <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
+
+                                <p>Complete the form below to add Event:</p>
+                                <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
+                                    <p><label>Event Name<strong>*</strong><br>
+                                        <input type="text" autofocus required size="36" name="name" value=""></label></p>
+                                    <p><label>Description<strong>*</strong><br>
+                                        <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
+                                    <p><label>Due date<strong>*</strong><br>
+                                        <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
+                                    <input id="course_id_input_field" type="hidden" name="course_id">
+                                    <p><input type="submit" name="feedbackForm" value="Add Event"></p>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="class_events">
+                            <div id="events_list_error_bar"></div>
+                            <ul id="events_list"></ul>
+                        </div>
+                    </div>
+
+
+
+
+                    <div id="class_resources_wrapper">
+                        <h2>Resources</h2>
+
+                        <!-- Trigger the modal with a button  -->
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Resource</button>
+
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <center>
+                                        <p>Complete the form below to add a resource:</p>
+                                        <form id="modal_feedback" method="post" enctype="multipart/form-data" action = "/uploadResource" accept-charset="UTF-8">
+                                            <p><label>Resource Name<strong>*</strong><br>
+                                                <input type="text" autofocus required size="36" name="filetitle"></label></p>
+                                            <input type="file" name="classResource" required>
+                                            <input id="course_id_input_field2" type="hidden" name="course_id">
+                                            <input type="submit" name="feedbackForm">
+                                        </form>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="class_resources">
+                        <div id="resources_list_error_bar"></div>
+                        <ul id="resources_list"></ul>
+                    </div>
+
+                    <h2>Classmates</h2>
+                    <div id="class_members_wrapper">
+                        <div id="members_list_error_bar"></div>
+                        <ul id="members_list"></ul>
+                    </div>
+
+                </div>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+                <script src="/js/searchbar.js"></script>
+
+                <script src="/socket.io/socket.io.js"></script>
+                <script src="/js/class_messaging.js"></script>
             </div>
         </div>
-        
-        
-            <div class="class_resources">
-                <div id="resources_list_error_bar"></div>
-                <ul id="resources_list"></ul>
-            </div>
-
-        <h2>Classmates</h2>
-        <div id="class_members_wrapper">
-            <div id="members_list_error_bar"></div>
-            <ul id="members_list"></ul>
-        </div>
-
     </div>
+</section>
+<!-- Page footer-->
+<footer style="margin-left: 0">
+    <span>Copyright &copy; 2015 Classwire</span>
+</footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/javascript/searchbar.js"></script>
+<script src="/js/event_adder_handler.js"></script>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/javascript/class_messaging.js"></script>
-</body>
-<head>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
-    
-</head>
 <script>
     var home_button = document.getElementById("home_button");
     home_button.onclick = function () {
@@ -174,9 +172,9 @@
     };
 
     if(document.addEventListener) {
-      document.addEventListener("DOMContentLoaded", modal_init, false);
+        document.addEventListener("DOMContentLoaded", modal_init, false);
     } else {
-      document.getElementById("modal_feedback").attachEvent("onsubmit", checkForm);
-      window.attachEvent("onload", modal_init);
+        document.getElementById("modal_feedback").attachEvent("onsubmit", checkForm);
+        window.attachEvent("onload", modal_init);
     }
 </script>
