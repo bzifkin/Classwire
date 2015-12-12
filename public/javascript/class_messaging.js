@@ -44,6 +44,7 @@ jQuery(($) => {
         $('#message_content').text(parent[0].innerText);
         $('#from_user_report').attr('value', parent[0].id);
         $('#message_report').attr('value', parent[0].value);
+        $('#course_id_reported').attr('value', currentCourseId);
     });
 
   if ($courses.size() === 0) {

@@ -178,6 +178,7 @@ app.post('/reportcontent',function(req, res){
     database.reportContent(userId, formData.explanation, formData.reported_user, formData.reported_message, function(err){
        if(err){
            console.log(err);
+           res.end();
        }else{
            res.redirect("/class?cid=" + req.body.course_id);
            res.end();

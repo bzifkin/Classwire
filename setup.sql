@@ -75,7 +75,7 @@ CREATE TABLE reported_content (
   author integer REFERENCES _User(id),
   explanation VARCHAR(200),
   report_user integer REFERENCES _User(id),
-  reported_content VARCHAR REFERENCES Chat_Messages(id)
+  reported_content integer REFERENCES class_messages(id)
 );
 
 CREATE TABLE Calendar (
