@@ -388,14 +388,15 @@ var message = req.flash('home') || '';
               });
           });
 
-});
+       });
+    });
 
-
-});
-  // Otherwise, user is not logged in
-  // Render the landing view
+    // Otherwise, user is not logged in
+    // Render the landing view
   } else {
-    res.render('landing');
+    res.render('landing', {
+        loggedOut: true
+    });
   }
 });
 

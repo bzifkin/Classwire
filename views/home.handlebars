@@ -1,84 +1,69 @@
-
-<body>
-    <div id="header">
-        <button id = "home_button">Home</button>
-        <button id = "messages">Messages</button>
-        <button id = "profile">Profile</button>
-    </div>
-
-    <div id="friend_search_content_profile">
-        <div id="friend_search_error_profile"></div>
-        <form>
-            <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-        </form>
-
-        <ul id="friend_search_results_profile"></ul>
-    </div>
-
-    <h1>Home</h1>
-    <h3>{{message}}</h3>
-
-    <hr>
-
-
-
-    <h1> My Courses </h1>
-
-    <form method="post" action="/course/addCourse">
-    Course ID: <label><input type="text" name="course_id"></label> <br>
-    <button>Add Course</button>
+<div id="friend_search_content_profile">
+    <div id="friend_search_error_profile"></div>
+    <form>
+        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
     </form>
 
-    <button>Import schedule</button>
+    <ul id="friend_search_results_profile"></ul>
+</div>
 
-    <div class="myCourses">
-      {{#each courses}}
-        <div class="myCourse">
-          <a href="/class?cid={{id}}"><h2>{{course_number}} {{course_title}}</h2></a>
-        </div>
-      {{/each}}
+<h1>Home</h1>
+<h3>{{message}}</h3>
+
+<hr>
+
+
+
+<h1> My Courses </h1>
+
+<form method="post" action="/course/addCourse">
+Course ID: <label><input type="text" name="course_id"></label> <br>
+<button>Add Course</button>
+</form>
+
+<button>Import schedule</button>
+
+<div class="myCourses">
+  {{#each courses}}
+    <div class="myCourse">
+      <a href="/class?cid={{id}}"><h2>{{course_number}} {{course_title}}</h2></a>
     </div>
+  {{/each}}
+</div>
 
-    <hr>
+<hr>
 
 
 
-    <h2>My Calendar</h2>
+<h2>My Calendar</h2>
 {{#foo}} {{/foo}}
-   
-    <div class="class-calendar">
-        {{#each calendar}}
-            <div class="calendar-entry">
-                <h4>{{calendar_date}} - {{title}}</h4>
-                <p>{{description}}</p>
-            </div>
-        {{/each}}
-    </div>
 
-    <hr>
+<div class="class-calendar">
+    {{#each calendar}}
+        <div class="calendar-entry">
+            <h4>{{calendar_date}} - {{title}}</h4>
+            <p>{{description}}</p>
+        </div>
+    {{/each}}
+</div>
 
-    <h2>Class Resources</h2>
+<hr>
 
-    <div class="class-resources">
-        {{#each resources}}
-            <div class="class-resource">
-                <h4>{{course_number}} - {{course_title}}</h4>
-                <p>Uploaded: {{date_created}}<br>
-                File: <a href="{{url}}">{{name}}</a></p>
-            </div>
-        {{/each}}
-    </div>
+<h2>Class Resources</h2>
 
-    <hr>
+<div class="class-resources">
+    {{#each resources}}
+        <div class="class-resource">
+            <h4>{{course_number}} - {{course_title}}</h4>
+            <p>Uploaded: {{date_created}}<br>
+            File: <a href="{{url}}">{{name}}</a></p>
+        </div>
+    {{/each}}
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/javascript/searchbar.js"></script>
+<hr>
 
-
-</body>
-<head>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
-</head>
+<script src="/js/searchbar.js"></script>
 
 <script>
     var home_button = document.getElementById("home_button");

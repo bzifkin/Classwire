@@ -1,94 +1,77 @@
-
-<body>
-    <div id="header">
-        <button id = "home_button">Home</button>
-        <button id = "messages">Messages</button>
-        <button id = "profile">Profile</button>
-    </div>
-
-    <div id="friend_search_content_profile">
-        <div id="friend_search_error_profile"></div>
-        <form>
-            <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-        </form>
-
-        <ul id="friend_search_results_profile"></ul>
-    </div>
-
-
-
-    <div>{{message}}</div><br>
-
-    <img id='profilePicture' src="{{user.profile_picture_url}}" alt="No Profile Picture" width = "100" height="100">
-    {{#if edits}}
-    <form method="post" enctype="multipart/form-data" action = "/upload">
-        <input type="file" name="photo" required>
-        <input type="submit">
+<div id="friend_search_content_profile">
+    <div id="friend_search_error_profile"></div>
+    <form>
+        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
     </form>
+
+    <ul id="friend_search_results_profile"></ul>
+</div>
+
+
+
+<div>{{message}}</div><br>
+
+<img id='profilePicture' src="{{user.profile_picture_url}}" alt="No Profile Picture" width = "100" height="100">
+{{#if edits}}
+<form method="post" enctype="multipart/form-data" action = "/upload">
+    <input type="file" name="photo" required>
+    <input type="submit">
+</form>
+{{/if}}
+
+<div id="profileInfo">
+    <p><Strong>{{user.fname}} {{user.lname}}</Strong></p>
+    {{#if edits}}
+        <span class="btn-group">
+            <button class="btn btn-mini" id = "year_edit" onclick="saveInfo(this)" value = 'grad_text'>Edit</button>
+        </span>
     {{/if}}
 
-    <div id="profileInfo">
-        <p><Strong>{{user.fname}} {{user.lname}}</Strong></p>
+    <br>Graduation Year: <textarea rows="1" id="grad_text" disabled="disabled" placeholder="N/A">{{user.year}}</textarea><br>
+    {{#if edits}}
+        <span class="btn-group">
+            <button class="btn btn-mini" id = "major_edit" onclick="saveInfo(this)" value = 'major_text'>Edit</button>
+        </span>
+    {{/if}}
+    <br>
+            Major:<textarea rows="1" id ="major_text" disabled="disabled" placeholder="N/A">{{user.major}}</textarea>
+    <br>
+</div>
+
+<div id="currentCourses">
+  <h3>Current Courses</h3>
+  {{#each courses}}
+    <div class="course">
+      <p>{{course_title}}</p>
+    </div>
+  {{/each}}
+</div>
+
+<div id="biography">
+
+    <h3 id="bio_header"> Biography
         {{#if edits}}
-            <span class="btn-group">
-                <button class="btn btn-mini" id = "year_edit" onclick="saveInfo(this)" value = 'grad_text'>Edit</button>
-            </span>
+        <span class="btn-group">
+            <button class="btn btn-mini" id = "acts_edit" onclick="saveInfo(this)" value = 'bio_text'>Edit</button>
+        </span>
         {{/if}}
-        
-        <br>Graduation Year: <textarea rows="1" id="grad_text" disabled="disabled" placeholder="N/A">{{user.year}}</textarea><br>
+    </h3>
+    <textarea cols="50" id = "bio_text" disabled = disabled>{{user.biography}}</textarea>
+
+</div>
+
+<div id="activities">
+    <h3 id="bio_header"> Activities/Clubs
         {{#if edits}}
-            <span class="btn-group">
-                <button class="btn btn-mini" id = "major_edit" onclick="saveInfo(this)" value = 'major_text'>Edit</button>
-            </span>
+        <span class="btn-group">
+            <button class="btn btn-mini" id = "bio_edit" onclick="saveInfo(this)" value = 'acts_text'>Edit</button>
+        </span>
         {{/if}}
-        <br>
-                Major:<textarea rows="1" id ="major_text" disabled="disabled" placeholder="N/A">{{user.major}}</textarea>
-        <br>
-    </div>
+    </h3>
+    <textarea cols="50" id = "acts_text" disabled = disabled>{{user.activities}}</textarea>
+</div>
 
-    <div id="currentCourses">
-      <h3>Current Courses</h3>
-      {{#each courses}}
-        <div class="course">
-          <p>{{course_title}}</p>
-        </div>
-      {{/each}}
-    </div>
-
-    <div id="biography">
-
-        <h3 id="bio_header"> Biography
-            {{#if edits}}
-            <span class="btn-group">
-                <button class="btn btn-mini" id = "acts_edit" onclick="saveInfo(this)" value = 'bio_text'>Edit</button>
-            </span>
-            {{/if}}
-        </h3>
-        <textarea cols="50" id = "bio_text" disabled = disabled>{{user.biography}}</textarea>
-
-    </div>
-
-    <div id="activities">
-        <h3 id="bio_header"> Activities/Clubs
-            {{#if edits}}
-            <span class="btn-group">
-                <button class="btn btn-mini" id = "bio_edit" onclick="saveInfo(this)" value = 'acts_text'>Edit</button>
-            </span>
-            {{/if}}
-        </h3>
-        <textarea cols="50" id = "acts_text" disabled = disabled>{{user.activities}}</textarea>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/javascript/searchbar.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-</body>
-
-<head>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
-</head>
+<script src="/js/searchbar.js"></script>
 
 <script>
     var home_button = document.getElementById("home_button");
