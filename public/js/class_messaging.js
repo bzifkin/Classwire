@@ -162,14 +162,34 @@ jQuery(function($) {
   //
 
   function loadAllEvents(course_id) {
+    var calendar = $('#calendar');
+
     // Clear out old events.
     $eventsList.empty();
+    calendar.fullCalendar('removeEvents');
 
     // Make a request for the new events.
     $.getJSON('/class/events/fetch', {course_id: course_id}, function(data) {
       if (data.error) {
         $eventsListErrorBar.text(data.error);
       } else {
+        var events = data.events;
+        console.log(events);
+
+        events.forEach(function(event) {
+          var eventDate = Date.parse(event.calendar_date);
+
+          var calendarEvent = {
+            title: event.title,
+            description: event.course_number + ': ' + event.description,
+            start: eventDate,
+            backgroundColor: '#00c0ef', //Info (aqua)
+            borderColor: '#00c0ef' //Info (aqua)
+          };
+
+          calendar.fullCalendar('renderEvent', calendarEvent, true);
+        });
+
         for (var i=0; i < data.events.length; i++) {
           var event_data = data.events[i];
           appendNewEvent(event_data, course_id);
@@ -220,9 +240,11 @@ jQuery(function($) {
       // Reset the error message.
       $resourcesListErrorBar.text('');
 
+      console.log($courses);
+
       // Append the new event.
       $resourcesList.append(
-          '<div class="class-resource" id="' + resources_data.id + '"> <h4>' + resources_data.course.course_number + ' - ' + resources_data.course.course_title + '</h4> <p>Uploaded: ' + resources_data.date_created + '<br>File: <a href="' + resources_data.url + '">' + resources_data.name + '</a></p></div>'
+          '<div class="class-resource" id="' + resources_data.id + '"> <h4>' + resources_data.name + '</h4> <p>Uploaded: ' + resources_data.date_created + '<br><a href="' + resources_data.url + '">Download</a></p></div>'
        );
     }
   }
