@@ -1,69 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/stylesheets/messages.css">
-
-<body>
-
-    <div id="friend_search_content_profile">
-        <div id="friend_search_error_profile"></div>
-        <form>
-            <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-        </form>
-
-        <ul id="friend_search_results_profile"></ul>
-    </div>
-
-    <h1> Messages </h1>
-    <div>{{message}}</div>
-
-    <div id="sender_info"
-         data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
-
-    <div class="conversations">
-        <ul id="conv_list">
-            {{#each conversations}}
-                <li class="conversation" id={{id}}>{{fname}} {{lname}}</li>
-            {{/each}}
-        </ul>
-    </div>
-
-    <button id="new_conversation">New Conversation</button>
-
-
-    <div id="chat_content">
-        <div id="message_list_error_bar"></div>
-        <ul id="message_list"></ul>
-
-        <form id="send_message">
-            <input maxlength="200" id="message" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-
-    </div>
-
-    <div id="friend_search_content">
-        <div id="friend_search_error"></div>
-        <form>
-            <input type="text" id="friend_search_bar" value="Type a friend's name" autocomplete="off">
-        </form>
-
-        <ul id="friend_search_results"></ul>
-    </div>
-
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/private_messaging.js"></script>
-    <script src="/js/searchbar.js"></script>
-
-</body>
-
-<head>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/messages.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
-</head>
-
-
-
-
-<link rel="stylesheet" type="text/css" href="/stylesheets/messages.css">
 <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
 
 <aside class="aside">
@@ -106,22 +40,29 @@
                             <!-- START panel-->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">Courses Enrolled In</h4>
+                                    <h4 class="panel-title">Classmates</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <ul>
-                                        {{#each courses}}
-                                            <li>{{course_title}}</li>
-                                        {{/each}}
-                                    </ul>
+                                    <div id="sender_info"
+                                         data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}></div>
 
-                                    <div class="input-group mb">
-                                        <form method="post" action="/course/addCourse" style="display: table">
-                                            <input name="course_id" type="text" placeholder="Course ID" class="form-control">
-                                            <div class="input-group-btn">
-                                                <button type="submit" class="btn btn-default">Add</button>
-                                            </div>
+                                    <div class="conversations">
+                                        <ul id="conv_list" style="list-style-type: none; padding-left: 6px">
+                                            {{#each conversations}}
+                                                <li class="conversation" id={{id}}>{{fname}} {{lname}}</li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+
+                                    <button id="new_conversation" class="mb-sm btn btn-info" style="width: 100%">New Conversation</button>
+
+                                    <div id="friend_search_content">
+                                        <div id="friend_search_error"></div>
+                                        <form>
+                                            <input id="friend_search_bar" type="text" placeholder="Type a friend's name" class="form-control">
                                         </form>
+
+                                        <ul id="friend_search_results" style="list-style-type: none"></ul>
                                     </div>
                                 </div>
                             </div>
@@ -133,38 +74,43 @@
                     <!-- START panel-->
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <!-- START calendar-->
-                            <div id="calendar"></div>
-                            <!-- END calendar-->
-                        </div>
-                    </div>
-                    <!-- END panel-->
-                </div>
-            </div>
-            <!-- END row-->
+                            <div id="message_list_error_bar"></div>
 
-            <!-- START row-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- START panel-->
-                    <div id="panelDemo13" class="panel panel-default">
-                        <div class="panel-heading">
-                            <span style="font-weight: bold" class="panel-title">Resources</span>
+                            <ul id="message_list" style="height: 300px; overflow-y: scroll !important; list-style-type: none; padding-left: 6px"></ul>
+                            <div id="report" class="modal fade" role="dialog" data-backdrop="false">
+                                <div class="modal-dialog" >
 
-                            <!-- <button type="button" class="btn btn-labeled btn-info pull-right">
-                               <span class="btn-label"><i class="fa fa-file"></i> </span> Upload a Resource
-                            </button> -->
-                        </div>
-                        <div class="panel-body">
-                            <div id="accordion" role="tablist" aria-multiselectable="true" class="panel-group">
-                                {{#each resources}}
-                                    <div class="class-resource">
-                                        <h4>{{course_number}} - {{course_title}}</h4>
-                                        <p>Uploaded: {{date_created}}<br>
-                                            File: <a href="{{url}}">{{name}}</a></p>
+                                    <!-- Modal content-->
+                                    <div class="modal-content" >
+                                        <center>
+                                            <div style="text-align: right;">
+                                                <a id="modal_close" data-dismiss="modal" href="#">close <b>X</b></a>
+                                            </div>
+                                            <p>To report content, complete the form below.</p>
+                                            <form id="modal_feedback" method="post" action="/reportcontent">
+                                                <label>Report Message:</label><p id = "message_content"></p>
+                                                <p>
+                                                    <label><strong>Explanation:</strong></label>
+                                                    <input type="text" autofocus required size="36" name="explanation"></p>
+                                                <input id="from_user_report" type="hidden" name="reported_user">
+                                                <input id="message_report" type="hidden" name="reported_message">
+                                                <input id="course_id_reported" type="hidden" name="course_id">
+                                                <input type="submit" name="feedbackForm">
+                                            </form>
+                                        </center>
                                     </div>
-                                {{/each}}
+                                </div>
                             </div>
+
+                            <form id="send_message">
+                                <div class="input-group">
+                                    <label for="message" class="sr-only">Message</label>
+                                    <input id="message" type="text" placeholder="Enter a message" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default">Send</button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- END panel-->

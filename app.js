@@ -585,8 +585,17 @@ app.get('/messages', authenticateLogin, (req, res) => {
       data.message = err;
       res.render('messages', data);
     } else {
-      data.conversations = results;
-      res.render('messages', data);
+        // Get the user's enrolled courses.
+        database.coursesForUser(userId, (err, courses) => {
+            if (err) {
+                data.error = err;
+            } else {
+                data.courses = courses;
+
+                data.conversations = results;
+                res.render('messages', data);
+            }
+        });
     }
   });
 });
