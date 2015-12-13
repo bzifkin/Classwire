@@ -2,8 +2,8 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/event_adder.css">
 
 <div id="sender_info" style="display:none"
-     data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}
-        data-init-cid={{init_cid}}></div>
+data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}
+data-init-cid={{init_cid}}></div>
 
 <aside class="aside">
     <!-- START Sidebar (left)-->
@@ -16,12 +16,12 @@
                     <span>My Courses</span>
                 </li>
                 {{#each courses}}
-                    <li class="course" id={{id}}>
-                        <a>
-                            <em class="fa fa-book"></em>
-                            <span>{{course_title}}</span>
-                        </a>
-                    </li>
+                <li class="course" id={{id}}>
+                    <a>
+                        <em class="fa fa-book"></em>
+                        <span>{{course_title}}</span>
+                    </a>
+                </li>
                 {{/each}}
             </ul>
             <!-- END sidebar nav-->
@@ -51,12 +51,15 @@
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <center>
-                                            <p>To report content, complete the form below.</p>
-                                            <form id="modal_feedback" method="post" action="/reportcontent">
-                                                <label>Report Message:</label><p id = "message_content"></p>
-                                                <p>
-                                                    <label><strong>Explanation:</strong></label>
-                                                    <input type="text" autofocus required size="36" name="explanation"></p>
+                                          <div style="text-align: right;">
+                                            <a id="modal_close" data-dismiss="modal" href="#">close <b>X</b></a>
+                                        </div>
+                                        <p>To report content, complete the form below.</p>
+                                        <form id="modal_feedback" method="post" action="/reportcontent">
+                                            <label>Report Message:</label><p id = "message_content"></p>
+                                            <p>
+                                                <label><strong>Explanation:</strong></label>
+                                                <input type="text" autofocus required size="36" name="explanation"></p>
                                                 <input id="from_user_report" type="hidden" name="reported_user">
                                                 <input id="message_report" type="hidden" name="reported_message">
                                                 <input id="course_id_reported" type="hidden" name="course_id">
@@ -110,119 +113,145 @@
                         <div class="panel-body">
                             <!-- START calendar-->
                             <div id="calendar"></div>
-                            <button type="button" id="modal_open" class="mb-sm btn btn-info" style="margin-top: 10px; float: right">Add Event</button>
-                            <div id="modal_wrapper">
-                                <div id="modal_window">
+                            <button type="button" id="modal_open" data-toggle="modal" data-target="#myModal2" class="mb-sm btn btn-info" style="margin-top: 10px; float: right">Add Event</button>
 
-                                    <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
+                            <div id="myModal2" class="modal fade"  data-backdrop="false" role="dialog">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div style="text-align: right;">
+                                        <a id="modal_close" data-dismiss="modal" href="#">close <b>X</b></a>
+                                    </div>
 
                                     <p>Complete the form below to add Event:</p>
                                     <form id="modal_feedback" method="post" action = "/addevent" accept-charset="UTF-8">
                                         <p><label>Event Name<strong>*</strong><br>
                                             <input type="text" autofocus required size="36" name="name" value=""></label></p>
-                                        <p><label>Description<strong>*</strong><br>
-                                            <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
-                                        <p><label>Due date<strong>*</strong><br>
-                                            <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
-                                        <input id="course_id_input_field" type="hidden" name="course_id">
-                                        <p><input type="submit" name="feedbackForm" value="Add Event"></p>
-                                    </form>
+                                            <p><label>Description<strong>*</strong><br>
+                                                <input type="text" required title="Please enter description" size="48" name="description" value=""></label></p>
+                                                <p><label>Due date<strong>*</strong><br>
+                                                    <input type="date" required title="Please enter a date" size="48" name="date" value=""></label></p>
+                                                    <input id="course_id_input_field" type="hidden" name="course_id">
+                                                    <p><input type="submit" name="feedbackForm" value="Add Event"></p>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END calendar-->
                                 </div>
                             </div>
-                            <!-- END calendar-->
+                            <!-- END panel-->
                         </div>
                     </div>
-                    <!-- END panel-->
-                </div>
-            </div>
-            <!-- END row-->
+                    <!-- END row-->
 
-            <!-- START row-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- START panel-->
-                    <div id="panelDemo13" class="panel panel-default">
-                        <div class="panel-heading">
-                            <span style="font-weight: bold" class="panel-title">Resources</span>
+                    <!-- START row-->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- START panel-->
+                            <div id="panelDemo13" class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span style="font-weight: bold" class="panel-title">Resources</span>
 
-                            <!-- Trigger the modal with a button  -->
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="float: right">Add Resource</button>
+                                    <!-- Trigger the modal with a button  -->
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="float: right">Add Resource</button>
 
-                            <!-- Modal -->
-                            <div id="myModal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
+                                    <!-- Modal -->
+                                    <div id="myModal" class="modal fade"  data-backdrop="false" role="dialog">
+                                        <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <center>
-                                            <p>Complete the form below to add a resource:</p>
-                                            <form id="modal_feedback" method="post" enctype="multipart/form-data" action = "/uploadResource" accept-charset="UTF-8">
-                                                <p><label>Resource Name<strong>*</strong><br>
-                                                    <input type="text" autofocus required size="36" name="filetitle"></label></p>
-                                                <input type="file" name="classResource" required>
-                                                <input id="course_id_input_field2" type="hidden" name="course_id">
-                                                <input type="submit" name="feedbackForm">
-                                            </form>
-                                        </center>
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                              <div style="text-align: right;">
+                                                <a id="modal_close" data-dismiss="modal" href="#">close <b>X</b></a>
+                                            </div>
+                                            <center>
+                                                <p>Complete the form below to add a resource:</p>
+                                                <form id="modal_feedback" method="post" enctype="multipart/form-data" action = "/uploadResource" accept-charset="UTF-8">
+                                                    <p><label>Resource Name<strong>*</strong><br>
+                                                        <input type="text" autofocus required size="36" name="filetitle"></label></p>
+                                                        <input type="file" name="classResource" required>
+                                                        <input id="course_id_input_field2" type="hidden" name="course_id">
+                                                        <input type="submit" name="feedbackForm">
+                                                    </form>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="resources_list_error_bar"></div>
+                                    <div id="accordion" role="tablist" aria-multiselectable="true" class="panel-group">
+                                        <div class="class_resources">
+                                            <div id="resources_list_error_bar"></div>
+                                            <ul id="resources_list"></ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="panel-body">
-                            <div id="resources_list_error_bar"></div>
-                            <div id="accordion" role="tablist" aria-multiselectable="true" class="panel-group">
-                                <div class="class_resources">
-                                    <div id="resources_list_error_bar"></div>
-                                    <ul id="resources_list"></ul>
-                                </div>
-                            </div>
+                            <!-- END panel-->
                         </div>
                     </div>
-                    <!-- END panel-->
+                    <!-- END row-->
                 </div>
             </div>
-            <!-- END row-->
-        </div>
-    </div>
-</section>
-<!-- Page footer-->
-<footer>
-    <span>Copyright &copy; 2015 Classwire</span>
-</footer>
+        </section>
+        <!-- Page footer-->
+        <footer>
+            <span>Copyright &copy; 2015 Classwire</span>
+        </footer>
 
-<script src="/js/event_adder_handler.js"></script>
-<script src="/js/searchbar.js"></script>
+        <script src="/js/event_adder_handler.js"></script>
+        <script src="/js/searchbar.js"></script>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/class_messaging.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/class_messaging.js"></script>
 
-<script>
-    if(document.addEventListener) {
-        document.addEventListener("DOMContentLoaded", modal_init, false);
-    } else {
-        document.getElementById("modal_feedback").attachEvent("onsubmit", checkForm);
-        window.attachEvent("onload", modal_init);
-    }
-</script>
+        <script>
+        if(document.addEventListener) {
+            document.addEventListener("DOMContentLoaded", modal_init, false);
+        } else {
+            document.getElementById("modal_feedback").attachEvent("onsubmit", checkForm);
+            window.attachEvent("onload", modal_init);
+        }
+        </script>
 
-<script>
-    $(window).load(function(){
-        var calendar = $('#calendar');
-        var events = JSON.parse('{{{calendar}}}');
+        <script type="text/javascript">
+        $(document).ready(function(){
+            function alignModal(){
+                var modalDialog = $(this).find(".modal-dialog");
+                /* Applying the top margin on modal dialog to align it vertically center */
+                modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+            }
+    // Align modal when it is displayed
+    $(".modal").on("shown.bs.modal", alignModal);
+    
+    // Align modal when user resize the window
+    $(window).on("resize", function(){
+        $(".modal:visible").each(alignModal);
+    });   
+});
+        </script>
 
-        events.forEach(function(event) {
-            var eventDate = Date.parse(event.calendar_date);
 
-            var calendarEvent = {
-                title: event.title,
-                description: event.course_number + ': ' + event.description,
-                start: eventDate,
+        <script>
+        $(window).load(function(){
+            var calendar = $('#calendar');
+            var events = JSON.parse('{{{calendar}}}');
+
+            events.forEach(function(event) {
+                var eventDate = Date.parse(event.calendar_date);
+
+                var calendarEvent = {
+                    title: event.title,
+                    description: event.course_number + ': ' + event.description,
+                    start: eventDate,
                 backgroundColor: '#00c0ef', //Info (aqua)
                 borderColor: '#00c0ef' //Info (aqua)
             };
 
             $('#calendar').fullCalendar('renderEvent', calendarEvent, true);
         });
-    });
-</script>
+        });
+        </script>
 
