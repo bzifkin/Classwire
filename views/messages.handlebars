@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
 <link rel="stylesheet" type="text/css" href="/stylesheets/messages.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
+<script src="/javascript/searchbar.js"></script>
 
 <aside class="aside">
     <!-- START Sidebar (left)-->
@@ -31,6 +33,14 @@
     <div class="content-wrapper">
         <h3>My Conversations
             <small>Talk to your classmates</small>
+            <div id="friend_search_content_profile">
+                <div id="friend_search_error_profile"></div>
+                <form>
+                    <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
+                </form>
+
+                <ul id="friend_search_results_profile"></ul>
+            </div>
         </h3>
         <!-- START row-->
         <div class="calendar-app">
