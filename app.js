@@ -385,51 +385,48 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
 
 String.prototype.replaceAll = function(str1, str2, ignore) {
     return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
-}
+};
 
 // Home/Splash screen.
 app.get('/', (req, res) => {
   // Check whether the user's logged in and online
   // If so, render the home view
-var message = req.flash('home') || '';
+  var message = req.flash('home') || '';
 
   if(authentication.isOnline(req.session.user)) {
     var userId = req.session.user.id;
+    var data = {message: message};
 
-    var calendar = null;
     database.getUsersCalendar(userId, (err, result) => {
         if (err) {
-            message = err;
+            data.message = err;
+            res.render('home', data);
         } else {
+            data.calendar = result;
 
-
-            calendar = result;
-
-
-            var courses = null;
             database.coursesForUser(userId, (err, result) => {
                 if (err) {
-                    message = err;
+                    data.message = err;
+                    res.render('home', data);
                 } else {
+                    data.courses = result;
 
-
-                    courses = result;
-
-                    for (var i = 0; i < calendar.length; i++) {
-                        var cal = calendar[i].calendar_date;
+                    for (var i = 0; i < data.calendar.length; i++) {
+                        var cal = data.calendar[i].calendar_date;
                         var date = new Date(cal);
                         var dateString = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "     ";
-                        calendar[i].calendar_date = dateString;
+                        data.calendar[i].calendar_date = dateString;
                     }
-
+                    data.calendar = JSON.stringify(data.calendar).replaceAll('\'', '\\\'')
 
                     database.getAllUserResources(userId, (err, result) => {
-                        res.render('home', {
-                            courses: courses,
-                            calendar: JSON.stringify(calendar).replaceAll('\'', '\\\''),
-                            message: message,
-                            resources: result
-                        });
+                        if (err) {
+                          data.message = err;
+                          res.render('home', data);
+                        } else {
+                          data.resources = result;
+                          res.render('home', data);
+                        }
                     });
                 }
 
