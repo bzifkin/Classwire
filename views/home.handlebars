@@ -41,13 +41,11 @@
                                     <h4 class="panel-title">Courses Enrolled In</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="external-events">
-                                        <ul>
-                                            {{#each courses}}
-                                                <li>{{course_title}}</li>
-                                            {{/each}}
-                                        </ul>
-                                    </div>
+                                    <ul>
+                                        {{#each courses}}
+                                            <li>{{course_title}}</li>
+                                        {{/each}}
+                                    </ul>
 
                                     <div class="input-group mb">
                                         <form method="post" action="/course/addCourse" style="display: table">
@@ -112,3 +110,24 @@
 <footer>
     <span>Copyright &copy; 2015 Classwire</span>
 </footer>
+
+<script>
+    $(window).load(function(){
+        var calendar = $('#calendar');
+        var events = JSON.parse('{{{calendar}}}');
+
+        events.forEach(function(event) {
+            var eventDate = Date.parse(event.calendar_date);
+
+            var calendarEvent = {
+                title: event.title,
+                description: event.course_number + ': ' + event.description,
+                start: eventDate,
+                backgroundColor: '#00c0ef', //Info (aqua)
+                borderColor: '#00c0ef' //Info (aqua)
+            };
+
+            $('#calendar').fullCalendar('renderEvent', calendarEvent, true);
+        });
+    });
+</script>

@@ -222,9 +222,8 @@ jQuery(function($) {
 
       // Append the new event.
       $resourcesList.append(
-          '<li class="resources_entry" id=' + resources_data.id +
-              '><div>' + resources_data.name + '<a href=' + resources_data.url + '> download</a>'
-              +'</div><p></p></li>');
+          '<div class="class-resource" id="' + resources_data.id + '"> <h4>' + resources_data.course.course_number + ' - ' + resources_data.course.course_title + '</h4> <p>Uploaded: ' + resources_data.date_created + '<br>File: <a href="' + resources_data.url + '">' + resources_data.name + '</a></p></div>'
+       );
     }
   }
 

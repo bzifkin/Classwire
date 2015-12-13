@@ -182,7 +182,12 @@
         draggingEvent = event;
       },
       // This array is the events sources
-      events: events
+      events: events,
+      eventRender: function(event, element) {
+        element.qtip({
+          content: event.description
+        });
+      }
     });
   }
 

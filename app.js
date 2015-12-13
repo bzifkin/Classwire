@@ -382,6 +382,10 @@ app.post('/uploadResource', upload.single('classResource'), function (req, res, 
     }
 });
 
+String.prototype.replaceAll = function(str1, str2, ignore) {
+    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+}
+
 // Home/Splash screen.
 app.get('/', (req, res) => {
   // Check whether the user's logged in and online
@@ -421,7 +425,7 @@ var message = req.flash('home') || '';
                     database.getAllUserResources(userId, (err, result) => {
                         res.render('home', {
                             courses: courses,
-                            calendar: calendar,
+                            calendar: JSON.stringify(calendar).replaceAll('\'', '\\\''),
                             message: message,
                             resources: result
                         });
@@ -504,6 +508,7 @@ app.get('/class', authenticateLogin, (req, res) => {
     if (err) {
       data.error = err;
     } else {
+      data.init_course = courses[initial_cid];
       data.courses = courses;
 
       // Fill data with sender info.
