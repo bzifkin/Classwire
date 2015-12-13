@@ -16,7 +16,7 @@ data-init-cid={{init_cid}}></div>
                     <span>My Courses</span>
                 </li>
                 {{#each courses}}
-                <li class="course" id={{id}}>
+                <li class="course" id={{id}} course-title="{{course_number}}: {{course_title}}">
                     <a>
                         <em class="fa fa-book"></em>
                         <span>{{course_title}}</span>
@@ -33,7 +33,7 @@ data-init-cid={{init_cid}}></div>
 <section>
     <!-- Page content-->
     <div class="content-wrapper">
-        <h3>{{init_course.course_number}}: {{init_course.course_title}}
+        <h3><span id="heading_course_title">{{init_course.course_number}}: {{init_course.course_title}}</span>
             <small>Explore your classes</small>
         </h3>
         <!-- START row-->

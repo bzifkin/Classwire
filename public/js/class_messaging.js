@@ -14,6 +14,8 @@ jQuery(function($) {
   var $messageForm = $('#send_message');
   var $messageBox = $('#message');
 
+  var $headingCourseTitle = $('#heading_course_title');
+
   var $eventsList = $('#events_list');
   var $eventsListErrorBar = $('#events_list_error_bar');
 
@@ -75,6 +77,8 @@ jQuery(function($) {
       currentCourseId = clicked_course_id;
       $courseIdInputFieldMarker.attr('value', currentCourseId);
       $courseIdInputFieldMarker2.attr('value', currentCourseId);
+
+      $headingCourseTitle.text($(this).attr('course-title'));
 
       toggleActiveCourse();
 
