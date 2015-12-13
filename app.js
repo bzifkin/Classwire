@@ -600,20 +600,22 @@ app.get('/messages', authenticateLogin, (req, res) => {
   database.getConversation(userId, (err, results) => {
     if (err) {
       data.message = err;
-      res.render('messages', data);
+      console.log(err);
     } else {
-        // Get the user's enrolled courses.
-        database.coursesForUser(userId, (err, courses) => {
-            if (err) {
-                data.error = err;
-            } else {
-                data.courses = courses;
-
-                data.conversations = results;
-                res.render('messages', data);
-            }
-        });
+      data.conversations = results;
     }
+
+    // Get the user's enrolled courses.
+    database.coursesForUser(userId, (err, courses) => {
+        if (err) {
+            data.error = err;
+            console.log(err);
+        } else {
+            data.courses = courses;
+        }
+        res.render('messages', data);
+    });
+
   });
 });
 
