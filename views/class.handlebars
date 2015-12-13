@@ -145,9 +145,28 @@
                         <div class="panel-heading">
                             <span style="font-weight: bold" class="panel-title">Resources</span>
 
-                            <!-- <button type="button" class="btn btn-labeled btn-info pull-right">
-                               <span class="btn-label"><i class="fa fa-file"></i> </span> Upload a Resource
-                            </button> -->
+                            <!-- Trigger the modal with a button  -->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="float: right">Add Resource</button>
+
+                            <!-- Modal -->
+                            <div id="myModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <center>
+                                            <p>Complete the form below to add a resource:</p>
+                                            <form id="modal_feedback" method="post" enctype="multipart/form-data" action = "/uploadResource" accept-charset="UTF-8">
+                                                <p><label>Resource Name<strong>*</strong><br>
+                                                    <input type="text" autofocus required size="36" name="filetitle"></label></p>
+                                                <input type="file" name="classResource" required>
+                                                <input id="course_id_input_field2" type="hidden" name="course_id">
+                                                <input type="submit" name="feedbackForm">
+                                            </form>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div id="resources_list_error_bar"></div>

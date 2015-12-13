@@ -509,7 +509,7 @@ app.get('/class', authenticateLogin, (req, res) => {
     if (err) {
       data.error = err;
     } else {
-      data.init_course = courses[initial_cid];
+      data.init_course = courses[initial_cid - 1];
       data.courses = courses;
 
       // Fill data with sender info.
