@@ -447,6 +447,10 @@ var message = req.flash('home') || '';
   }
 });
 
+app.get('/settings', authenticateLogin, (req, res) => {
+    res.render('settings');
+});
+
 app.get('/profile', authenticateLogin, (req, res) => {
   var message = req.flash('profile') || '';
   var data = {message: message, edits: true};
@@ -469,14 +473,30 @@ app.get('/profile', authenticateLogin, (req, res) => {
 
     // Now get user courses.
     database.coursesForUser(userId, (err, courses) => {
-      if (err) {
-        data.message = err;
-      } else {
-        data.courses = courses;
-      }
+        if(typeof goToUser !== 'undefined'){
+            // Now get your own courses.
+            database.coursesForUser(req.session.user.id, (err2, ownCourses) => {
+                if (err || err2) {
+                    data.message = err + ', ' + err2;
+                } else {
+                    data.courses = courses;
+                    data.own_courses = ownCourses;
+                }
 
-      // Render with data.
-      res.render('profile', data);
+                // Render with data.
+                res.render('profile', data);
+            });
+        } else {
+            if (err) {
+                data.message = err;
+            } else {
+                data.courses = courses;
+                data.own_courses = courses;
+            }
+
+            // Render with data.
+            res.render('profile', data);
+        }
     });
   });
 });
