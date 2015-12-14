@@ -531,9 +531,9 @@ app.get('/class', authenticateLogin, (req, res) => {
 
       // Fill data with sender info.
       data.sender = {id: userId, fname: req.session.user.fname, lname: req.session.user.lname};
-
-      res.render('class', data);
     }
+
+    res.render('class', data);
   });
 });
 
