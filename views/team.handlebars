@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
-<script src="/javascript/searchbar.js"></script>
+
 
 
 <!-- Main section-->
@@ -9,15 +8,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1 id = "header">Team Member{{#if multiple}}s{{/if}}</h1>
-                <div id="friend_search_content_profile">
-                    <div id="friend_search_error_profile"></div>
-                    <form>
-                        <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-                    </form>
-
-                    <ul id="friend_search_results_profile"></ul>
-                </div>
-
                 <ul>
                     {{#each members}}
                         <h3>{{this.fname}} {{this.lname}} - {{this.year}}</h3>
