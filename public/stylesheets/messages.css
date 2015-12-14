@@ -1,9 +1,5 @@
 
 
-#new_conversation{
-    margin-left: 30px;
-}
-
 .conversation {
     cursor: pointer;
     cursor: hand;
@@ -12,20 +8,4 @@
 
 .active {
     color: #0b97c4;
-}
-
-#send_button, #message{
-    display: inline;
-}
-
-#send_message{
-    margin-left: 30px;
-}
-
-
-#message_list{
-    height: 100px; 
-    width: 400px;
-    overflow-y: scroll !important;
-    overflow-x:hidden;
 }

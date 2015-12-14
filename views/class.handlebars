@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/class.css">
 <link rel="stylesheet" type="text/css" href="/stylesheets/event_adder.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/searchbar.css">
+
 
 <div id="sender_info" style="display:none"
 data-user-id={{sender.id}} data-fname={{sender.fname}} data-lname={{sender.lname}}
@@ -35,6 +37,14 @@ data-init-cid={{init_cid}}></div>
     <div class="content-wrapper">
         <h3><span id="heading_course_title">{{init_course.course_number}}: {{init_course.course_title}}</span>
             <small>Explore your classes</small>
+            <div id="friend_search_content_profile">
+                <div id="friend_search_error_profile"></div>
+                <form>
+                    <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
+                </form>
+
+                <ul id="friend_search_results_profile"></ul>
+            </div>
         </h3>
         <!-- START row-->
         <div class="calendar-app">
