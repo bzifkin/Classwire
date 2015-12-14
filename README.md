@@ -37,10 +37,6 @@ Classwire aims to provide a platform for students to connect, collaborate, and l
 (https://github.com/bzifkin/Classwire/blob/master/views/admin.handlebars)
 This admin view is where users who are verified as admins can view and handle reported content.
 
-####calendar.handlebars 
-(https://github.com/bzifkin/Classwire/blob/master/views/calendar.handlebars)
--TBA
-
 #### class.handlebars 
 (https://github.com/bzifkin/Classwire/blob/master/views/class.handlebars)
 The classes view is where users can access large chat hubs, resource directories, and a calendar view for each
