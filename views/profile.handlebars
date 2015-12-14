@@ -31,25 +31,19 @@
     <div class="content-wrapper">
         <h3>{{#if edits}}Your{{else}}{{user.fname}}'s{{/if}} Profile
             <small>View your own and others' profiles</small>
-            <div id="friend_search_content_profile">
-                <div id="friend_search_error_profile"></div>
-                <form>
-                    <input type="text" id="friend_search_bar_profile" placeholder="Find a profile" autocomplete="off">
-                </form>
-
-                <ul id="friend_search_results_profile"></ul>
-            </div>
-
             <form class="pull-right" style="width: 300px; padding: 22px 20px; position: absolute; right: 0; top: 0">
                 <div class="input-group">
                     <label for="message" class="sr-only">Find a profile</label>
                     <input id="friend_search_bar_profile" type="text" placeholder="Find a profile" class="form-control">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default">Search</button>
-                                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default">Search</button>
+                    </span>
                 </div>
             </form>
         </h3>
+
+        <div id="friend_search_error_profile"></div>
+        <ul id="friend_search_results_profile"></ul>
 
         <!-- START row-->
         <div class="row">
