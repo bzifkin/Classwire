@@ -9,9 +9,9 @@ https://docs.google.com/document/d/1uYluBJS128PwqlvXP42Yr0zsfQchIzD0P-5Gkl3Eu-I/
 
 [Comercial](https://youtu.be/_--MrBt_yvI)
 
-[Demo](https://youtu.be/Q98qstP5qk8)
+[Demo](https://youtu.be/7YjS6LZHchA)
 
-[Code Walkthrough](https://youtu.be/uCImV2dr8T8)
+[Code Walkthrough](https://youtu.be/-Lxocpifack)
 
 ## Overview
 
