@@ -1,6 +1,16 @@
 # Classwire
 Team Rose Gold's awesome web app
 
+## Link to Final Project Google Doc
+
+https://docs.google.com/document/d/1uYluBJS128PwqlvXP42Yr0zsfQchIzD0P-5Gkl3Eu-I/edit?usp=sharing
+
+## Links to YouTube Screencasts
+
+Comercial: https://youtu.be/_--MrBt_yvI
+Demo : https://youtu.be/Q98qstP5qk8
+Code Walkthrough: https://youtu.be/uCImV2dr8T8
+
 ## Overview
 
 Classwire aims to provide a platform for students to connect, collaborate, and learn together with their classmates. While in college, many students find themselves in large class lectures. These lectures can often contain several hundred students. In such large lectures, students often have difficulty connecting with other students in the class. Classwire looks to solve this problem by creating social communities formed by the students in a class. Connecting with classmates offers a myriad of advantages to students, including shared resources, help keeping track of assignments, support systems, friendships, and networking to name a few. Whether a student wants to meet other classmates to succeed in class or just to make new friends with a common interest, Classwire helps make the introduction. 
