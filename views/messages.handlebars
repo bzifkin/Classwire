@@ -146,23 +146,4 @@
 <script src="/js/private_messaging.js"></script>
 <script src="/js/searchbar.js"></script>
 
-<script>
-    $(window).load(function(){
-        var calendar = $('#calendar');
-        var events = JSON.parse('{{{calendar}}}');
 
-        events.forEach(function(event) {
-            var eventDate = Date.parse(event.calendar_date);
-
-            var calendarEvent = {
-                title: event.title,
-                description: event.course_number + ': ' + event.description,
-                start: eventDate,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor: '#00c0ef' //Info (aqua)
-            };
-
-            $('#calendar').fullCalendar('renderEvent', calendarEvent, true);
-        });
-    });
-</script>
